@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>uPull.ai — Workflow ROI Calculator</title>
 <style>
   :root{
@@ -38,6 +40,9 @@
   }
   .logo{color:#fff;font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;text-decoration:none;}
   .logo span{color:var(--accent-orange);}
+  nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:.5rem 1rem;}
+  nav a{color:#fff;text-decoration:none;font-weight:500;font-size:.95rem;transition:color .2s;}
+  nav a:hover, nav a.current-page{color:var(--accent-orange);}
   .header-right{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
   .header-sub{color:#94a3b8;font-size:.85rem;}
   .actions{display:flex;gap:8px;}
@@ -93,6 +98,20 @@
 
   .footnote{font-size:11px;color:var(--ink-soft);margin-top:18px;line-height:1.5;}
 
+  @media(max-width:640px){
+    .nav-container{flex-direction:column;align-items:stretch;min-width:0;}
+    .logo{align-self:flex-start;}
+    nav{width:100%;max-width:100%;min-width:0;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding-bottom:.2rem;row-gap:.7rem;}
+    nav a{white-space:nowrap;}
+    nav a{font-size:.86rem;}
+    .header-right{max-width:100%;min-width:0;justify-content:center;gap:.7rem;}
+    .actions{justify-content:center;flex-wrap:wrap;}
+    .wrap{padding:24px 16px 48px;}
+    .meta{grid-template-columns:1fr;}
+    .resgrid{grid-template-columns:1fr;}
+    .stat .num{font-size:24px;}
+  }
+
   @media print{
     body{background:#fff;}
     header, footer.printnote{display:none;}
@@ -104,7 +123,13 @@
 <body>
 <header>
   <div class="nav-container">
-    <a class="logo">uPull<span>.ai</span></a>
+    <a href="index.html" class="logo">uPull<span>.ai</span></a>
+    <nav>
+      <a href="index.html">Strategic Core</a>
+      <a href="community.html">Community</a>
+      <a href="case-studies.html">Submit Case</a>
+      <a href="roi.html" class="current-page">ROI Calculator</a>
+    </nav>
     <div class="header-right">
       <span class="header-sub">Workflow ROI Calculator</span>
       <div class="actions">
@@ -123,7 +148,7 @@
   </div>
 
   <div class="meta">
-    <div><label>Trust / organisation</label><input id="trustName" placeholder="e.g. Riverside NHS Foundation Trust"></div>
+    <div><label>Trust / organization</label><input id="trustName" placeholder="e.g. Riverside NHS Foundation Trust"></div>
     <div><label>Workflow being piloted</label><input id="workflowName" placeholder="e.g. Outpatient DNA reduction"></div>
     <div><label>Date</label><input id="dateField" type="date"></div>
   </div>
@@ -240,7 +265,7 @@ const ids = ['staffCount','hourlyCost','minsPerInstance','instancesPerWeek','fai
 
 function gv(id){ const v = document.getElementById(id).value; return v; }
 function num(id){ return parseFloat(document.getElementById(id).value) || 0; }
-function gbp(n){ return '£' + Math.round(n).toLocaleString('en-GB'); }
+function gbp(n){ return '£' + Math.round(n).toLocaleString('en-US'); }
 
 function calculate(){
   const staff = num('staffCount');
@@ -274,7 +299,7 @@ function calculate(){
 
   document.getElementById('hoursSaved').textContent = hoursSavedPerWeek.toFixed(1);
   document.getElementById('staffCostSaved').textContent = gbp(annualStaffCostSaved);
-  document.getElementById('failuresAvoided').textContent = Math.round(failuresAvoidedYear).toLocaleString('en-GB');
+  document.getElementById('failuresAvoided').textContent = Math.round(failuresAvoidedYear).toLocaleString('en-US');
   document.getElementById('failureCostSaved').textContent = gbp(failureCostSavedYear);
   document.getElementById('totalValue').textContent = gbp(totalValue);
   document.getElementById('totalCost').textContent = gbp(totalCostYear1);
