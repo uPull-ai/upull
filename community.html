@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -48,6 +49,13 @@
       margin: 0 auto;
       gap: 0.5rem 1rem;
     }
+    .nav-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.45rem;
+      min-width: 0;
+    }
     .logo {
       color: #ffffff;
       font-size: 1.6rem;
@@ -69,18 +77,38 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem 1.2rem;
+      gap: 0.5rem 0.8rem;
+    }
+    .main-nav {
+      justify-content: flex-end;
+    }
+    .sub-nav {
+      justify-content: flex-end;
+      gap: 0.35rem 0.8rem;
+      padding-top: 0.25rem;
+      border-top: 1px solid rgba(255,255,255,0.14);
     }
     nav a {
       color: #ffffff;
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       transition: color 0.2s;
       cursor: pointer;
       padding: 0.25rem 0;
     }
     nav a:hover, nav a.active-tab { color: var(--accent-orange); }
+    nav a.page-link {
+      opacity: 0.85;
+    }
+    nav a.page-link.current-page {
+      color: var(--accent-orange);
+      opacity: 1;
+    }
+    .sub-nav a {
+      color: #cbd5e1;
+      font-size: 0.82rem;
+    }
     .cta-btn {
       background-color: var(--accent-orange);
       color: #ffffff;
@@ -409,6 +437,17 @@
 
     footer { background: #09111e; color: #94a3b8; padding: 2rem 5%; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
     .hidden { display: none !important; }
+    @media (max-width: 640px) {
+      .nav-container { flex-direction: column; align-items: stretch; min-width: 0; }
+      .logo { align-self: flex-start; }
+      .nav-stack { width: 100%; align-items: stretch; }
+      nav { width: 100%; max-width: 100%; min-width: 0; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 0.2rem; row-gap: 0.7rem; }
+      nav a { white-space: nowrap; }
+      nav a { font-size: 0.86rem; }
+      .sub-nav { padding-top: 0.45rem; }
+      .sub-nav a { font-size: 0.8rem; }
+      .cta-btn { font-size: 0.8rem; padding: 0.4rem 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -416,13 +455,20 @@
 <header>
   <div class="nav-container">
     <a href="#" class="logo" onclick="switchView('landing')">uPull<span>.ai</span><span class="logo-tag">Hub</span></a>
-    <nav>
+    <div class="nav-stack">
+    <nav class="main-nav">
+      <a href="index.html" class="page-link">Strategic Core</a>
+      <a href="case-studies.html" class="page-link">Submit Case</a>
+      <a href="roi.html" class="page-link">ROI Calculator</a>
+      <a onclick="switchView('landing'); document.getElementById('composer').scrollIntoView();" class="cta-btn">Share an Insight</a>
+    </nav>
+    <nav class="sub-nav" aria-label="Community sections">
       <a id="nav-landing" class="active-tab" onclick="switchView('landing')">Community Feed</a>
       <a id="nav-categories" onclick="switchView('categories')">Sectors & Vendors</a>
       <a id="nav-academy" onclick="switchView('academy')">Learning Academy</a>
       <a id="nav-insights" onclick="switchView('insights')">Insights & Podcasts</a>
-      <a onclick="switchView('landing'); document.getElementById('composer').scrollIntoView();" class="cta-btn">Share an Insight</a>
     </nav>
+    </div>
   </div>
 </header>
 
@@ -578,7 +624,7 @@
             </div>
             <div class="syllabus-step">
               <h5 style="color: var(--primary-navy); font-weight: 700;">Module 3: The Pull Blueprint[cite: 1]</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">How 2 staff can systematically optimise 1 targeted workflow in 6 weeks[cite: 1].</p>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">How 2 staff can systematically optimize 1 targeted workflow in 6 weeks[cite: 1].</p>
             </div>
           </div>
           <button class="cta-btn" style="background: var(--clinical); width: 100%; margin-top: 1rem;">Enrol in Foundations</button>
