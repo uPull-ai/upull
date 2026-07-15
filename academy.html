@@ -16,11 +16,9 @@
     header{background:var(--navy);padding:1rem 5%;position:sticky;top:0;z-index:1000;border-bottom:3px solid var(--blue);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
     .nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:.5rem}
     .nav-right{display:flex;align-items:center;gap:18px}
-    .logo{color:#fff;font-size:1.7rem;font-weight:900;text-decoration:none;letter-spacing:-1px;display:flex;align-items:center;gap:.4rem}
-    .logo-pull{color:var(--orange)}
-    .logo-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;display:inline-block;animation:pulse 2s infinite}
-    .logo-tag{font-size:.75rem;background:rgba(255,255,255,.1);padding:.2rem .5rem;border-radius:4px;color:#cbd5e1;font-weight:500}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,95,43,.7)}70%{box-shadow:0 0 0 8px rgba(230,95,43,0)}}
+    .logo{color:#fff;font-size:1.6rem;font-weight:800;text-decoration:none;letter-spacing:-0.5px}
+    .logo span{color:var(--orange)}
+    .logo-tag{font-size:.8rem;background:rgba(255,255,255,.1);padding:.2rem .5rem;border-radius:4px;margin-left:.5rem;vertical-align:middle;color:#cbd5e1}
 
     /* PRIMARY DROPDOWN MENU */
     .nav-menu{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
@@ -163,11 +161,7 @@
 
 <header>
   <div class="nav-container">
-    <a href="index.html" class="logo">
-      u<span class="logo-pull">Pull</span><span style="color:#fff">.ai</span>
-      <span class="logo-dot"></span>
-      <span class="logo-tag">Learning Hub</span>
-    </a>
+    <a href="index.html" class="logo">uPull<span>.ai</span><span class="logo-tag">Learning Hub</span></a>
     <div class="nav-right">
       <nav aria-label="Primary">
       <ul class="nav-menu" id="navMenu">
