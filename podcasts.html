@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotebookLM 30-Episode Prompt Pack</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111831;
+      --panel-2: #18213d;
+      --text: #e9eefc;
+      --muted: #aeb9da;
+      --accent: #7aa2ff;
+      --border: rgba(255,255,255,0.12);
+      --code: #0f1730;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, var(--bg), #070b16 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(122,162,255,0.16), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      color: var(--accent);
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+    h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; }
+    h1 { font-size: clamp(32px, 5vw, 54px); }
+    h2 { font-size: 28px; margin-top: 34px; }
+    h3 { font-size: 18px; margin-top: 22px; }
+    p { margin: 0 0 14px; color: var(--text); }
+    .muted { color: var(--muted); }
+    .card {
+      background: rgba(17,24,49,0.88);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin: 18px 0;
+    }
+    ol, ul { margin: 10px 0 14px 22px; }
+    li { margin: 6px 0; }
+    .episode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .episode {
+      background: linear-gradient(180deg, rgba(24,33,61,0.95), rgba(17,24,49,0.95));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .episode h3 { margin-top: 0; color: #ffffff; }
+    .label {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent);
+      background: rgba(122,162,255,0.12);
+      border: 1px solid rgba(122,162,255,0.22);
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .footer {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .toc a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+    .toc a:hover { border-color: rgba(122,162,255,0.45); }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">uPull.ai collaboration doc</p>
+      <h1>NotebookLM 30-Episode Prompt Pack</h1>
+      <p class="muted">A shareable HTML version of the prompt pack for collaborators working on NotebookLM episode drafts.</p>
+    </header>
+
+    <section class="card" id="setup">
+      <h2>Shared Notebook Setup</h2>
+      <ol>
+        <li>Upload the three core source files into the notebook: <code>community.html</code>, <code>academy.html</code>, and <code>AI_Healthcare_Agents_Case_Studies_v6.docx</code>.</li>
+        <li>Paste the episode prompt under a short one-line brief.</li>
+        <li>Generate Audio Overview in NotebookLM and review the first draft.</li>
+        <li>Tighten the prompt if the output drifts away from the source material.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="toc">
+      <h2>Episode Index</h2>
+      <div class="toc">
+        <a href="#ep01">Episode 01</a>
+        <a href="#ep02">Episode 02</a>
+        <a href="#ep03">Episode 03</a>
+        <a href="#ep04">Episode 04</a>
+        <a href="#ep05">Episode 05</a>
+        <a href="#ep06">Episode 06</a>
+        <a href="#ep07">Episode 07</a>
+        <a href="#ep08">Episode 08</a>
+        <a href="#ep09">Episode 09</a>
+        <a href="#ep10">Episode 10</a>
+        <a href="#ep11">Episode 11</a>
+        <a href="#ep12">Episode 12</a>
+        <a href="#ep13">Episode 13</a>
+        <a href="#ep14">Episode 14</a>
+        <a href="#ep15">Episode 15</a>
+        <a href="#ep16">Episode 16</a>
+        <a href="#ep17">Episode 17</a>
+        <a href="#ep18">Episode 18</a>
+        <a href="#ep19">Episode 19</a>
+        <a href="#ep20">Episode 20</a>
+        <a href="#ep21">Episode 21</a>
+        <a href="#ep22">Episode 22</a>
+        <a href="#ep23">Episode 23</a>
+        <a href="#ep24">Episode 24</a>
+        <a href="#ep25">Episode 25</a>
+        <a href="#ep26">Episode 26</a>
+        <a href="#ep27">Episode 27</a>
+        <a href="#ep28">Episode 28</a>
+        <a href="#ep29">Episode 29</a>
+        <a href="#ep30">Episode 30</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Episode Prompts</h2>
+      <div class="episode-grid">
+        <article class="episode" id="ep01"><span class="label">Episode 01</span><h3>Why AI productivity now</h3><p><strong>Source focus:</strong> community + academy + case-study overview.</p><p><strong>NotebookLM prompt:</strong> Create a grounded, practical podcast episode about why healthcare AI productivity matters now. Focus on workflow bottlenecks, clinician time recovery, and the idea of starting with one measurable use case.</p><p><strong>Host script outline:</strong></p><ul><li>Open with the practical problem or opportunity.</li><li>Use one clear example from the shared source bundle.</li><li>Explain the workflow, adoption, or governance lesson.</li><li>Close with one action step for the audience.</li></ul></article>
+        <article class="episode" id="ep02"><span c
