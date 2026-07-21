@@ -352,6 +352,23 @@
     .points-toast.show{opacity:1;transform:translateY(0)}
     .mark-complete-btn{font-size:.72rem;padding:.3rem .7rem}
     .mark-complete-btn.done{background:#16a34a;pointer-events:none}
+
+    /* ══ NEW LAYOUT: two-column shell with section nav + sticky login sidebar ══ */
+    .academy-shell{display:grid;grid-template-columns:1fr 300px;gap:1.75rem;align-items:start;margin-top:1.5rem}
+    @media(max-width:900px){.academy-shell{grid-template-columns:1fr}}
+    .academy-content{min-width:0}
+    .section-nav{display:flex;gap:.35rem;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-radius:10px;padding:.5rem;margin-bottom:1.75rem;position:sticky;top:78px;z-index:80;box-shadow:0 4px 10px rgba(0,0,0,.03)}
+    @media(max-width:767px){.section-nav{position:static}}
+    .section-nav-btn{padding:.6rem .95rem;border-radius:7px;border:none;background:none;font-weight:700;font-size:.83rem;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.35rem;font-family:inherit}
+    .section-nav-btn:hover{background:var(--bg);color:var(--navy)}
+    .section-nav-btn.active{background:var(--navy);color:#fff}
+    .academy-view{display:none}
+    .academy-view.active-view{display:block}
+    .academy-sidebar{min-width:0}
+    .sidebar-sticky{position:sticky;top:135px;display:flex;flex-direction:column;gap:1.1rem}
+    @media(max-width:900px){.sidebar-sticky{position:static;margin-top:2rem}}
+    .sidebar-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.2rem}
+    .sidebar-card h4{color:var(--navy);font-size:.95rem;margin-bottom:.5rem}
   </style>
   <script type="module">
     // Shared Firebase project with community.html — signing in here or on the
@@ -419,10 +436,10 @@
           </button>
           <ul class="nav-submenu">
             <li><a href="community.html">Community Forum</a></li>
-            <li><a href="#pathways-explorer">Learning Pathways</a></li>
-            <li><a href="#intrapreneur">Intrapreneur Route</a></li>
+            <li><a href="#" onclick="showSection('chooser'); closeAllSubmenus(); closeMobileNav(); return false;">Learning Pathways</a></li>
+            <li><a href="#" onclick="showSection('intrapreneur'); closeAllSubmenus(); closeMobileNav(); return false;">Intrapreneur Route</a></li>
             <li><a href="#" onclick="jumpToTab('casestudies'); return false;">Case Studies</a></li>
-            <li><a href="#leaderboards">Score Tables</a></li>
+            <li><a href="#" onclick="showSection('scores'); closeAllSubmenus(); closeMobileNav(); return false;">Score Tables</a></li>
             <li><a href="community.html#vendors">Suppliers &amp; Vendors</a></li>
           </ul>
         </li>
@@ -479,8 +496,8 @@
         <span class="hero-badge">🏆 CPD Recognised</span>
       </div>
       <div class="hero-actions" style="margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap">
-        <a href="#chooser" class="cta-btn">Find my pathway →</a>
-        <a href="#pathways-explorer" class="cta-btn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4)">Browse the 4 pathways</a>
+        <a href="#" class="cta-btn" onclick="showSection('chooser'); return false;">Find my pathway →</a>
+        <a href="#" class="cta-btn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4)" onclick="showSection('library'); return false;">Browse the full library</a>
       </div>
     </div>
     <div style="flex-shrink:0;text-align:center">
@@ -489,294 +506,317 @@
     </div>
   </div>
 
-  <!-- ══════════════ HOW THE ACADEMY WORKS ══════════════ -->
-  <section id="how-it-works">
-    <h2 class="section-title">How the academy works</h2>
-    <p class="section-subtitle">One shared starting point, a dynamic route into four specialist pathways, and recognised CPD credits that build your CV and progression story.</p>
-    <div class="info-grid">
-      <div class="info-card">
-        <span class="info-num">01</span>
-        <h3>🌱 Start with Introduction to AI</h3>
-        <p>Every learner and leader begins with the same shared foundation module — AI basics, ethics, governance and healthcare context — before branching into a specialist route.</p>
-      </div>
-      <div class="info-card">
-        <span class="info-num">02</span>
-        <h3>🧭 Dynamic pathway selector</h3>
-        <p>A short diagnostic looks at your goal, your role and what matters most to you, then recommends whether Agentic, Clinical, Robotic or Ambience is the best fit for the products or services you're designing.</p>
-      </div>
-      <div class="info-card">
-        <span class="info-num">03</span>
-        <h3>🏆 CPD, badges &amp; progression</h3>
-        <p>Every course lists its description, expectations, target audience, level and CPD credits — with recognition mapped to vendor certificates and other CPD systems to build your CV.</p>
-      </div>
-    </div>
-  </section>
+  <div class="academy-shell">
+    <div class="academy-content">
 
-  <!-- ══════════════ CPD EXPLAINER ══════════════ -->
-  <section id="cpd">
-    <h2 class="section-title">Understanding CPD</h2>
-    <p class="section-subtitle">Continuing Professional Development (CPD) credits earned in the academy are portable, recognised and designed to strengthen your CV and career progression.</p>
-    <div class="cpd-box">
-      <div class="cpd-text">
-        <h2>What is CPD, and how does it work here?</h2>
-        <p>CPD stands for Continuing Professional Development — the record of learning, reflection and practical activity that professionals use to maintain and evidence their skills over time. In the uPull.ai Academy, every course and practical task carries a set number of CPD credits (typically 1 credit per learning hour), which are added to your personal record as you complete them.</p>
-        <div class="cpd-facts">
-          <span class="cpd-fact">📖 1 hour of learning ≈ 1 CPD credit</span>
-          <span class="cpd-fact">🔗 Mapped to vendor &amp; professional-body schemes</span>
-          <span class="cpd-fact">🆓 Free for NHS &amp; public sector learners</span>
-          <span class="cpd-fact">📄 Publicly verifiable certificates &amp; badges</span>
+      <!-- ══════════════ TOP-LEVEL SECTION NAVIGATION ══════════════ -->
+      <nav class="section-nav" aria-label="Academy sections">
+        <button class="section-nav-btn active" data-section="overview" onclick="showSection('overview')">📘 Overview &amp; CPD</button>
+        <button class="section-nav-btn" data-section="chooser" onclick="showSection('chooser')">🧭 Find My Pathway</button>
+        <button class="section-nav-btn" data-section="intrapreneur" onclick="showSection('intrapreneur')">🚀 Intrapreneur Route</button>
+        <button class="section-nav-btn" data-section="library" onclick="showSection('library')">📚 Course Library</button>
+        <button class="section-nav-btn" data-section="scores" onclick="showSection('scores')">🏆 Scores &amp; Community</button>
+      </nav>
+
+      <!-- ══════════════ VIEW 1: OVERVIEW + CPD ══════════════ -->
+      <div id="section-overview" class="academy-view active-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">How the academy works</h2>
+          <p class="section-subtitle">One shared starting point, a dynamic route into four specialist pathways, and recognised CPD credits that build your CV and progression story.</p>
+          <div class="info-grid">
+            <div class="info-card">
+              <span class="info-num">01</span>
+              <h3>🌱 Start with Introduction to AI</h3>
+              <p>Every learner and leader begins with the same shared foundation module — AI basics, ethics, governance and healthcare context — before branching into a specialist route.</p>
+            </div>
+            <div class="info-card">
+              <span class="info-num">02</span>
+              <h3>🧭 Dynamic pathway selector</h3>
+              <p>A short diagnostic looks at your goal, your role and what matters most to you, then recommends whether Agentic, Clinical, Robotic or Ambience is the best fit for the products or services you're designing.</p>
+            </div>
+            <div class="info-card">
+              <span class="info-num">03</span>
+              <h3>🏆 CPD, badges &amp; progression</h3>
+              <p>Every course lists its description, expectations, target audience, level and CPD credits — with recognition mapped to vendor certificates and other CPD systems to build your CV.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="cpd">
+          <h2 class="section-title">Understanding CPD</h2>
+          <p class="section-subtitle">Continuing Professional Development (CPD) credits earned in the academy are portable, recognised and designed to strengthen your CV and career progression.</p>
+          <div class="cpd-box">
+            <div class="cpd-text">
+              <h2>What is CPD, and how does it work here?</h2>
+              <p>CPD stands for Continuing Professional Development — the record of learning, reflection and practical activity that professionals use to maintain and evidence their skills over time. Every course and practical task here carries a set number of CPD credits, added to your personal record as you complete them.</p>
+              <div class="cpd-facts">
+                <span class="cpd-fact">📖 1 hour of learning ≈ 1 CPD credit</span>
+                <span class="cpd-fact">🔗 Mapped to vendor &amp; professional-body schemes</span>
+                <span class="cpd-fact">🆓 Free for NHS &amp; public sector learners</span>
+                <span class="cpd-fact">📄 Publicly verifiable certificates &amp; badges</span>
+              </div>
+            </div>
+            <button class="cta-btn" style="flex-shrink:0" onclick="openCPDModal()">Learn more about CPD →</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 2: FIND MY PATHWAY (quiz + explorer, one interactive flow) ══════════════ -->
+      <div id="section-chooser" class="academy-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">Find your best pathway</h2>
+          <p class="section-subtitle">Answer three quick questions — the pathway explorer below updates instantly to show your route, its graphical steps and its courses.</p>
+          <div class="quiz-layout">
+            <div class="quiz-panel">
+              <div class="quiz-q">
+                <h4>1. What are you designing or improving?</h4>
+                <div class="chip-row" data-group="goal">
+                  <button class="chip active" data-value="agentic">🤖 Workflow automation</button>
+                  <button class="chip" data-value="clinical">🩺 Clinical support</button>
+                  <button class="chip" data-value="robotic">🦾 Operational robotics</button>
+                  <button class="chip" data-value="ambient">🎙️ Ambient documentation</button>
+                </div>
+              </div>
+              <div class="quiz-q">
+                <h4>2. Who are you?</h4>
+                <div class="chip-row" data-group="role">
+                  <button class="chip active" data-value="leader">Leader</button>
+                  <button class="chip" data-value="developer">Developer</button>
+                  <button class="chip" data-value="clinician">Clinician</button>
+                </div>
+              </div>
+              <div class="quiz-q">
+                <h4>3. What matters most?</h4>
+                <div class="chip-row" data-group="priority">
+                  <button class="chip active" data-value="scale">Speed and scale</button>
+                  <button class="chip" data-value="safety">Safety and governance</button>
+                  <button class="chip" data-value="adoption">Team adoption</button>
+                  <button class="chip" data-value="experience">Staff experience</button>
+                </div>
+              </div>
+              <button class="cta-btn" type="button" onclick="recommendPath()" style="width:100%;text-align:center">Show my recommendation</button>
+            </div>
+
+            <div class="quiz-panel recommend" id="recommendationPanel">
+              <span class="tag tag-agentic" style="margin-bottom:.6rem">Recommended route</span>
+              <h3 style="color:var(--navy)">🤖 Agentic pathway</h3>
+              <p>Best for teams exploring orchestrated workflows, copilots and practical service automation with strong human oversight.</p>
+              <p style="font-size:.82rem;color:var(--muted)">↓ Full details, graphical steps and courses are shown below.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="pathways-explorer" style="border-top:1px dashed var(--border);padding-top:2rem">
+          <h2 class="section-title" style="font-size:1.5rem">Explore the pathway in detail</h2>
+          <p class="section-subtitle">Select any of the four pathways to see its graphical route and courses — the panel updates to reflect your choice.</p>
+          <div class="explorer-layout">
+            <div class="explorer-menu" id="explorerMenu">
+              <button class="explorer-btn active" data-cat="agentic" onclick="showExplorer('agentic')">🤖 Agentic AI</button>
+              <button class="explorer-btn" data-cat="clinical" onclick="showExplorer('clinical')">🩺 Clinical AI</button>
+              <button class="explorer-btn" data-cat="robotic" onclick="showExplorer('robotic')">🦾 Robotic AI</button>
+              <button class="explorer-btn" data-cat="ambient" onclick="showExplorer('ambient')">🎙️ Ambience AI</button>
+            </div>
+            <div class="explorer-panel" id="explorerPanel"><!-- populated by JS: renderExplorerPanel() --></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 3: uPULL.AI INTRAPRENEUR PATHWAY ══════════════ -->
+      <div id="section-intrapreneur" class="academy-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">🚀 The uPull.ai Intrapreneur Pathway</h2>
+          <p class="section-subtitle">A researched, beginner-to-advanced route for staff who want to design and champion AI-enabled products and services from inside their own organisation — built entirely from free vendor and provider training, plus uPull.ai's own practical delivery model.</p>
+          <div class="timeline" id="intrapreneurTimeline"><!-- populated by JS: renderIntrapreneur() --></div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 4: COURSE LIBRARY & CASE STUDIES ══════════════ -->
+      <div id="section-library" class="academy-view">
+        <div class="tab-bar" style="padding-top:0">
+          <button class="tab-btn active" onclick="switchTab('learning', this)">🎓 Full Course Library</button>
+          <button class="tab-btn" onclick="switchTab('casestudies', this)">📋 Case Studies</button>
+        </div>
+
+        <!-- LEARNING TAB -->
+        <div id="tab-learning" class="page-view active-view">
+          <section>
+            <h2 class="section-title">Full Course Library</h2>
+            <p class="section-subtitle">Every course behind the four pathways and the Intrapreneur route, in one searchable library — from absolute beginner to advanced AI implementation. Click any course to go directly to the provider.</p>
+
+            <div class="path-cards">
+              <div class="path-card beginner">
+                <h3>🌱 Beginner Track</h3>
+                <p>No prior tech experience needed. Understand what AI is, how it works in healthcare, and how to safely use it in your daily role.</p>
+              </div>
+              <div class="path-card intermediate">
+                <h3>⚡ Intermediate Track</h3>
+                <p>For those who understand AI basics. Learn automation, workflow design, prompt engineering, and how to lead AI adoption in your team.</p>
+              </div>
+            </div>
+
+            <div class="filter-bar">
+              <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="course-search" placeholder="Search courses, providers..." oninput="filterCourses()">
+              </div>
+              <button class="filter-pill pill-all active" onclick="setCourseFilter('all',this)">All</button>
+              <button class="filter-pill pill-agentic" onclick="setCourseFilter('agentic',this)">🤖 Agentic AI</button>
+              <button class="filter-pill pill-ambient" onclick="setCourseFilter('ambient',this)">🎙️ Ambient AI</button>
+              <button class="filter-pill pill-clinical" onclick="setCourseFilter('clinical',this)">🩺 Clinical AI</button>
+              <button class="filter-pill pill-robotic" onclick="setCourseFilter('robotic',this)">🦾 Robotic AI</button>
+              <button class="filter-pill pill-intrapreneur" onclick="setCourseFilter('intrapreneur',this)">🚀 Intrapreneur</button>
+              <button class="filter-pill pill-free" onclick="setCourseFilter('free',this)">🆓 Free Only</button>
+            </div>
+
+            <div class="cards-grid" id="course-grid"></div>
+          </section>
+        </div>
+
+        <!-- CASE STUDIES TAB -->
+        <div id="tab-casestudies" class="page-view">
+          <section>
+            <h2 class="section-title">Healthcare AI Case Studies</h2>
+            <p class="section-subtitle">30 real-world deployments. Filter by AI category or operational domain. Each card links to the full case study and associated learning courses.</p>
+
+            <div class="filter-bar">
+              <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="cs-search" placeholder="Search case studies..." oninput="filterCaseStudies()">
+              </div>
+              <button class="filter-pill pill-all active" onclick="setCSFilter('all',this)">All</button>
+              <button class="filter-pill pill-agentic" onclick="setCSFilter('agentic',this)">🤖 Agentic</button>
+              <button class="filter-pill pill-ambient" onclick="setCSFilter('ambient',this)">🎙️ Ambient</button>
+              <button class="filter-pill pill-clinical" onclick="setCSFilter('clinical',this)">🩺 Clinical</button>
+              <button class="filter-pill pill-robotic" onclick="setCSFilter('robotic',this)">🦾 Robotic</button>
+              <button class="filter-pill pill-operational" onclick="setCSFilter('operational',this)">⚙️ Operational</button>
+            </div>
+
+            <div id="cs-group-clinical">
+              <div class="cat-header clinical-op">🩺 Clinical Case Studies <span class="cat-count" id="cs-count-clinical"></span></div>
+              <div class="cs-grid" id="cs-grid-clinical"></div>
+            </div>
+
+            <div id="cs-group-operational" style="margin-top:2rem">
+              <div class="cat-header operational-op">⚙️ Operational Case Studies <span class="cat-count" id="cs-count-operational"></span></div>
+              <div class="cs-grid" id="cs-grid-operational"></div>
+            </div>
+
+            <div id="associated-learning-section" class="hidden" style="margin-top:2rem;padding:1.5rem;background:#fff;border:2px solid var(--blue);border-radius:10px">
+              <h3 style="color:var(--navy);margin-bottom:1rem">📚 Associated Learning for Selected Filter</h3>
+              <div class="cards-grid" id="associated-courses-grid"></div>
+            </div>
+          </section>
         </div>
       </div>
-      <button class="cta-btn" style="flex-shrink:0" onclick="openCPDModal()">Learn more about CPD →</button>
-    </div>
-  </section>
 
-  <!-- ══════════════ DYNAMIC PATHWAY CHOOSER (QUIZ) ══════════════ -->
-  <section id="chooser">
-    <h2 class="section-title">Find your best pathway</h2>
-    <p class="section-subtitle">Answer three quick questions and we'll recommend the pathway that best matches what you're designing, building or leading.</p>
-    <div class="quiz-layout">
-      <div class="quiz-panel">
-        <div class="quiz-q">
-          <h4>1. What are you designing or improving?</h4>
-          <div class="chip-row" data-group="goal">
-            <button class="chip active" data-value="agentic">🤖 Workflow automation</button>
-            <button class="chip" data-value="clinical">🩺 Clinical support</button>
-            <button class="chip" data-value="robotic">🦾 Operational robotics</button>
-            <button class="chip" data-value="ambient">🎙️ Ambient documentation</button>
+      <!-- ══════════════ VIEW 5: SCORES & COMMUNITY ══════════════ -->
+      <div id="section-scores" class="academy-view">
+        <section style="padding-top:.5rem" id="leaderboards">
+          <h2 class="section-title">Score tables</h2>
+          <p class="section-subtitle">Friendly competition keeps learning enjoyable — track organisation uptake and individual progress as points and CPD credits are logged.</p>
+          <div class="lb-grid">
+            <div class="lb-card">
+              <h3>🏥 Organisation score table</h3>
+              <div class="lb-sub">Ranked by total points logged by staff at each organisation.</div>
+              <table class="lb-table">
+                <thead><tr><th>#</th><th>Organisation</th><th>Points</th><th>Badges</th></tr></thead>
+                <tbody id="orgBoardBody"></tbody>
+              </table>
+              <div class="lb-note" id="orgBoardNote"></div>
+            </div>
+            <div class="lb-card">
+              <h3>🙋 Individual score table</h3>
+              <div class="lb-sub">Ranked by personal points earned across pathways.</div>
+              <table class="lb-table">
+                <thead><tr><th>#</th><th>Learner</th><th>Points</th><th>Route</th></tr></thead>
+                <tbody id="individualBoardBody"></tbody>
+              </table>
+              <div class="lb-note" id="individualBoardNote"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="community">
+          <h2 class="section-title">Built for learners, leaders and suppliers</h2>
+          <p class="section-subtitle">The academy sits inside the wider uPull.ai Community — discussion, case studies and supplier updates all live there.</p>
+          <div class="community-teaser-grid">
+            <article class="community-teaser-card">
+              <span class="tag tag-clinical ctc-tag">Case study spotlight</span>
+              <h4>Ambient documentation pilot</h4>
+              <p>An ambient documentation pilot reduced duplicated note-writing time and improved clinician satisfaction — read the full case study and its linked courses.</p>
+              <a href="#" class="btn-sm btn-blue" onclick="jumpToCS('CS1'); return false;">Read the case study →</a>
+            </article>
+            <article class="community-teaser-card">
+              <span class="tag tag-agentic ctc-tag">Supplier update</span>
+              <h4>New vendor recognition mapping</h4>
+              <p>Vendors and suppliers post product updates, integration notes and CPD-recognition mapping in the Community Hub's supplier feed.</p>
+              <a href="community.html#vendors" target="_blank" rel="noopener" class="btn-sm btn-blue">View suppliers &amp; vendors →</a>
+            </article>
+            <article class="community-teaser-card">
+              <span class="tag tag-robotic ctc-tag">Community discussion</span>
+              <h4>Join the live forum</h4>
+              <p>Share validation insights, ask workflow questions and connect with other learners, leaders and suppliers across the NHS and public sector.</p>
+              <a href="community.html" target="_blank" rel="noopener" class="btn-sm btn-blue">Open the Community Hub →</a>
+            </article>
+          </div>
+          <div class="community-cta-row">
+            <a href="community.html" target="_blank" rel="noopener" class="cta-btn">Visit the full uPull.ai Community Hub →</a>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- /.academy-content -->
+
+    <!-- ══════════════ STICKY SIDEBAR: LOG IN / PROFILE ══════════════ -->
+    <aside class="academy-sidebar" id="login" aria-label="Your account">
+      <div class="sidebar-sticky">
+        <div class="sidebar-card" id="loginSignedOut">
+          <h4>🔐 Log in for tailored benefits</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Same profile as the Community Hub. Unlock a personal route, CPD tracking and a place on the score tables.</p>
+          <button class="google-btn" onclick="signInAcademy()">
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.5 26.7 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
+            Sign in with Google
+          </button>
+          <div class="role-mini-grid" style="grid-template-columns:1fr;margin-top:1rem">
+            <div class="role-mini-card"><strong>Learner</strong>Personal route, CPD credits, badges and saved courses.</div>
+            <div class="role-mini-card"><strong>Leader</strong>Team uptake, organisation scores, pathway planning.</div>
+            <div class="role-mini-card"><strong>Supplier</strong>Updates &amp; recognition mapping in the Community Hub.</div>
           </div>
         </div>
-        <div class="quiz-q">
-          <h4>2. Who are you?</h4>
-          <div class="chip-row" data-group="role">
-            <button class="chip active" data-value="leader">Leader</button>
-            <button class="chip" data-value="developer">Developer</button>
-            <button class="chip" data-value="clinician">Clinician</button>
+
+        <div class="sidebar-card" id="loginSignedIn" style="display:none">
+          <div class="profile-card" style="margin-bottom:.9rem">
+            <div class="profile-avatar" id="profileAvatar">A</div>
+            <div>
+              <div style="font-weight:800;color:var(--navy);font-size:.9rem" id="profileName">Academy learner</div>
+              <div style="font-size:.72rem;color:var(--muted)">Shared with the Community Hub</div>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat"><strong id="profilePoints">0</strong><span>Points</span></div>
+            <div class="profile-stat"><strong id="profileCPD">0</strong><span>CPD</span></div>
+            <div class="profile-stat"><strong id="profileCourses">0</strong><span>Logged</span></div>
+          </div>
+          <div class="org-input-row" style="flex-direction:column">
+            <input type="text" id="profileOrgInput" placeholder="Your organisation">
+            <button class="btn-sm btn-blue" style="width:100%" onclick="saveOrganisation()">Save organisation</button>
+          </div>
+          <div id="profileBadges" class="badge-row"></div>
+          <button class="btn-sm btn-outline" style="width:100%;margin-top:1rem" onclick="signOutAcademy()">Sign out</button>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Quick links</h4>
+          <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.85rem">
+            <a href="#" style="color:var(--blue);font-weight:600" onclick="openCPDModal(); return false;">💡 What is CPD?</a>
+            <a href="#" style="color:var(--blue);font-weight:600" onclick="showSection('scores'); return false;">🏆 View score tables</a>
+            <a href="community.html#vendors" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">🔌 Suppliers &amp; vendors</a>
+            <a href="community.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">💬 Community forum</a>
           </div>
         </div>
-        <div class="quiz-q">
-          <h4>3. What matters most?</h4>
-          <div class="chip-row" data-group="priority">
-            <button class="chip active" data-value="scale">Speed and scale</button>
-            <button class="chip" data-value="safety">Safety and governance</button>
-            <button class="chip" data-value="adoption">Team adoption</button>
-            <button class="chip" data-value="experience">Staff experience</button>
-          </div>
-        </div>
-        <button class="cta-btn" type="button" onclick="recommendPath()" style="width:100%;text-align:center">Show my recommendation</button>
       </div>
-
-      <div class="quiz-panel recommend" id="recommendationPanel">
-        <span class="tag tag-agentic" style="margin-bottom:.6rem">Recommended route</span>
-        <h3 style="color:var(--navy)">Agentic pathway</h3>
-        <p>Best for teams exploring orchestrated workflows, copilots and practical service automation with strong human oversight.</p>
-        <div class="rec-card-grid">
-          <div class="rec-mini-card"><strong>Best fit</strong><span>Developers, transformation leads, digital leaders</span></div>
-          <div class="rec-mini-card"><strong>Start here</strong><span>Introduction to AI, then governance and use-case discovery</span></div>
-          <div class="rec-mini-card"><strong>CPD range</strong><span>2 to 12 credits per module</span></div>
-          <div class="rec-mini-card"><strong>Progression</strong><span>Badge, certificate mapping and portfolio evidence</span></div>
-        </div>
-        <a href="#" class="btn-sm btn-blue" style="margin-top:1rem;display:inline-block" onclick="showExplorer('agentic'); return false;">View the Agentic pathway →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ FOUR LEARNING PATHWAYS EXPLORER ══════════════ -->
-  <section id="pathways-explorer">
-    <h2 class="section-title">Four specialist learning pathways</h2>
-    <p class="section-subtitle">Every pathway begins with the shared Introduction to AI, then moves through foundation, intermediate and advanced courses toward a practical capstone. Select a pathway to see its graphical route.</p>
-    <div class="explorer-layout">
-      <div class="explorer-menu" id="explorerMenu">
-        <button class="explorer-btn active" data-cat="agentic" onclick="showExplorer('agentic')">🤖 Agentic AI</button>
-        <button class="explorer-btn" data-cat="clinical" onclick="showExplorer('clinical')">🩺 Clinical AI</button>
-        <button class="explorer-btn" data-cat="robotic" onclick="showExplorer('robotic')">🦾 Robotic AI</button>
-        <button class="explorer-btn" data-cat="ambient" onclick="showExplorer('ambient')">🎙️ Ambience AI</button>
-      </div>
-      <div class="explorer-panel" id="explorerPanel"><!-- populated by JS: renderExplorer() --></div>
-    </div>
-  </section>
-
-  <!-- ══════════════ uPULL.AI INTRAPRENEUR PATHWAY ══════════════ -->
-  <section id="intrapreneur">
-    <h2 class="section-title">🚀 The uPull.ai Intrapreneur Pathway</h2>
-    <p class="section-subtitle">A researched, beginner-to-advanced route for staff who want to design and champion AI-enabled products and services from inside their own organisation — built entirely from free vendor and provider training, plus uPull.ai's own practical delivery model.</p>
-    <div class="timeline" id="intrapreneurTimeline"><!-- populated by JS: renderIntrapreneur() --></div>
-  </section>
-
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('learning', this)">🎓 Full Course Library</button>
-    <button class="tab-btn" onclick="switchTab('casestudies', this)">📋 Case Studies</button>
+    </aside>
   </div>
-
-  <!-- LEARNING TAB -->
-  <div id="tab-learning" class="page-view active-view">
-    <section>
-      <h2 class="section-title">Full Course Library</h2>
-      <p class="section-subtitle">Every course behind the four pathways and the Intrapreneur route, in one searchable library — from absolute beginner to advanced AI implementation. Click any course to go directly to the provider.</p>
-
-      <div class="path-cards">
-        <div class="path-card beginner">
-          <h3>🌱 Beginner Track</h3>
-          <p>No prior tech experience needed. Understand what AI is, how it works in healthcare, and how to safely use it in your daily role.</p>
-        </div>
-        <div class="path-card intermediate">
-          <h3>⚡ Intermediate Track</h3>
-          <p>For those who understand AI basics. Learn automation, workflow design, prompt engineering, and how to lead AI adoption in your team.</p>
-        </div>
-      </div>
-
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="course-search" placeholder="Search courses, providers..." oninput="filterCourses()">
-        </div>
-        <button class="filter-pill pill-all active" onclick="setCourseFilter('all',this)">All</button>
-        <button class="filter-pill pill-agentic" onclick="setCourseFilter('agentic',this)">🤖 Agentic AI</button>
-        <button class="filter-pill pill-ambient" onclick="setCourseFilter('ambient',this)">🎙️ Ambient AI</button>
-        <button class="filter-pill pill-clinical" onclick="setCourseFilter('clinical',this)">🩺 Clinical AI</button>
-        <button class="filter-pill pill-robotic" onclick="setCourseFilter('robotic',this)">🦾 Robotic AI</button>
-        <button class="filter-pill pill-intrapreneur" onclick="setCourseFilter('intrapreneur',this)">🚀 Intrapreneur</button>
-        <button class="filter-pill pill-free" onclick="setCourseFilter('free',this)">🆓 Free Only</button>
-      </div>
-
-      <div class="cards-grid" id="course-grid"></div>
-    </section>
-  </div>
-
-  <!-- CASE STUDIES TAB -->
-  <div id="tab-casestudies" class="page-view">
-    <section>
-      <h2 class="section-title">Healthcare AI Case Studies</h2>
-      <p class="section-subtitle">30 real-world deployments. Filter by AI category or operational domain. Each card links to the full case study and associated learning courses.</p>
-
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="cs-search" placeholder="Search case studies..." oninput="filterCaseStudies()">
-        </div>
-        <button class="filter-pill pill-all active" onclick="setCSFilter('all',this)">All</button>
-        <button class="filter-pill pill-agentic" onclick="setCSFilter('agentic',this)">🤖 Agentic</button>
-        <button class="filter-pill pill-ambient" onclick="setCSFilter('ambient',this)">🎙️ Ambient</button>
-        <button class="filter-pill pill-clinical" onclick="setCSFilter('clinical',this)">🩺 Clinical</button>
-        <button class="filter-pill pill-robotic" onclick="setCSFilter('robotic',this)">🦾 Robotic</button>
-        <button class="filter-pill pill-operational" onclick="setCSFilter('operational',this)">⚙️ Operational</button>
-      </div>
-
-      <div id="cs-group-clinical">
-        <div class="cat-header clinical-op">🩺 Clinical Case Studies <span class="cat-count" id="cs-count-clinical"></span></div>
-        <div class="cs-grid" id="cs-grid-clinical"></div>
-      </div>
-
-      <div id="cs-group-operational" style="margin-top:2rem">
-        <div class="cat-header operational-op">⚙️ Operational Case Studies <span class="cat-count" id="cs-count-operational"></span></div>
-        <div class="cs-grid" id="cs-grid-operational"></div>
-      </div>
-
-      <div id="associated-learning-section" class="hidden" style="margin-top:2rem;padding:1.5rem;background:#fff;border:2px solid var(--blue);border-radius:10px">
-        <h3 style="color:var(--navy);margin-bottom:1rem">📚 Associated Learning for Selected Filter</h3>
-        <div class="cards-grid" id="associated-courses-grid"></div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ══════════════ LEADERBOARDS ══════════════ -->
-  <section id="leaderboards">
-    <h2 class="section-title">Score tables</h2>
-    <p class="section-subtitle">Friendly competition keeps learning enjoyable — track organisation uptake and individual progress as points and CPD credits are logged.</p>
-    <div class="lb-grid">
-      <div class="lb-card">
-        <h3>🏥 Organisation score table</h3>
-        <div class="lb-sub">Ranked by total points logged by staff at each organisation.</div>
-        <table class="lb-table">
-          <thead><tr><th>#</th><th>Organisation</th><th>Points</th><th>Badges</th></tr></thead>
-          <tbody id="orgBoardBody"></tbody>
-        </table>
-        <div class="lb-note" id="orgBoardNote"></div>
-      </div>
-      <div class="lb-card">
-        <h3>🙋 Individual score table</h3>
-        <div class="lb-sub">Ranked by personal points earned across pathways.</div>
-        <table class="lb-table">
-          <thead><tr><th>#</th><th>Learner</th><th>Points</th><th>Route</th></tr></thead>
-          <tbody id="individualBoardBody"></tbody>
-        </table>
-        <div class="lb-note" id="individualBoardNote"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ COMMUNITY TEASER (links out to community.html) ══════════════ -->
-  <section id="community">
-    <h2 class="section-title">Built for learners, leaders and suppliers</h2>
-    <p class="section-subtitle">The academy sits inside the wider uPull.ai Community — discussion, case studies and supplier updates all live there.</p>
-    <div class="community-teaser-grid">
-      <article class="community-teaser-card">
-        <span class="tag tag-clinical ctc-tag">Case study spotlight</span>
-        <h4>Ambient documentation pilot</h4>
-        <p>An ambient documentation pilot reduced duplicated note-writing time and improved clinician satisfaction — read the full case study and its linked courses.</p>
-        <a href="#" class="btn-sm btn-blue" onclick="jumpToCS('CS1'); return false;">Read the case study →</a>
-      </article>
-      <article class="community-teaser-card">
-        <span class="tag tag-agentic ctc-tag">Supplier update</span>
-        <h4>New vendor recognition mapping</h4>
-        <p>Vendors and suppliers post product updates, integration notes and CPD-recognition mapping in the Community Hub's supplier feed.</p>
-        <a href="community.html#vendors" target="_blank" rel="noopener" class="btn-sm btn-blue">View suppliers &amp; vendors →</a>
-      </article>
-      <article class="community-teaser-card">
-        <span class="tag tag-robotic ctc-tag">Community discussion</span>
-        <h4>Join the live forum</h4>
-        <p>Share validation insights, ask workflow questions and connect with other learners, leaders and suppliers across the NHS and public sector.</p>
-        <a href="community.html" target="_blank" rel="noopener" class="btn-sm btn-blue">Open the Community Hub →</a>
-      </article>
-    </div>
-    <div class="community-cta-row">
-      <a href="community.html" target="_blank" rel="noopener" class="cta-btn">Visit the full uPull.ai Community Hub →</a>
-    </div>
-  </section>
-
-  <!-- ══════════════ LOG IN FOR TAILORED BENEFITS ══════════════ -->
-  <section id="login">
-    <h2 class="section-title">Log in for tailored benefits</h2>
-    <p class="section-subtitle">Signing in unlocks a personal route, saved progress, CPD credits, and a place on the score tables — the same profile works here and on the Community Hub.</p>
-    <div class="login-layout">
-      <div class="login-panel" id="loginSignedOut">
-        <h3>Sign in to get started</h3>
-        <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.2rem">Use the same Google account you use for the Community Hub — your points, CPD and organisation carry across automatically.</p>
-        <button class="google-btn" onclick="signInAcademy()">
-          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.5 26.7 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
-          Sign in with Google
-        </button>
-        <div class="role-mini-grid">
-          <div class="role-mini-card"><strong>Learner</strong>Personal route, CPD credits, badges and saved courses.</div>
-          <div class="role-mini-card"><strong>Leader</strong>Team uptake, organisation scores, pathway planning.</div>
-          <div class="role-mini-card"><strong>Supplier</strong>Post updates and recognition mapping in the Community Hub.</div>
-        </div>
-      </div>
-
-      <div class="login-panel" id="loginSignedIn" style="display:none">
-        <h3>Your profile</h3>
-        <div class="profile-card">
-          <div class="profile-avatar" id="profileAvatar">A</div>
-          <div>
-            <div style="font-weight:800;color:var(--navy)" id="profileName">Academy learner</div>
-            <div style="font-size:.8rem;color:var(--muted)">Signed in via Google · shared with the Community Hub</div>
-          </div>
-          <button class="btn-sm btn-outline" style="margin-left:auto" onclick="signOutAcademy()">Sign out</button>
-        </div>
-        <div class="profile-stats">
-          <div class="profile-stat"><strong id="profilePoints">0</strong><span>Points</span></div>
-          <div class="profile-stat"><strong id="profileCPD">0</strong><span>CPD credits</span></div>
-          <div class="profile-stat"><strong id="profileCourses">0</strong><span>Courses logged</span></div>
-        </div>
-        <div class="org-input-row">
-          <input type="text" id="profileOrgInput" placeholder="Your organisation (e.g. Great Ormond Street Hospital)">
-          <button class="btn-sm btn-blue" onclick="saveOrganisation()">Save organisation</button>
-        </div>
-        <div id="profileBadges" class="badge-row"></div>
-        <p style="font-size:.78rem;color:var(--muted);margin-top:1rem">Use the "Log this course" buttons on any pathway or course card to record points and CPD credits to your profile and to your organisation's score.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- CASE STUDY POPUP MODAL -->
@@ -1042,6 +1082,7 @@ function setCSFilter(filter, el) {
 function filterCaseStudies() { renderCaseStudies(); }
 
 function jumpToCS(id) {
+  showSection('library');
   document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-casestudies').classList.add('active-view');
@@ -1059,6 +1100,7 @@ function jumpToCS(id) {
 }
 
 function highlightCourses(csId) {
+  showSection('library');
   document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-learning').classList.add('active-view');
@@ -1138,19 +1180,23 @@ function handleDeepLink() {
   const btns = document.querySelectorAll('.tab-bar .tab-btn');
 
   if (hash === 'tab-learning') {
+    showSection('library');
     switchTab('learning', btns[0]);
     document.querySelector('.tab-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
   if (hash === 'tab-casestudies') {
+    showSection('library');
     switchTab('casestudies', btns[1]);
     document.querySelector('.tab-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
 
   if (hash.startsWith('course-')) {
+    showSection('library');
     switchTab('learning', btns[0]);
   } else if (hash.startsWith('cs-')) {
+    showSection('library');
     switchTab('casestudies', btns[1]);
   } else {
     return;
@@ -1167,6 +1213,7 @@ function handleDeepLink() {
 
 // ══ BRIDGE: nav dropdown -> existing tab system ══
 function jumpToTab(name) {
+  showSection('library');
   const btns = document.querySelectorAll('.tab-bar .tab-btn');
   const target = name === 'learning' ? btns[0] : btns[1];
   if (target) switchTab(name, target);
@@ -1221,6 +1268,20 @@ function closeMobileNav() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   TOP-LEVEL SECTION NAVIGATION — Overview / Find My Pathway /
+   Intrapreneur / Course Library / Scores & Community.
+   ══════════════════════════════════════════════════════════════════ */
+function showSection(name) {
+  document.querySelectorAll('.academy-view').forEach(v => v.classList.remove('active-view'));
+  document.querySelectorAll('.section-nav-btn').forEach(b => b.classList.remove('active'));
+  const view = document.getElementById('section-' + name);
+  const btn = document.querySelector(`.section-nav-btn[data-section="${name}"]`);
+  if (view) view.classList.add('active-view');
+  if (btn) btn.classList.add('active');
+  document.querySelector('.academy-shell')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════════════════════════
    CPD EXPLAINER MODAL
    ══════════════════════════════════════════════════════════════════ */
 function openCPDModal() {
@@ -1268,14 +1329,9 @@ function recommendPath() {
     <span class="tag ${block.tagClass}" style="margin-bottom:.6rem">Recommended route</span>
     <h3 style="color:var(--navy)">${block.emoji} ${block.title}</h3>
     <p>${block.text}</p>
-    <div class="rec-card-grid">
-      <div class="rec-mini-card"><strong>Best next step</strong><span>Complete the shared Introduction to AI and the governance essentials module.</span></div>
-      <div class="rec-mini-card"><strong>Recognition route</strong><span>Map completions to badges, certificates and external partner progression.</span></div>
-      <div class="rec-mini-card"><strong>Practical focus</strong><span>Add a workplace task so you build CV evidence for future progression.</span></div>
-      <div class="rec-mini-card"><strong>Enjoyment factor</strong><span>Earn points, streaks and a place on the score tables as you go.</span></div>
-    </div>
-    <a href="#" class="btn-sm btn-blue" style="margin-top:1rem;display:inline-block" onclick="showExplorer('${selected}'); return false;">View the ${block.title} →</a>`;
-  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    <p style="font-size:.82rem;color:var(--muted)">↓ Updated below — full details, graphical steps and courses.</p>`;
+  showExplorer(selected);
+  document.getElementById('pathways-explorer')?.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1362,6 +1418,7 @@ function renderExplorerPanel(cat) {
 }
 
 function jumpToFilteredCourses(cat) {
+  showSection('library');
   document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-learning').classList.add('active-view');
@@ -1489,7 +1546,7 @@ function initLeaderboards() {
    community.html, so signing in on either page gives the same profile.
    ══════════════════════════════════════════════════════════════════ */
 function scrollToLogin() {
-  document.getElementById('login')?.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelector('.academy-sidebar')?.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function fbAcademy() {
