@@ -8,35 +8,81 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f7f6f2;
-      --surface: #fbfbf9;
-      --surface-2: #f1efe8;
-      --surface-3: #e8e4dc;
-      --text: #25231d;
-      --muted: #6c6a64;
-      --faint: #9d9a93;
-      --primary: #01696f;
-      --primary-strong: #0c4e54;
-      --primary-soft: #d9ebe9;
-      --accent: #d19900;
-      --success: #437a22;
-      --border: #d8d4cc;
-      --shadow: 0 20px 50px rgba(32, 28, 23, 0.08);
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --radius-sm: 14px;
-      --space-1: 4px;
-      --space-2: 8px;
-      --space-3: 12px;
-      --space-4: 16px;
-      --space-5: 20px;
-      --space-6: 24px;
-      --space-8: 32px;
-      --space-10: 40px;
-      --space-12: 48px;
-      --space-16: 64px;
-    }
+ :root {
+  --navy:#0A192F;
+  --blue:#005EB8;
+  --blue-rgb:0,94,184;
+  --orange:#E65F2B;
+  --orange-hover:#c54f20;
+  --bg:#F8FAFC;
+  --card:#ffffff;
+  --muted:#64748B;
+  --border:#E2E8F0;
+  --agentic:#7c3aed;
+  --ambient:#0284c7;
+  --clinical:#0d9488;
+  --robotic:#dc2626;
+  --operational:#a5802c;
+  --clinical-tag:#0d9488;
+}
+
+header {
+  background: var(--navy);
+  padding: 1rem 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid var(--blue);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1);
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+
+.logo span {
+  color: var(--orange);
+}
+
+.logo-tag {
+  font-size: .8rem;
+  background: rgba(255,255,255,.1);
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  margin-left: .5rem;
+  vertical-align: middle;
+  color: #cbd5e1;
+}
+
+.nav-link-item:hover,
+.nav-item.open .nav-link-item,
+.nav-link-item.active-tab {
+  color: var(--orange);
+  background: rgba(255,255,255,.08);
+}
+
+.cta-btn {
+  background: var(--orange);
+  color: #fff;
+  padding: .55rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  display: inline-block;
+  font-size: .88rem;
+  white-space: nowrap;
+}
+
+.cta-btn:hover {
+  background: var(--orange-hover);
+  transform: translateY(-1px);
+}
+
 
     [data-theme="dark"] {
       --bg: #171614;
@@ -184,29 +230,49 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap header-row">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M5 12h14"></path><path d="M13 5l7 7-7 7"></path>
-          </svg>
-        </div>
-        <div>
-          <div>uPull.ai</div>
-          <div class="mini">Academy demo portal</div>
-        </div>
-      </div>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#pathways">Pathways</a>
-        <a href="#cpd">CPD</a>
-        <a href="#community">Community</a>
-        <a href="#leaderboards">Scores</a>
-        <button type="button" id="themeToggle" aria-label="Switch theme">Theme</button>
-        <button type="button" class="btn btn-primary">Log in</button>
+<header>
+  <div class="nav-container">
+    <a href="index.html" class="logo">uPull<span>.ai</span> <span class="logo-tag">Learning Hub</span></a>
+    <div class="nav-right">
+      <nav aria-label="Primary">
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item">
+            <button class="nav-link-item" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">Strategic Core <span class="nav-chevron" aria-hidden="true"></span></button>
+            <ul class="nav-submenu">
+              <li><a href="index.html">Problem</a></li>
+              <li><a href="index.html">Approach</a></li>
+              <li><a href="index.html">Results</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link-item active-tab" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">Community <span class="nav-chevron" aria-hidden="true"></span></button>
+            <ul class="nav-submenu">
+              <li><a href="community.html">Forum</a></li>
+              <li><a href="#tab-learning" onclick="jumpToTab('learning'); return false;">AI Learning</a></li>
+              <li><a href="#tab-casestudies" onclick="jumpToTab('casestudies'); return false;">Case Studies</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link-item" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">FAQs <span class="nav-chevron" aria-hidden="true"></span></button>
+            <ul class="nav-submenu">
+              <li><a href="faqs.html#about">About uPull.ai</a></li>
+              <li><a href="faqs.html#pilot">Pilot &amp; ROI</a></li>
+              <li><a href="faqs.html#workflows">Workflow Delivery</a></li>
+              <li><a href="faqs.html#governance">Safety &amp; Governance</a></li>
+              <li><a href="faqs.html#cases">Case Studies &amp; Evidence</a></li>
+              <li><a href="faqs.html#commercial">Commercial &amp; Next Steps</a></li>
+            </ul>
+          </li>
+        </ul>
       </nav>
+      <a href="mailto:info@upull.ai" class="cta-btn">Proof of Value</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <main id="main" class="wrap">
     <section class="hero">
