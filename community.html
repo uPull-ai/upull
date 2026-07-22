@@ -575,7 +575,8 @@
       query, orderBy, onSnapshot, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
     import {
-      getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+      getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
+      sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink
     } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
     // Your web app's Firebase configuration
@@ -596,6 +597,10 @@
     const auth = getAuth(app);
     const googleProvider = new GoogleAuthProvider();
 
+    // Only these email domains may hold an academy/community profile.
+    // Shared with academy.html — keep both lists identical.
+    window.__ALLOWED_EMAIL_DOMAINS = ['nhs.net', 'nhs.uk'];
+
     // Expose what the rest of the page's plain <script> needs, since that
     // script isn't a module and can't use import/export directly.
     //
@@ -610,7 +615,8 @@
       db, auth, googleProvider,
       collection, addDoc, doc, getDoc, updateDoc, deleteDoc, increment, arrayUnion,
       query, orderBy, onSnapshot, serverTimestamp,
-      signInWithPopup, signOut, onAuthStateChanged
+      signInWithPopup, signOut, onAuthStateChanged,
+      sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink
     };
     window.__firebaseReady = true;
     window.dispatchEvent(new Event('firebaseReady'));
@@ -721,9 +727,13 @@
         <div style="display: flex; flex-direction: column; width: 100%;">
           <!-- Auth Status Bar -->
           <div id="authBar" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:0.75rem 1rem; margin-bottom:1rem;">
-            <div id="authSignedOut" style="display:flex; align-items:center; gap:0.6rem;">
-              <span style="font-size:0.88rem; color:var(--text-muted);">Sign in to post, like, and reply.</span>
-              <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="signInWithGoogle()">Sign in with Google</button>
+            <div id="authSignedOut" style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+              <span style="font-size:0.88rem; color:var(--text-muted);">Sign in with your NHS email:</span>
+              <input type="email" id="nhsEmailInputCommunity" placeholder="you@nhs.net" style="padding:0.4rem 0.6rem; border:1.5px solid var(--border-color); border-radius:6px; font-size:0.82rem; width:170px;">
+              <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="sendNhsSignInLinkCommunity()">Send link</button>
+              <span style="font-size:0.8rem; color:var(--text-muted);">or</span>
+              <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="signInWithGoogle()" title="Requires a Google account whose email ends in @nhs.net or @nhs.uk">Sign in with Google</button>
+              <span id="nhsEmailStatusCommunity" style="font-size:0.78rem; font-weight:700; width:100%;"></span>
             </div>
             <div id="authSignedIn" style="display:none; align-items:center; gap:0.7rem; width:100%; justify-content:space-between;">
               <div style="display:flex; align-items:center; gap:0.6rem;">
@@ -1158,6 +1168,70 @@
     window.scrollTo(0, 0);
   }
 
+  // ══ NHS EMAIL DOMAIN GATE ══
+  // Only @nhs.net / @nhs.uk addresses may hold a profile. This client-side
+  // check is defence in depth — the real gate is the Firestore Security
+  // Rules / an Auth Blocking Function, since dev tools can bypass JS.
+  function isAllowedEmail(email) {
+    if (!email) return false;
+    const domain = email.split('@')[1]?.toLowerCase().trim() || '';
+    const allowed = window.__ALLOWED_EMAIL_DOMAINS || ['nhs.net', 'nhs.uk'];
+    return allowed.some(d => domain === d || domain.endsWith('.' + d));
+  }
+
+  function setNhsEmailStatusCommunity(msg, isError) {
+    const el = document.getElementById('nhsEmailStatusCommunity');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.color = isError ? '#dc2626' : '#16a34a';
+  }
+
+  function sendNhsSignInLinkCommunity() {
+    const f = fb();
+    if (!f) { setNhsEmailStatusCommunity('Still connecting — please wait a second and try again.', true); return; }
+    const input = document.getElementById('nhsEmailInputCommunity');
+    const email = (input?.value || '').trim();
+    if (!isAllowedEmail(email)) {
+      setNhsEmailStatusCommunity('Please enter a valid @nhs.net or @nhs.uk address.', true);
+      return;
+    }
+    const actionCodeSettings = {
+      url: window.location.href.split('#')[0],
+      handleCodeInApp: true
+    };
+    setNhsEmailStatusCommunity('Sending link…', false);
+    f.sendSignInLinkToEmail(f.auth, email, actionCodeSettings).then(() => {
+      window.localStorage.setItem('upullEmailForSignIn', email);
+      setNhsEmailStatusCommunity('Check your NHS inbox and open the link on this device to finish signing in.', false);
+    }).catch(err => {
+      console.error('Email link send failed:', err);
+      setNhsEmailStatusCommunity('Could not send the link (' + err.code + '). Please try again.', true);
+    });
+  }
+
+  function completeEmailLinkSignInIfNeeded() {
+    const f = fb();
+    if (!f) return;
+    if (!f.isSignInWithEmailLink(f.auth, window.location.href)) return;
+
+    let email = window.localStorage.getItem('upullEmailForSignIn');
+    if (!email) {
+      email = window.prompt('Please confirm the NHS email address you used to request this link:');
+    }
+    if (!isAllowedEmail(email)) {
+      alert('Sign-in blocked: only @nhs.net and @nhs.uk email addresses are accepted.');
+      return;
+    }
+    f.signInWithEmailLink(f.auth, email, window.location.href).then(() => {
+      window.localStorage.removeItem('upullEmailForSignIn');
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }).catch(err => {
+      console.error('Email link sign-in failed:', err);
+      alert('That sign-in link is invalid or has expired (' + err.code + '). Please request a new one.');
+    });
+  }
+
   // ══ AUTHENTICATION ══
   function signInWithGoogle() {
     const f = fb();
@@ -1181,6 +1255,14 @@
   }
 
   function updateAuthUI(user) {
+    // NHS domain gate — applies no matter which sign-in method was used.
+    if (user && !isAllowedEmail(user.email)) {
+      const f = fb();
+      if (f) f.signOut(f.auth);
+      setNhsEmailStatusCommunity('That account (' + (user.email || 'no email') + ') is not an @nhs.net or @nhs.uk address, so it has been signed out.', true);
+      return;
+    }
+
     currentUser = user;
     isAdmin = false;
     const signedOutEl = document.getElementById('authSignedOut');
@@ -1615,6 +1697,7 @@
     const f = fb();
     if (!f) return;
 
+    completeEmailLinkSignInIfNeeded();
     f.onAuthStateChanged(f.auth, updateAuthUI);
 
     f.onSnapshot(f.query(f.collection(f.db, 'posts'), f.orderBy('createdAt', 'desc')), snapshot => {
