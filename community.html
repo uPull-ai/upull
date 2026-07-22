@@ -653,6 +653,7 @@
             <li><a href="#" onclick="switchView('landing'); closeAllSubmenus(); closeMobileNav(); return false;">Forum</a></li>
             <li><a href="academy.html#tab-learning">AI Learning</a></li>
             <li><a href="academy.html#tab-casestudies">Case Studies</a></li>
+            <li><a href="proving-ground.html">🧪 The Proving Ground</a></li>
           </ul>
         </li>
 
@@ -732,7 +733,7 @@
               <input type="email" id="nhsEmailInputCommunity" placeholder="you@nhs.net" style="padding:0.4rem 0.6rem; border:1.5px solid var(--border-color); border-radius:6px; font-size:0.82rem; width:170px;">
               <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="sendNhsSignInLinkCommunity()">Send link</button>
               <span style="font-size:0.8rem; color:var(--text-muted);">or</span>
-              <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="signInWithGoogle()" title="Requires a Google account whose email ends in @nhs.net or @nhs.uk">Sign in with Google</button>
+              <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="setSignInRole('learner'); signInWithGoogle();" title="Requires a Google account whose email ends in @nhs.net or @nhs.uk">Sign in with Google</button>
               <span id="nhsEmailStatusCommunity" style="font-size:0.78rem; font-weight:700; width:100%;"></span>
             </div>
             <div id="authSignedIn" style="display:none; align-items:center; gap:0.7rem; width:100%; justify-content:space-between;">
@@ -936,13 +937,21 @@
         </div>
       </div>
 
+      <div style="background:linear-gradient(135deg, var(--primary-navy), #1e3a5f); color:#fff; border-radius:10px; padding:1.3rem 1.5rem; margin-bottom:2.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <div>
+          <strong style="font-size:1rem;">🧪 Have a solution to prove?</strong>
+          <p style="font-size:0.85rem; opacity:0.9; margin-top:0.3rem; max-width:60ch;">Submit it to The Proving Ground for compliance verification, NHS-verified ratings, and a link to the courses that teach people how to evaluate and deploy it.</p>
+        </div>
+        <a href="proving-ground.html" class="cta-btn" style="background:#fff; color:var(--primary-navy); flex-shrink:0;">Visit The Proving Ground →</a>
+      </div>
+
       <h3 style="color: var(--primary-navy); margin-bottom: 0.5rem; font-size: 1.5rem;">4. Vendor Update Feed</h3>
       <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 70ch;">A live channel for vendors and suppliers to share product updates, integration notes, and news directly with the community. Tag each update by AI type so members can filter to what's relevant to them.</p>
 
       <div id="vendorAuthBar" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:0.75rem 1rem; margin-bottom:1rem;">
         <div id="vendorAuthSignedOut" style="display:flex; align-items:center; gap:0.6rem;">
           <span style="font-size:0.88rem; color:var(--text-muted);">Sign in to post an update as a vendor.</span>
-          <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="signInWithGoogle()">Sign in with Google</button>
+          <button class="cta-btn" style="padding:0.4rem 0.9rem; font-size:0.85rem;" onclick="signInAsVendor()">Sign in with Google</button>
         </div>
         <div id="vendorAuthSignedIn" style="display:none; align-items:center; gap:0.7rem; width:100%; justify-content:space-between;">
           <span style="font-size:0.88rem; font-weight:600; color:var(--text-dark);" id="vendorAuthName"></span>
@@ -1168,6 +1177,24 @@
     window.scrollTo(0, 0);
   }
 
+  // ══ SIGN-IN ROLE ══
+  // The NHS domain gate below only applies to the "learner/leader" role.
+  // Vendors (a different persona — they use company emails, not nhs.net)
+  // explicitly opt out of the gate by signing in through the vendor
+  // button, which sets this flag first. Stored in localStorage so it
+  // survives navigation to academy.html / proving-ground.html, since all
+  // three pages share one Firebase Auth session.
+  function setSignInRole(role) {
+    window.localStorage.setItem('upullUserRole', role);
+  }
+  function getSignInRole() {
+    return window.localStorage.getItem('upullUserRole') || 'learner';
+  }
+  function signInAsVendor() {
+    setSignInRole('vendor');
+    signInWithGoogle();
+  }
+
   // ══ NHS EMAIL DOMAIN GATE ══
   // Only @nhs.net / @nhs.uk addresses may hold a profile. This client-side
   // check is defence in depth — the real gate is the Firestore Security
@@ -1187,6 +1214,7 @@
   }
 
   function sendNhsSignInLinkCommunity() {
+    setSignInRole('learner');
     const f = fb();
     if (!f) { setNhsEmailStatusCommunity('Still connecting — please wait a second and try again.', true); return; }
     const input = document.getElementById('nhsEmailInputCommunity');
@@ -1213,6 +1241,7 @@
     const f = fb();
     if (!f) return;
     if (!f.isSignInWithEmailLink(f.auth, window.location.href)) return;
+    setSignInRole('learner');
 
     let email = window.localStorage.getItem('upullEmailForSignIn');
     if (!email) {
@@ -1255,8 +1284,10 @@
   }
 
   function updateAuthUI(user) {
-    // NHS domain gate — applies no matter which sign-in method was used.
-    if (user && !isAllowedEmail(user.email)) {
+    // NHS domain gate — only applies to the learner/leader role. Vendors
+    // sign in via signInAsVendor(), which sets role='vendor' first, so
+    // their company email is intentionally exempt.
+    if (user && getSignInRole() !== 'vendor' && !isAllowedEmail(user.email)) {
       const f = fb();
       if (f) f.signOut(f.auth);
       setNhsEmailStatusCommunity('That account (' + (user.email || 'no email') + ') is not an @nhs.net or @nhs.uk address, so it has been signed out.', true);
