@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>uPull.ai Weekly — Newsletter Archive</title>
+  <meta name="description" content="Every issue of uPull.ai Weekly — AI in Agentic, Robotics, Ambient and Clinical AI, plus free NHS learning opportunities. Subscribe to get it in your inbox.">
+  <meta property="og:title" content="uPull.ai Weekly — Newsletter Archive">
+  <meta property="og:description" content="Every issue of uPull.ai Weekly, in one place. Subscribe to get it in your inbox.">
+  <meta property="og:image" content="https://picsum.photos/seed/upull-weekly-archive/1200/630">
+  <meta property="og:type" content="website">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;scroll-behavior:smooth}
+    body{background:#F8FAFC;color:#1E293B;line-height:1.6}
+    :root{
+      --navy:#0A192F;--blue:#005EB8;--blue-rgb:0,94,184;--orange:#E65F2B;--orange-hover:#c54f20;--bg:#F8FAFC;
+      --card:#ffffff;--muted:#64748B;--border:#E2E8F0;
+      --agentic:#7c3aed;--ambient:#0284c7;--clinical:#0d9488;--robotic:#dc2626;--learning:#b45309;
+    }
+    header{background:var(--navy);padding:1rem 5%;position:sticky;top:0;z-index:1000;border-bottom:3px solid var(--blue);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
+    .nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:.5rem}
+    .nav-right{display:flex;align-items:center;gap:18px}
+    .logo{color:#fff;font-size:1.6rem;font-weight:800;text-decoration:none;letter-spacing:-0.5px}
+    .logo span{color:var(--orange)}
+    .logo-tag{font-size:.8rem;background:rgba(255,255,255,.1);padding:.2rem .5rem;border-radius:4px;margin-left:.5rem;vertical-align:middle;color:#cbd5e1}
+    .nav-menu{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+    .nav-item{position:relative}
+    .nav-link-item{display:flex;align-items:center;gap:6px;padding:.6rem .9rem;border-radius:999px;background:none;border:none;cursor:pointer;color:#fff;font-size:.9rem;font-weight:600;font-family:inherit;transition:color .2s,background .2s}
+    .nav-link-item:hover,.nav-item.open>.nav-link-item,.nav-link-item.active-tab{color:var(--orange);background:rgba(255,255,255,.08)}
+    .nav-chevron{width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-2px;transition:transform .2s}
+    .nav-item.open .nav-chevron{transform:rotate(-135deg);margin-top:2px}
+    .nav-submenu{list-style:none;margin:0;position:absolute;top:calc(100% + 10px);left:0;min-width:230px;padding:.5rem;border-radius:12px;background:var(--navy);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--blue);box-shadow:0 20px 40px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .18s ease,transform .18s ease,visibility .18s;z-index:1100}
+    .nav-item.open>.nav-submenu,.nav-item:hover>.nav-submenu{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-submenu li a{display:block;padding:.6rem .75rem;border-radius:8px;color:#cbd5e1;text-decoration:none;font-size:.85rem;font-weight:500;transition:background .15s,color .15s}
+    .nav-submenu li a:hover{background:rgba(var(--blue-rgb),.28);color:#fff}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#fff;margin:4px 0;transition:.25s}
+    .nav-toggle.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav-toggle.active span:nth-child(2){opacity:0}
+    .nav-toggle.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    @media(max-width:767px){
+      .nav-toggle{display:block}
+      .nav-menu{display:none;position:fixed;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;background:var(--navy);padding:.9rem 1.25rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.14);max-height:calc(100vh - 68px);overflow-y:auto;z-index:999}
+      .nav-menu.mobile-open{display:flex}
+      .nav-link-item{width:100%;justify-content:space-between}
+      .nav-submenu{position:static;opacity:1;visibility:visible;transform:none;display:none;box-shadow:none;background:rgba(255,255,255,.05);margin:.25rem 0 .5rem}
+      .nav-item.open>.nav-submenu{display:block}
+    }
+    .breadcrumb{background:#eef2f7;border-bottom:1px solid var(--border);padding:.55rem 5%}
+    .breadcrumb-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+    .breadcrumb-inner a{color:var(--blue);text-decoration:none;font-weight:600}
+    .breadcrumb-inner a:hover{color:var(--orange)}
+    .breadcrumb-inner .bc-sep{color:#94a3b8}
+    .breadcrumb-inner .bc-current{color:var(--navy);font-weight:700}
+    .cta-btn{background:var(--orange);color:#fff;padding:.55rem 1.2rem;border-radius:5px;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .1s;text-decoration:none;display:inline-block;font-size:.88rem;white-space:nowrap}
+    .cta-btn:hover{background:var(--orange-hover);transform:translateY(-1px)}
+    main{max-width:1000px;margin:0 auto;padding:0 5%}
+    section{padding:2.5rem 0;border-bottom:1px solid var(--border)}
+    .section-title{font-size:1.7rem;color:var(--navy);margin-bottom:.4rem;font-weight:800}
+    .section-subtitle{color:var(--muted);font-size:.95rem;max-width:700px;margin-bottom:2rem;line-height:1.55}
+
+    .hero-strip{background:linear-gradient(135deg,var(--navy) 0%,#1e3a5f 100%);color:#fff;padding:2.5rem 2rem;border-radius:12px;margin-top:1.5rem}
+    .hero-strip h1{font-size:2.1rem;font-weight:900;line-height:1.2;margin-bottom:.6rem}
+    .hero-strip h1 span{color:var(--orange)}
+    .hero-strip p{opacity:.9;max-width:600px;margin-bottom:1.3rem}
+
+    .subscribe-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.8rem}
+    @media(min-width:600px){.subscribe-box{flex-direction:row;align-items:center;justify-content:space-between}}
+    .subscribe-box strong{font-size:.95rem}
+    .subscribe-form{display:flex;gap:.5rem;flex-wrap:wrap}
+    .subscribe-form input{padding:.6rem .9rem;border-radius:6px;border:none;font-size:.88rem;min-width:220px;outline:none}
+    .subscribe-status{font-size:.78rem;font-weight:700;margin-top:.4rem}
+
+    .issue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+    .issue-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit}
+    .issue-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+    .issue-card img{width:100%;height:150px;object-fit:cover;display:block}
+    .issue-card-body{padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .issue-date{font-size:.72rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.03em}
+    .issue-title{font-size:1.02rem;font-weight:800;color:var(--navy);line-height:1.3}
+    .issue-teaser{font-size:.84rem;color:var(--muted);line-height:1.5}
+    .issue-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+    .issue-tag{padding:.2rem .55rem;border-radius:20px;font-size:.68rem;font-weight:700;color:#fff}
+    .issue-tag.agentic{background:var(--agentic)}
+    .issue-tag.robotic{background:var(--robotic)}
+    .issue-tag.ambient{background:var(--ambient)}
+    .issue-tag.clinical{background:var(--clinical)}
+    .issue-read-link{font-size:.82rem;font-weight:700;color:var(--blue)}
+    .empty-note{text-align:center;color:var(--muted);padding:2rem;font-size:.9rem;border:2px dashed var(--border);border-radius:10px}
+
+    footer{background:#09111e;color:#94a3b8;padding:2rem 5%;text-align:center;font-size:.85rem;margin-top:1rem}
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+    import {
+      getFirestore, doc, setDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_JuhH9_uWC0N_DhvE91mzu_J-SNdpn5w",
+      authDomain: "upull-ai.firebaseapp.com",
+      projectId: "upull-ai",
+      storageBucket: "upull-ai.firebasestorage.app",
+      messagingSenderId: "990867041040",
+      appId: "1:990867041040:web:7cf2cb3e810228d2fc5395",
+      measurementId: "G-KBVSDPY9NL"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.__firebase = { db, doc, setDoc, serverTimestamp };
+    window.__firebaseReady = true;
+    window.dispatchEvent(new Event('firebaseReady'));
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <a href="index.html" class="logo">uPull<span>.ai</span><span class="logo-tag">Weekly</span></a>
+    <div class="nav-right">
+      <nav aria-label="Primary">
+      <ul class="nav-menu" id="navMenu">
+
+        <li class="nav-item">
+          <button class="nav-link-item" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">
+            Strategic Core <span class="nav-chevron" aria-hidden="true"></span>
+          </button>
+          <ul class="nav-submenu">
+            <li><a href="index.html#problem">Challenge</a></li>
+            <li><a href="index.html#approach">Model</a></li>
+            <li><a href="index.html#results">Results</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <button class="nav-link-item active-tab" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">
+            Community <span class="nav-chevron" aria-hidden="true"></span>
+          </button>
+          <ul class="nav-submenu">
+            <li><a href="community.html">Community Forum</a></li>
+            <li><a href="academy.html#tab-learning">uGrowX</a></li>
+            <li><a href="community.html#ucollabx">🧪 uCollabX</a></li>
+            <li><a href="community.html#vendors">Suppliers &amp; Vendors</a></li>
+            <li><a href="newsletter-archive.html" style="color:#fff">📰 uPull.ai Weekly</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <button class="nav-link-item" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">
+            FAQs <span class="nav-chevron" aria-hidden="true"></span>
+          </button>
+          <ul class="nav-submenu">
+            <li><a href="faqs.html#about">About uPull.ai</a></li>
+            <li><a href="faqs.html#pilot">Pilot &amp; ROI</a></li>
+            <li><a href="faqs.html#governance">Safety &amp; Governance</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      </nav>
+      <a href="mailto:info@upull.ai" class="cta-btn">Proof of Value</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">›</span>
+    <a href="community.html">Community</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">uPull.ai Weekly Archive</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="hero-strip">
+    <h1>uPull.ai <span>Weekly</span> Archive</h1>
+    <p>Every issue in one place — AI in Agentic, Robotics, Ambient and Clinical AI, plus free NHS learning opportunities, delivered weekly.</p>
+    <div class="subscribe-box">
+      <div>
+        <strong>📬 Subscribe to get it in your inbox</strong>
+      </div>
+      <div>
+        <form class="subscribe-form" onsubmit="event.preventDefault(); subscribeToNewsletter();">
+          <input type="email" id="subscribeEmail" placeholder="you@nhs.net" required>
+          <button type="submit" class="cta-btn">Subscribe</button>
+        </form>
+        <p class="subscribe-status" id="subscribeStatus"></p>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="section-title">All issues</h2>
+    <p class="section-subtitle">New issues are added every week. Use "Unsubscribe" in the footer of any issue if you'd rather stop receiving these.</p>
+
+    <div class="issue-grid">
+      <a href="/news/weekly20260714.html" class="issue-card">
+        <img src="https://picsum.photos/seed/upull-weekly-hero/500/300" alt="uPull.ai Weekly, 14–20 July 2026">
+        <div class="issue-card-body">
+          <span class="issue-date">Week of 14–20 July 2026</span>
+          <div class="issue-title">Agents as co-workers, sim-to-real robotics gains, and ambient hospital pilots</div>
+          <p class="issue-teaser">Agentic AI moves into enterprise workflows, robotics teams improve sim-to-real transfer, ambient intelligence becomes infrastructure, and MHRA tightens SaMD guidance.</p>
+          <div class="issue-tags">
+            <span class="issue-tag agentic">Agentic</span>
+            <span class="issue-tag robotic">Robotics</span>
+            <span class="issue-tag ambient">Ambient</span>
+            <span class="issue-tag clinical">Clinical</span>
+          </div>
+          <span class="issue-read-link">Read this issue →</span>
+        </div>
+      </a>
+    </div>
+
+    <!--
+      TO ADD A NEW ISSUE: build the next weeklyYYYYMMDD.html page using
+      this same theme, then copy the <a class="issue-card"> block above,
+      update the href, image seed, date, title, teaser and tags, and add
+      it to the top of this grid (newest first).
+    -->
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>uPull<span style="color:var(--orange)">.</span>ai</strong> Weekly Archive · Curated AI news for health and care teams</p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">© 2026 uPull.ai Ltd. All rights reserved.</p>
+</footer>
+
+<script>
+function toggleSubmenu(btn) {
+  const item = btn.closest('.nav-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.nav-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.nav-link-item')?.setAttribute('aria-expanded','false'); });
+  if (!wasOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
+document.addEventListener('click', e => { if (!e.target.closest('.nav-item')) document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open')); });
+function toggleMobileNav() {
+  const menu = document.getElementById('navMenu');
+  const toggle = document.getElementById('navToggle');
+  const isOpen = menu.classList.toggle('mobile-open');
+  toggle.classList.toggle('active', isOpen);
+  toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function fbNewsletter() {
+  if (!window.__firebase) return null;
+  return window.__firebase;
+}
+function emailDocId(email) {
+  return email.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+async function subscribeToNewsletter() {
+  const statusEl = document.getElementById('subscribeStatus');
+  const email = (document.getElementById('subscribeEmail')?.value || '').trim();
+  if (!isValidEmail(email)) {
+    statusEl.style.color = '#fca5a5';
+    statusEl.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  const f = fbNewsletter();
+  if (!f) {
+    statusEl.style.color = '#fca5a5';
+    statusEl.textContent = 'Still connecting — please wait a second and try again.';
+    return;
+  }
+  try {
+    await f.setDoc(f.doc(f.db, 'newsletterSubscribers', emailDocId(email)), {
+      email, status: 'active', subscribedAt: f.serverTimestamp()
+    }, { merge: true });
+    statusEl.style.color = '#bbf7d0';
+    statusEl.textContent = "You're subscribed — thanks for reading.";
+    document.getElementById('subscribeEmail').value = '';
+  } catch (err) {
+    console.error('Subscribe failed:', err);
+    statusEl.style.color = '#fca5a5';
+    statusEl.textContent = 'Something went wrong. Please try again.';
+  }
+}
+</script>
+</body>
+</html>
