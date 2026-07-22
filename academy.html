@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>uPull.ai — Learning Hub & Case Studies</title>
+  <title>uPull.ai — Learning Academy, Pathways &amp; CPD</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;scroll-behavior:smooth}
     body{background:#F8FAFC;color:#1E293B;line-height:1.6}
@@ -11,7 +11,7 @@
       --navy:#0A192F;--blue:#005EB8;--blue-rgb:0,94,184;--orange:#E65F2B;--orange-hover:#c54f20;--bg:#F8FAFC;
       --card:#ffffff;--muted:#64748B;--border:#E2E8F0;
       --clinical:#0d9488;--operational:#ea580c;--vendor:#6366f1;
-      --agentic:#7c3aed;--ambient:#0284c7;--clinical-tag:#0d9488;--robotic:#dc2626;
+      --agentic:#7c3aed;--ambient:#0284c7;--clinical-tag:#0d9488;--robotic:#dc2626;--intrapreneur:#b45309;
     }
     header{background:var(--navy);padding:1rem 5%;position:sticky;top:0;z-index:1000;border-bottom:3px solid var(--blue);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
     .nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:.5rem}
@@ -97,6 +97,7 @@
     .pill-clinical.active{background:var(--clinical-tag)}
     .pill-robotic.active{background:var(--robotic)}
     .pill-operational.active{background:var(--operational)}
+    .pill-intrapreneur.active{background:var(--intrapreneur)}
     .pill-free.active{background:#16a34a}
     .search-wrap{flex:1;min-width:220px;max-width:380px;position:relative}
     .search-wrap input{width:100%;padding:.55rem 1rem .55rem 2.4rem;border:2px solid var(--border);border-radius:8px;font-size:.9rem;outline:none;transition:border .2s}
@@ -113,10 +114,12 @@
     .tag-clinical{background:var(--clinical-tag)}
     .tag-robotic{background:var(--robotic)}
     .tag-operational{background:var(--operational)}
+    .tag-intrapreneur{background:var(--intrapreneur)}
     .tag-free{background:#16a34a}
     .tag-paid{background:#6b7280}
     .tag-beginner{background:#0ea5e9}
     .tag-intermediate{background:#f59e0b}
+    .tag-advanced{background:#9333ea}
     .course-provider{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;margin-bottom:.3rem}
     .course-title{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.3}
     .course-desc{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:.7rem}
@@ -193,7 +196,223 @@
     .path-card.intermediate{background:linear-gradient(135deg,var(--orange),#b45309)}
     .path-card h3{font-size:1.2rem;font-weight:900}
     .path-card p{font-size:.85rem;opacity:.9}
+
+    /* ══════════════════ NEW: ACADEMY PORTAL ADDITIONS ══════════════════ */
+    /* Shared "how it works" info cards */
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    @media(max-width:850px){.info-grid{grid-template-columns:1fr}}
+    .info-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:transform .2s,box-shadow .2s}
+    .info-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+    .info-card .info-num{display:inline-block;background:var(--navy);color:#fff;font-size:.72rem;font-weight:800;padding:.2rem .55rem;border-radius:20px;margin-bottom:.6rem}
+    .info-card h3{color:var(--navy);font-size:1.05rem;margin-bottom:.4rem}
+    .info-card p{color:var(--muted);font-size:.86rem;line-height:1.55}
+
+    /* CPD explainer */
+    .cpd-box{background:linear-gradient(135deg,var(--navy) 0%,#1e3a5f 100%);color:#fff;border-radius:12px;padding:2rem;display:flex;flex-direction:column;gap:1rem}
+    @media(min-width:768px){.cpd-box{flex-direction:row;align-items:center;justify-content:space-between}}
+    .cpd-box .cpd-text{flex:1}
+    .cpd-box h2{color:#fff;text-align:left;font-size:1.6rem;margin-bottom:.5rem}
+    .cpd-box p{color:#cbd5e1;font-size:.92rem;line-height:1.6;max-width:640px}
+    .cpd-facts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.9rem}
+    .cpd-fact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:.35rem .8rem;border-radius:20px;font-size:.78rem;font-weight:600}
+    .cpd-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,25,47,.72);z-index:2100;align-items:flex-start;justify-content:center;padding:4vh 1rem;overflow-y:auto}
+    .cpd-modal-overlay.open{display:flex}
+    .cpd-modal{background:#fff;border-radius:14px;max-width:700px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.4);margin-bottom:4vh}
+    .cpd-modal-header{background:var(--navy);color:#fff;padding:1.4rem 1.75rem;border-radius:14px 14px 0 0;position:sticky;top:0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+    .cpd-modal-header h2{color:#fff;text-align:left;font-size:1.3rem;margin:0}
+    .cpd-modal-close{background:rgba(255,255,255,.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;flex-shrink:0;line-height:1;display:flex;align-items:center;justify-content:center}
+    .cpd-modal-close:hover{background:rgba(255,255,255,.25)}
+    .cpd-modal-body{padding:1.75rem}
+    .cpd-modal-body h4{color:var(--blue);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;margin:1.2rem 0 .4rem}
+    .cpd-modal-body h4:first-child{margin-top:0}
+    .cpd-modal-body p,.cpd-modal-body li{color:var(--navy);font-size:.92rem;line-height:1.6}
+    .cpd-modal-body ul{padding-left:1.2rem;margin-top:.3rem}
+    .cpd-credit-table{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.85rem}
+    .cpd-credit-table th,.cpd-credit-table td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--border)}
+    .cpd-credit-table th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
+
+    /* Dynamic pathway chooser (quiz) */
+    .quiz-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:850px){.quiz-layout{grid-template-columns:1fr}}
+    .quiz-panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.75rem}
+    .quiz-panel.recommend{background:linear-gradient(180deg,#eef4fb,#fff)}
+    .quiz-q{margin-bottom:1.4rem}
+    .quiz-q h4{color:var(--navy);font-size:.95rem;margin-bottom:.6rem}
+    .chip-row{display:flex;flex-wrap:wrap;gap:.5rem}
+    .chip{padding:.5rem 1rem;border-radius:20px;font-size:.82rem;font-weight:700;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .2s}
+    .chip.active{color:#fff;border-color:var(--blue);background:var(--blue)}
+    .rec-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+    @media(max-width:500px){.rec-card-grid{grid-template-columns:1fr}}
+    .rec-mini-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.8rem .9rem}
+    .rec-mini-card strong{display:block;color:var(--navy);font-size:.82rem;margin-bottom:.2rem}
+    .rec-mini-card span{color:var(--muted);font-size:.8rem}
+
+    /* Pathway explorer: left menu + right dynamic panel */
+    .explorer-layout{display:grid;grid-template-columns:230px 1fr;gap:1.5rem;align-items:start}
+    @media(max-width:800px){.explorer-layout{grid-template-columns:1fr}}
+    .explorer-menu{display:flex;flex-direction:column;gap:.5rem;position:sticky;top:90px}
+    @media(max-width:800px){.explorer-menu{position:static;flex-direction:row;flex-wrap:wrap}}
+    .explorer-btn{text-align:left;padding:.8rem 1rem;border-radius:8px;border:2px solid var(--border);background:#fff;font-weight:700;font-size:.88rem;color:var(--muted);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.5rem}
+    .explorer-btn:hover{border-color:var(--blue)}
+    .explorer-btn.active{color:#fff;border-color:transparent}
+    .explorer-btn[data-cat="agentic"].active{background:var(--agentic)}
+    .explorer-btn[data-cat="clinical"].active{background:var(--clinical-tag)}
+    .explorer-btn[data-cat="robotic"].active{background:var(--robotic)}
+    .explorer-btn[data-cat="ambient"].active{background:var(--ambient)}
+    .explorer-panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.75rem;border-top:5px solid var(--border);transition:border-color .25s}
+    .explorer-panel .ep-eyebrow{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+    .explorer-panel h3{color:var(--navy);font-size:1.4rem;margin-bottom:.4rem}
+    .explorer-panel .ep-desc{color:var(--muted);font-size:.92rem;margin-bottom:1rem;max-width:70ch}
+    .ep-audience{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.4rem}
+
+    /* Graphical step pathway */
+    .step-track{display:flex;align-items:stretch;gap:0;margin:1.2rem 0 1.6rem;overflow-x:auto;padding-bottom:.4rem}
+    .step-node{flex:1;min-width:150px;position:relative;padding:0 .6rem;text-align:center}
+    .step-node:not(:last-child)::after{content:'';position:absolute;top:22px;right:-8%;width:16%;height:3px;background:var(--border)}
+    .step-circle{width:44px;height:44px;border-radius:50%;background:var(--bg);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto .5rem;font-weight:800;font-size:.95rem;color:var(--muted)}
+    .step-node.done .step-circle{background:var(--blue);border-color:var(--blue);color:#fff}
+    .step-label{font-size:.76rem;font-weight:700;color:var(--navy)}
+    .step-sub{font-size:.68rem;color:var(--muted)}
+    @media(max-width:700px){.step-track{flex-direction:column;gap:1rem}.step-node::after{display:none}}
+
+    .pathway-course-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:700px){.pathway-course-list{grid-template-columns:1fr}}
+    .pathway-course-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem}
+    .pathway-course-item strong{display:block;color:var(--navy);font-size:.92rem;margin-bottom:.5rem}
+    .pathway-course-item dl{margin:0;display:grid;grid-template-columns:118px 1fr;gap:.4rem .6rem;font-size:.8rem}
+    .pathway-course-item dt{color:var(--muted);font-weight:700}
+    .pathway-course-item dd{margin:0;color:var(--navy)}
+    .pathway-course-item .pci-footer{margin-top:.6rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+
+    /* Intrapreneur timeline */
+    .timeline{display:flex;flex-direction:column;gap:0;margin-top:1.5rem}
+    .timeline-stage{display:grid;grid-template-columns:44px 1fr;gap:1rem;position:relative}
+    .timeline-stage .tl-dot-col{display:flex;flex-direction:column;align-items:center}
+    .timeline-stage .tl-dot{width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+    .timeline-stage .tl-line{flex:1;width:3px;background:var(--border);margin:.3rem 0}
+    .timeline-stage:last-child .tl-line{display:none}
+    .timeline-content{padding-bottom:2rem}
+    .timeline-content h4{color:var(--navy);font-size:1.05rem;margin-bottom:.2rem}
+    .timeline-content .tl-meta{color:var(--muted);font-size:.8rem;margin-bottom:.7rem}
+    .tl-course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem}
+    .tl-course{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.85rem .95rem}
+    .tl-course .tl-provider{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:.2rem}
+    .tl-course .tl-title{font-size:.86rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3}
+    .tl-course .tl-desc{font-size:.78rem;color:var(--muted);line-height:1.45;margin-bottom:.5rem}
+    .tl-course .tl-foot{display:flex;justify-content:space-between;align-items:center;gap:.4rem;flex-wrap:wrap}
+
+    /* Leaderboards */
+    .lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:800px){.lb-grid{grid-template-columns:1fr}}
+    .lb-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+    .lb-card h3{color:var(--navy);font-size:1.1rem;margin-bottom:.2rem}
+    .lb-card .lb-sub{color:var(--muted);font-size:.82rem;margin-bottom:1rem}
+    .lb-table{width:100%;border-collapse:collapse}
+    .lb-table th,.lb-table td{text-align:left;padding:.55rem .5rem;border-bottom:1px solid var(--border);font-size:.85rem}
+    .lb-table th{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+    .lb-rank{font-weight:800;color:var(--navy);width:2.2rem}
+    .lb-you{background:#fff7ed}
+    .lb-note{font-size:.76rem;color:var(--muted);margin-top:.8rem}
+
+    /* Community teaser */
+    .community-teaser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    @media(max-width:850px){.community-teaser-grid{grid-template-columns:1fr}}
+    .community-teaser-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.3rem;display:flex;flex-direction:column;gap:.5rem}
+    .community-teaser-card .ctc-tag{align-self:flex-start}
+    .community-teaser-card h4{color:var(--navy);font-size:.98rem}
+    .community-teaser-card p{color:var(--muted);font-size:.85rem;line-height:1.5;flex:1}
+    .community-cta-row{display:flex;justify-content:center;margin-top:1.6rem}
+
+    /* Login / profile */
+    .login-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start}
+    @media(max-width:850px){.login-layout{grid-template-columns:1fr}}
+    .login-panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.75rem}
+    .login-panel h3{color:var(--navy);font-size:1.15rem;margin-bottom:.4rem}
+    .role-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1rem}
+    @media(max-width:600px){.role-mini-grid{grid-template-columns:1fr}}
+    .role-mini-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.9rem;font-size:.8rem;color:var(--muted)}
+    .role-mini-card strong{display:block;color:var(--navy);margin-bottom:.25rem;font-size:.86rem}
+    .google-btn{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.75rem 1rem;border-radius:8px;border:2px solid var(--border);background:#fff;font-weight:700;font-size:.9rem;color:var(--navy);cursor:pointer;transition:all .2s}
+    .google-btn:hover{border-color:var(--blue);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+    .profile-card{display:flex;align-items:center;gap:1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:1rem}
+    .profile-avatar{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;flex-shrink:0;object-fit:cover}
+    .profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1rem}
+    .profile-stat{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.7rem;text-align:center}
+    .profile-stat strong{display:block;color:var(--blue);font-size:1.4rem}
+    .profile-stat span{font-size:.72rem;color:var(--muted);text-transform:uppercase;font-weight:700}
+    .org-input-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+    .org-input-row input{flex:1;min-width:180px;padding:.55rem .8rem;border:2px solid var(--border);border-radius:8px;font-size:.85rem;outline:none}
+    .org-input-row input:focus{border-color:var(--blue)}
+    .org-input-row button{white-space:nowrap}
+    .badge-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+    .badge-pill{display:flex;align-items:center;gap:.3rem;background:#fff;border:2px solid var(--border);border-radius:20px;padding:.3rem .7rem;font-size:.75rem;font-weight:700;color:var(--muted)}
+    .badge-pill.earned{border-color:var(--orange);color:var(--orange)}
+    .header-points{display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.35rem .8rem;border-radius:20px;font-size:.78rem;font-weight:700}
+    .points-toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:.85rem 1.2rem;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:.85rem;font-weight:700;z-index:3000;opacity:0;transform:translateY(12px);transition:all .25s;pointer-events:none}
+    .points-toast.show{opacity:1;transform:translateY(0)}
+    .mark-complete-btn{font-size:.72rem;padding:.3rem .7rem}
+    .mark-complete-btn.done{background:#16a34a;pointer-events:none}
+
+    /* ══ NEW LAYOUT: two-column shell with section nav + sticky login sidebar ══ */
+    .academy-shell{display:grid;grid-template-columns:1fr 300px;gap:1.75rem;align-items:start;margin-top:1.5rem}
+    @media(max-width:900px){.academy-shell{grid-template-columns:1fr}}
+    .academy-content{min-width:0}
+    .section-nav{display:flex;gap:.35rem;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-radius:10px;padding:.5rem;margin-bottom:1.75rem;position:sticky;top:78px;z-index:80;box-shadow:0 4px 10px rgba(0,0,0,.03)}
+    @media(max-width:767px){.section-nav{position:static}}
+    .section-nav-btn{padding:.6rem .95rem;border-radius:7px;border:none;background:none;font-weight:700;font-size:.83rem;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.35rem;font-family:inherit}
+    .section-nav-btn:hover{background:var(--bg);color:var(--navy)}
+    .section-nav-btn.active{background:var(--navy);color:#fff}
+    .academy-view{display:none}
+    .academy-view.active-view{display:block}
+    .academy-sidebar{min-width:0}
+    .sidebar-sticky{position:sticky;top:135px;display:flex;flex-direction:column;gap:1.1rem}
+    @media(max-width:900px){.sidebar-sticky{position:static;margin-top:2rem}}
+    .sidebar-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.2rem}
+    .sidebar-card h4{color:var(--navy);font-size:.95rem;margin-bottom:.5rem}
   </style>
+  <script type="module">
+    // Shared Firebase project with community.html — signing in here or on the
+    // Community hub gives the same profile, points and organisation record
+    // on both pages (same authDomain, same Firestore project).
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, increment, arrayUnion,
+      collection, query, orderBy, limit, onSnapshot
+    } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
+      sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink
+    } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_JuhH9_uWC0N_DhvE91mzu_J-SNdpn5w",
+      authDomain: "upull-ai.firebaseapp.com",
+      projectId: "upull-ai",
+      storageBucket: "upull-ai.firebasestorage.app",
+      messagingSenderId: "990867041040",
+      appId: "1:990867041040:web:7cf2cb3e810228d2fc5395",
+      measurementId: "G-KBVSDPY9NL"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    // Only these email domains may hold an academy/community profile.
+    // Shared with community.html — keep both lists identical.
+    window.__ALLOWED_EMAIL_DOMAINS = ['nhs.net', 'nhs.uk'];
+
+    window.__firebase = {
+      db, auth, googleProvider,
+      doc, getDoc, setDoc, updateDoc, increment, arrayUnion,
+      collection, query, orderBy, limit, onSnapshot,
+      signInWithPopup, signOut, onAuthStateChanged,
+      sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink
+    };
+    window.__firebaseReady = true;
+    window.dispatchEvent(new Event('firebaseReady'));
+  </script>
 </head>
 <body>
 
@@ -222,9 +441,13 @@
             Community <span class="nav-chevron" aria-hidden="true"></span>
           </button>
           <ul class="nav-submenu">
-            <li><a href="community.html">Forum</a></li>
-            <li><a href="#" onclick="jumpToTab('learning'); return false;">AI Learning</a></li>
+            <li><a href="community.html">Community Forum</a></li>
+            <li><a href="#" onclick="showSection('chooser'); closeAllSubmenus(); closeMobileNav(); return false;">Learning Pathways</a></li>
+            <li><a href="#" onclick="showSection('intrapreneur'); closeAllSubmenus(); closeMobileNav(); return false;">Intrapreneur Route</a></li>
             <li><a href="#" onclick="jumpToTab('casestudies'); return false;">Case Studies</a></li>
+            <li><a href="#" onclick="showSection('scores'); closeAllSubmenus(); closeMobileNav(); return false;">Score Tables</a></li>
+            <li><a href="community.html#vendors">Suppliers &amp; Vendors</a></li>
+            <li><a href="community.html#ucollabx">🧪 uCollabX</a></li>
           </ul>
         </li>
 
@@ -245,7 +468,10 @@
 
       </ul>
       </nav>
-      <!-- 4. PROOF OF VALUE -->
+      <!-- 4. LOG IN / POINTS -->
+      <span class="header-points hidden" id="headerPoints">⭐ 0 pts</span>
+      <button class="cta-btn" id="headerLoginBtn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff" onclick="scrollToLogin()">Log in</button>
+      <!-- 5. PROOF OF VALUE -->
       <a href="mailto:info@upull.ai" class="cta-btn">Proof of Value</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()">
         <span></span><span></span><span></span>
@@ -260,20 +486,18 @@
     <span class="bc-sep">›</span>
     <a href="community.html">Community</a>
     <span class="bc-sep">›</span>
-    <span class="bc-current">Learning &amp; Case Studies</span>
+    <span class="bc-current">Learning Academy, Pathways &amp; CPD</span>
   </div>
 </div>
 
 <main>
   <div class="hero-strip">
     <div>
-      <h1>AI <span>Learning Hub</span> &amp; Case Studies</h1>
-      <p style="opacity:.9;margin-top:.4rem;max-width:560px">From zero to confident. Explore verified AI courses, real-world healthcare case studies, and filter by technology category — all in one place.</p>
-      <div class="hero-badges">
-        <span class="hero-badge">🎓 Beginner to Intermediate</span>
-        <span class="hero-badge">🏥 Healthcare-Focused</span>
-        <span class="hero-badge">🆓 Free &amp; Paid Courses</span>
-        <span class="hero-badge">📋 30 Case Studies</span>
+      <h1>AI <span>Learning Academy</span> &amp; CPD Portal</h1>
+      <p style="opacity:.9;margin-top:.4rem;max-width:600px">Start with a shared introduction to AI, then let a short diagnostic guide you into the Agentic, Clinical, Robotic or Ambience pathway. Every course carries recognised CPD credits, and free for NHS and public sector colleagues.</p>
+      <div class="hero-actions" style="margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap">
+        <a href="#" class="cta-btn" onclick="showSection('chooser'); return false;">Find my pathway →</a>
+        <a href="#" class="cta-btn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4)" onclick="showSection('library'); return false;">Browse the full library</a>
       </div>
     </div>
     <div style="flex-shrink:0;text-align:center">
@@ -282,79 +506,331 @@
     </div>
   </div>
 
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('learning', this)">🎓 AI Learning Courses</button>
-    <button class="tab-btn" onclick="switchTab('casestudies', this)">📋 Case Studies</button>
-  </div>
+  <div class="academy-shell">
+    <div class="academy-content">
 
-  <!-- LEARNING TAB -->
-  <div id="tab-learning" class="page-view active-view">
-    <section>
-      <h2 class="section-title">AI Learning Courses</h2>
-      <p class="section-subtitle">Curated courses for healthcare professionals — from absolute beginner to advanced AI implementation. Click any course to go directly to the provider.</p>
+      <!-- ══════════════ TOP-LEVEL SECTION NAVIGATION ══════════════ -->
+      <nav class="section-nav" aria-label="Academy sections">
+        <button class="section-nav-btn active" data-section="overview" onclick="showSection('overview')">📘 Overview &amp; CPD</button>
+        <button class="section-nav-btn" data-section="chooser" onclick="showSection('chooser')">🧭 Find My Pathway</button>
+        <button class="section-nav-btn" data-section="intrapreneur" onclick="showSection('intrapreneur')">🚀 Intrapreneur Route</button>
+        <button class="section-nav-btn" data-section="library" onclick="showSection('library')">📚 Course Library</button>
+        <button class="section-nav-btn" data-section="scores" onclick="showSection('scores')">🏆 Scores &amp; Community</button>
+      </nav>
 
-      <div class="path-cards">
-        <div class="path-card beginner">
-          <h3>🌱 Beginner Track</h3>
-          <p>No prior tech experience needed. Understand what AI is, how it works in healthcare, and how to safely use it in your daily role.</p>
+      <!-- ══════════════ VIEW 1: OVERVIEW + CPD ══════════════ -->
+      <div id="section-overview" class="academy-view active-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">How the academy works</h2>
+          <p class="section-subtitle">One shared starting point, a dynamic route into four specialist pathways, and recognised CPD credits that build your CV and progression story.</p>
+          <div class="info-grid">
+            <div class="info-card">
+              <span class="info-num">01</span>
+              <h3>🌱 Start with Introduction to AI</h3>
+              <p>Every learner and leader begins with the same shared foundation module — AI basics, ethics, governance and healthcare context — before branching into a specialist route.</p>
+            </div>
+            <div class="info-card">
+              <span class="info-num">02</span>
+              <h3>🧭 Dynamic pathway selector</h3>
+              <p>A short diagnostic looks at your goal, your role and what matters most to you, then recommends whether Agentic, Clinical, Robotic or Ambience is the best fit for the products or services you're designing.</p>
+            </div>
+            <div class="info-card">
+              <span class="info-num">03</span>
+              <h3>🏆 CPD, badges &amp; progression</h3>
+              <p>Every course lists its description, expectations, target audience, level and CPD credits — with recognition mapped to vendor certificates and other CPD systems to build your CV.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="cpd">
+          <h2 class="section-title">Understanding CPD</h2>
+          <p class="section-subtitle">Continuing Professional Development (CPD) credits earned in the academy are portable, recognised and designed to strengthen your CV and career progression.</p>
+          <div class="cpd-box">
+            <div class="cpd-text">
+              <h2>What is CPD, and how does it work here?</h2>
+              <p>CPD stands for Continuing Professional Development — the record of learning, reflection and practical activity that professionals use to maintain and evidence their skills over time. Every course and practical task here carries a set number of CPD credits, added to your personal record as you complete them.</p>
+              <div class="cpd-facts">
+                <span class="cpd-fact">📖 1 hour of learning ≈ 1 CPD credit</span>
+                <span class="cpd-fact">🔗 Mapped to vendor &amp; professional-body schemes</span>
+                <span class="cpd-fact">🆓 Free for NHS &amp; public sector learners</span>
+                <span class="cpd-fact">📄 Publicly verifiable certificates &amp; badges</span>
+              </div>
+            </div>
+            <button class="cta-btn" style="flex-shrink:0" onclick="openCPDModal()">Learn more about CPD →</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 2: FIND MY PATHWAY (quiz + explorer, one interactive flow) ══════════════ -->
+      <div id="section-chooser" class="academy-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">Find your best pathway</h2>
+          <p class="section-subtitle">Answer three quick questions — the pathway explorer below updates instantly to show your route, its graphical steps and its courses.</p>
+          <div class="quiz-layout">
+            <div class="quiz-panel">
+              <div class="quiz-q">
+                <h4>1. What are you designing or improving?</h4>
+                <div class="chip-row" data-group="goal">
+                  <button class="chip active" data-value="agentic">🤖 Workflow automation</button>
+                  <button class="chip" data-value="clinical">🩺 Clinical support</button>
+                  <button class="chip" data-value="robotic">🦾 Operational robotics</button>
+                  <button class="chip" data-value="ambient">🎙️ Ambient documentation</button>
+                </div>
+              </div>
+              <div class="quiz-q">
+                <h4>2. Who are you?</h4>
+                <div class="chip-row" data-group="role">
+                  <button class="chip active" data-value="leader">Leader</button>
+                  <button class="chip" data-value="developer">Developer</button>
+                  <button class="chip" data-value="clinician">Clinician</button>
+                </div>
+              </div>
+              <div class="quiz-q">
+                <h4>3. What matters most?</h4>
+                <div class="chip-row" data-group="priority">
+                  <button class="chip active" data-value="scale">Speed and scale</button>
+                  <button class="chip" data-value="safety">Safety and governance</button>
+                  <button class="chip" data-value="adoption">Team adoption</button>
+                  <button class="chip" data-value="experience">Staff experience</button>
+                </div>
+              </div>
+              <button class="cta-btn" type="button" onclick="recommendPath()" style="width:100%;text-align:center">Show my recommendation</button>
+            </div>
+
+            <div class="quiz-panel recommend" id="recommendationPanel">
+              <span class="tag tag-agentic" style="margin-bottom:.6rem">Recommended route</span>
+              <h3 style="color:var(--navy)">🤖 Agentic pathway</h3>
+              <p>Best for teams exploring orchestrated workflows, copilots and practical service automation with strong human oversight.</p>
+              <p style="font-size:.82rem;color:var(--muted)">↓ Full details, graphical steps and courses are shown below.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="pathways-explorer" style="border-top:1px dashed var(--border);padding-top:2rem">
+          <h2 class="section-title" style="font-size:1.5rem">Explore the pathway in detail</h2>
+          <p class="section-subtitle">Select any of the four pathways to see its graphical route and courses — the panel updates to reflect your choice.</p>
+          <div class="explorer-layout">
+            <div class="explorer-menu" id="explorerMenu">
+              <button class="explorer-btn active" data-cat="agentic" onclick="showExplorer('agentic')">🤖 Agentic AI</button>
+              <button class="explorer-btn" data-cat="clinical" onclick="showExplorer('clinical')">🩺 Clinical AI</button>
+              <button class="explorer-btn" data-cat="robotic" onclick="showExplorer('robotic')">🦾 Robotic AI</button>
+              <button class="explorer-btn" data-cat="ambient" onclick="showExplorer('ambient')">🎙️ Ambience AI</button>
+            </div>
+            <div class="explorer-panel" id="explorerPanel"><!-- populated by JS: renderExplorerPanel() --></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 3: uPULL.AI INTRAPRENEUR PATHWAY ══════════════ -->
+      <div id="section-intrapreneur" class="academy-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">🚀 The uPull.ai Intrapreneur Pathway</h2>
+          <p class="section-subtitle">A researched, beginner-to-advanced route for staff who want to design and champion AI-enabled products and services from inside their own organisation — built entirely from free vendor and provider training, plus uPull.ai's own practical delivery model.</p>
+          <div class="timeline" id="intrapreneurTimeline"><!-- populated by JS: renderIntrapreneur() --></div>
+        </section>
+      </div>
+
+      <!-- ══════════════ VIEW 4: COURSE LIBRARY & CASE STUDIES ══════════════ -->
+      <div id="section-library" class="academy-view">
+        <div class="tab-bar" style="padding-top:0">
+          <button class="tab-btn active" onclick="switchTab('learning', this)">🎓 Full Course Library</button>
+          <button class="tab-btn" onclick="switchTab('casestudies', this)">📋 Case Studies</button>
         </div>
-        <div class="path-card intermediate">
-          <h3>⚡ Intermediate Track</h3>
-          <p>For those who understand AI basics. Learn automation, workflow design, prompt engineering, and how to lead AI adoption in your team.</p>
+
+        <!-- LEARNING TAB -->
+        <div id="tab-learning" class="page-view active-view">
+          <section>
+            <h2 class="section-title">Full Course Library</h2>
+            <p class="section-subtitle">Every course behind the four pathways and the Intrapreneur route, in one searchable library — from absolute beginner to advanced AI implementation. Click any course to go directly to the provider.</p>
+
+            <div class="path-cards">
+              <div class="path-card beginner">
+                <h3>🌱 Beginner Track</h3>
+                <p>No prior tech experience needed. Understand what AI is, how it works in healthcare, and how to safely use it in your daily role.</p>
+              </div>
+              <div class="path-card intermediate">
+                <h3>⚡ Intermediate Track</h3>
+                <p>For those who understand AI basics. Learn automation, workflow design, prompt engineering, and how to lead AI adoption in your team.</p>
+              </div>
+            </div>
+
+            <div class="filter-bar">
+              <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="course-search" placeholder="Search courses, providers..." oninput="filterCourses()">
+              </div>
+              <button class="filter-pill pill-all active" onclick="setCourseFilter('all',this)">All</button>
+              <button class="filter-pill pill-agentic" onclick="setCourseFilter('agentic',this)">🤖 Agentic AI</button>
+              <button class="filter-pill pill-ambient" onclick="setCourseFilter('ambient',this)">🎙️ Ambient AI</button>
+              <button class="filter-pill pill-clinical" onclick="setCourseFilter('clinical',this)">🩺 Clinical AI</button>
+              <button class="filter-pill pill-robotic" onclick="setCourseFilter('robotic',this)">🦾 Robotic AI</button>
+              <button class="filter-pill pill-intrapreneur" onclick="setCourseFilter('intrapreneur',this)">🚀 Intrapreneur</button>
+              <button class="filter-pill pill-free" onclick="setCourseFilter('free',this)">🆓 Free Only</button>
+            </div>
+
+            <div class="cards-grid" id="course-grid"></div>
+          </section>
+        </div>
+
+        <!-- CASE STUDIES TAB -->
+        <div id="tab-casestudies" class="page-view">
+          <section>
+            <h2 class="section-title">Healthcare AI Case Studies</h2>
+            <p class="section-subtitle">30 real-world deployments. Filter by AI category or operational domain. Each card links to the full case study and associated learning courses.</p>
+
+            <div class="filter-bar">
+              <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="cs-search" placeholder="Search case studies..." oninput="filterCaseStudies()">
+              </div>
+              <button class="filter-pill pill-all active" onclick="setCSFilter('all',this)">All</button>
+              <button class="filter-pill pill-agentic" onclick="setCSFilter('agentic',this)">🤖 Agentic</button>
+              <button class="filter-pill pill-ambient" onclick="setCSFilter('ambient',this)">🎙️ Ambient</button>
+              <button class="filter-pill pill-clinical" onclick="setCSFilter('clinical',this)">🩺 Clinical</button>
+              <button class="filter-pill pill-robotic" onclick="setCSFilter('robotic',this)">🦾 Robotic</button>
+              <button class="filter-pill pill-operational" onclick="setCSFilter('operational',this)">⚙️ Operational</button>
+            </div>
+
+            <div id="cs-group-clinical">
+              <div class="cat-header clinical-op">🩺 Clinical Case Studies <span class="cat-count" id="cs-count-clinical"></span></div>
+              <div class="cs-grid" id="cs-grid-clinical"></div>
+            </div>
+
+            <div id="cs-group-operational" style="margin-top:2rem">
+              <div class="cat-header operational-op">⚙️ Operational Case Studies <span class="cat-count" id="cs-count-operational"></span></div>
+              <div class="cs-grid" id="cs-grid-operational"></div>
+            </div>
+
+            <div id="associated-learning-section" class="hidden" style="margin-top:2rem;padding:1.5rem;background:#fff;border:2px solid var(--blue);border-radius:10px">
+              <h3 style="color:var(--navy);margin-bottom:1rem">📚 Associated Learning for Selected Filter</h3>
+              <div class="cards-grid" id="associated-courses-grid"></div>
+            </div>
+          </section>
         </div>
       </div>
 
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="course-search" placeholder="Search courses, providers..." oninput="filterCourses()">
+      <!-- ══════════════ VIEW 5: SCORES & COMMUNITY ══════════════ -->
+      <div id="section-scores" class="academy-view">
+        <section style="padding-top:.5rem" id="leaderboards">
+          <h2 class="section-title">Score tables</h2>
+          <p class="section-subtitle">Friendly competition keeps learning enjoyable — track organisation uptake and individual progress as points and CPD credits are logged.</p>
+          <div class="lb-grid">
+            <div class="lb-card">
+              <h3>🏥 Organisation score table</h3>
+              <div class="lb-sub">Ranked by total points logged by staff at each organisation.</div>
+              <table class="lb-table">
+                <thead><tr><th>#</th><th>Organisation</th><th>Points</th><th>Badges</th></tr></thead>
+                <tbody id="orgBoardBody"></tbody>
+              </table>
+              <div class="lb-note" id="orgBoardNote"></div>
+            </div>
+            <div class="lb-card">
+              <h3>🙋 Individual score table</h3>
+              <div class="lb-sub">Ranked by personal points earned across pathways.</div>
+              <table class="lb-table">
+                <thead><tr><th>#</th><th>Learner</th><th>Points</th><th>Route</th></tr></thead>
+                <tbody id="individualBoardBody"></tbody>
+              </table>
+              <div class="lb-note" id="individualBoardNote"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="community">
+          <h2 class="section-title">Built for learners, leaders and suppliers</h2>
+          <p class="section-subtitle">The academy sits inside the wider uPull.ai Community — discussion, case studies and supplier updates all live there.</p>
+          <div class="community-teaser-grid">
+            <article class="community-teaser-card">
+              <span class="tag tag-clinical ctc-tag">Case study spotlight</span>
+              <h4>Ambient documentation pilot</h4>
+              <p>An ambient documentation pilot reduced duplicated note-writing time and improved clinician satisfaction — read the full case study and its linked courses.</p>
+              <a href="#" class="btn-sm btn-blue" onclick="jumpToCS('CS1'); return false;">Read the case study →</a>
+            </article>
+            <article class="community-teaser-card">
+              <span class="tag tag-agentic ctc-tag">Supplier update</span>
+              <h4>New vendor recognition mapping</h4>
+              <p>Vendors and suppliers post product updates, integration notes and CPD-recognition mapping in the Community Hub's supplier feed.</p>
+              <a href="community.html#vendors" target="_blank" rel="noopener" class="btn-sm btn-blue">View suppliers &amp; vendors →</a>
+            </article>
+            <article class="community-teaser-card">
+              <span class="tag tag-robotic ctc-tag">Community discussion</span>
+              <h4>Join the live forum</h4>
+              <p>Share validation insights, ask workflow questions and connect with other learners, leaders and suppliers across the NHS and public sector.</p>
+              <a href="community.html" target="_blank" rel="noopener" class="btn-sm btn-blue">Open the Community Hub →</a>
+            </article>
+          </div>
+          <div class="community-cta-row">
+            <a href="community.html" target="_blank" rel="noopener" class="cta-btn">Visit the full uPull.ai Community Hub →</a>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- /.academy-content -->
+
+    <!-- ══════════════ STICKY SIDEBAR: LOG IN / PROFILE ══════════════ -->
+    <aside class="academy-sidebar" id="login" aria-label="Your account">
+      <div class="sidebar-sticky">
+        <div class="sidebar-card" id="loginSignedOut">
+          <h4>🔐 Log in for tailored benefits</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Same profile as the Community Hub. Unlock a personal route, CPD tracking and a place on the score tables.</p>
+
+          <label for="nhsEmailInput" style="font-size:.75rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.03em">Sign in with your NHS email</label>
+          <div style="display:flex;gap:.4rem;margin-top:.4rem">
+            <input type="email" id="nhsEmailInput" placeholder="you@nhs.net" style="flex:1;min-width:0;padding:.55rem .7rem;border:2px solid var(--border);border-radius:8px;font-size:.85rem;outline:none">
+            <button class="btn-sm btn-blue" style="flex-shrink:0" onclick="sendNhsSignInLink()">Send link</button>
+          </div>
+          <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem">We email you a secure sign-in link — no password needed. Only @nhs.net and @nhs.uk addresses are accepted.</p>
+          <p id="nhsEmailStatus" style="font-size:.76rem;font-weight:700;margin-top:.4rem"></p>
+
+          <div style="display:flex;align-items:center;gap:.6rem;margin:1rem 0;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em">
+            <span style="flex:1;height:1px;background:var(--border)"></span>or<span style="flex:1;height:1px;background:var(--border)"></span>
+          </div>
+
+          <button class="google-btn" onclick="signInAcademy()">
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.5 26.7 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
+            Sign in with Google
+          </button>
+          <p style="font-size:.7rem;color:var(--muted);margin-top:.4rem">Google sign-in also requires your Google account's email to be @nhs.net or @nhs.uk.</p>
+
+          <div class="role-mini-grid" style="grid-template-columns:1fr;margin-top:1rem">
+            <div class="role-mini-card"><strong>Learner</strong>Personal route, CPD credits, badges and saved courses.</div>
+            <div class="role-mini-card"><strong>Leader</strong>Team uptake, organisation scores, pathway planning.</div>
+            <div class="role-mini-card"><strong>Supplier</strong>Updates &amp; recognition mapping in the Community Hub.</div>
+          </div>
         </div>
-        <button class="filter-pill pill-all active" onclick="setCourseFilter('all',this)">All</button>
-        <button class="filter-pill pill-agentic" onclick="setCourseFilter('agentic',this)">🤖 Agentic AI</button>
-        <button class="filter-pill pill-ambient" onclick="setCourseFilter('ambient',this)">🎙️ Ambient AI</button>
-        <button class="filter-pill pill-clinical" onclick="setCourseFilter('clinical',this)">🩺 Clinical AI</button>
-        <button class="filter-pill pill-robotic" onclick="setCourseFilter('robotic',this)">🦾 Robotic AI</button>
-        <button class="filter-pill pill-free" onclick="setCourseFilter('free',this)">🆓 Free Only</button>
-      </div>
 
-      <div class="cards-grid" id="course-grid"></div>
-    </section>
-  </div>
-
-  <!-- CASE STUDIES TAB -->
-  <div id="tab-casestudies" class="page-view">
-    <section>
-      <h2 class="section-title">Healthcare AI Case Studies</h2>
-      <p class="section-subtitle">30 real-world deployments. Filter by AI category or operational domain. Each card links to the full case study and associated learning courses.</p>
-
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="cs-search" placeholder="Search case studies..." oninput="filterCaseStudies()">
+        <div class="sidebar-card" id="loginSignedIn" style="display:none">
+          <div class="profile-card" style="margin-bottom:.9rem">
+            <div class="profile-avatar" id="profileAvatar">A</div>
+            <div>
+              <div style="font-weight:800;color:var(--navy);font-size:.9rem" id="profileName">Academy learner</div>
+              <div style="font-size:.72rem;color:var(--muted)">Shared with the Community Hub</div>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat"><strong id="profilePoints">0</strong><span>Points</span></div>
+            <div class="profile-stat"><strong id="profileCPD">0</strong><span>CPD</span></div>
+            <div class="profile-stat"><strong id="profileCourses">0</strong><span>Logged</span></div>
+          </div>
+          <div class="org-input-row" style="flex-direction:column">
+            <input type="text" id="profileOrgInput" placeholder="Your organisation">
+            <button class="btn-sm btn-blue" style="width:100%" onclick="saveOrganisation()">Save organisation</button>
+          </div>
+          <div id="profileBadges" class="badge-row"></div>
+          <button class="btn-sm btn-outline" style="width:100%;margin-top:1rem" onclick="signOutAcademy()">Sign out</button>
         </div>
-        <button class="filter-pill pill-all active" onclick="setCSFilter('all',this)">All</button>
-        <button class="filter-pill pill-agentic" onclick="setCSFilter('agentic',this)">🤖 Agentic</button>
-        <button class="filter-pill pill-ambient" onclick="setCSFilter('ambient',this)">🎙️ Ambient</button>
-        <button class="filter-pill pill-clinical" onclick="setCSFilter('clinical',this)">🩺 Clinical</button>
-        <button class="filter-pill pill-robotic" onclick="setCSFilter('robotic',this)">🦾 Robotic</button>
-        <button class="filter-pill pill-operational" onclick="setCSFilter('operational',this)">⚙️ Operational</button>
-      </div>
 
-      <div id="cs-group-clinical">
-        <div class="cat-header clinical-op">🩺 Clinical Case Studies <span class="cat-count" id="cs-count-clinical"></span></div>
-        <div class="cs-grid" id="cs-grid-clinical"></div>
+        <div class="sidebar-card">
+          <h4>Quick links</h4>
+          <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.85rem">
+            <a href="#" style="color:var(--blue);font-weight:600" onclick="openCPDModal(); return false;">💡 What is CPD?</a>
+            <a href="#" style="color:var(--blue);font-weight:600" onclick="showSection('scores'); return false;">🏆 View score tables</a>
+            <a href="community.html#vendors" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">🔌 Suppliers &amp; vendors</a>
+            <a href="community.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">💬 Community forum</a>
+          </div>
+        </div>
       </div>
-
-      <div id="cs-group-operational" style="margin-top:2rem">
-        <div class="cat-header operational-op">⚙️ Operational Case Studies <span class="cat-count" id="cs-count-operational"></span></div>
-        <div class="cs-grid" id="cs-grid-operational"></div>
-      </div>
-
-      <div id="associated-learning-section" class="hidden" style="margin-top:2rem;padding:1.5rem;background:#fff;border:2px solid var(--blue);border-radius:10px">
-        <h3 style="color:var(--navy);margin-bottom:1rem">📚 Associated Learning for Selected Filter</h3>
-        <div class="cards-grid" id="associated-courses-grid"></div>
-      </div>
-    </section>
+    </aside>
   </div>
 </main>
 
@@ -373,33 +849,88 @@
   </div>
 </div>
 
+<!-- CPD EXPLAINER POPUP MODAL -->
+<div class="cpd-modal-overlay" id="cpdModalOverlay" onclick="if(event.target===this) closeCPDModal();">
+  <div class="cpd-modal" role="dialog" aria-modal="true" aria-labelledby="cpdModalTitleH">
+    <div class="cpd-modal-header">
+      <h2 id="cpdModalTitleH">Understanding CPD in the uPull.ai Academy</h2>
+      <button class="cpd-modal-close" onclick="closeCPDModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="cpd-modal-body">
+      <h4>What does CPD mean?</h4>
+      <p>CPD stands for <strong>Continuing Professional Development</strong>. It is the ongoing, lifelong record of learning, reflection and practical activity that professionals use to maintain, evidence and improve the knowledge and skills needed for their role. Most healthcare and public sector professional bodies — including the GMC, NMC, HCPC and Royal Colleges — expect members to keep an up-to-date CPD record as part of revalidation or continued registration.</p>
+
+      <h4>How CPD works in this academy</h4>
+      <ul>
+        <li>Every course and practical task carries a stated number of <strong>CPD credits</strong>, shown alongside its description, expectation, target audience and level.</li>
+        <li>As a general rule, <strong>1 hour of learning ≈ 1 CPD credit</strong>, with additional credit for practical, applied tasks.</li>
+        <li>Signing in records your completed courses and credits to a personal CPD log, which you can carry into appraisal, revalidation or job applications.</li>
+        <li>Credits accumulate toward three recognition tiers — <strong>Awareness</strong>, <strong>Practitioner</strong> and <strong>Specialist</strong> — each with a publicly shareable digital badge.</li>
+      </ul>
+
+      <h4>Typical credit ranges</h4>
+      <table class="cpd-credit-table">
+        <thead><tr><th>Activity type</th><th>Typical CPD credits</th></tr></thead>
+        <tbody>
+          <tr><td>Shared "Introduction to AI" foundation module</td><td>2–3 credits</td></tr>
+          <tr><td>Pathway-specific intermediate course</td><td>4–8 credits</td></tr>
+          <tr><td>Advanced or specialist course</td><td>8–15 credits</td></tr>
+          <tr><td>Practical task or workplace project</td><td>+5 bonus credits</td></tr>
+          <tr><td>uPull.ai 6-week proof of value capstone</td><td>20 credits</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Recognition, portability and your CV</h4>
+      <p>CPD credits earned here are designed to be portable. Where a course is delivered by a vendor or professional body (for example Microsoft, Google, IBM, the Royal College of Physicians or the NHS Clinical Entrepreneur Programme), any certificate or badge they issue sits alongside your uPull.ai record — so your evidence works in both systems. Over time, uPull.ai aims to map its own credit scheme to recognised third-party CPD accreditors, so your progression counts toward formal revalidation as well as your personal CV and career story.</p>
+
+      <h4>Free for NHS and public sector colleagues</h4>
+      <p>Courses and CPD tracking in this academy are free for NHS and wider public sector learners. Where a linked third-party course has its own cost, this is shown clearly on the course card before you enrol.</p>
+    </div>
+  </div>
+</div>
+
 <footer>
-  <p><strong>uPull<span style="color:var(--orange)">.</span>ai</strong> Learning Hub &amp; Case Studies · Healthcare AI Community of Practice</p>
-  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">© 2026 uPull.ai Ltd. All rights reserved. Courses linked are third-party providers — verify suitability before enrolment.</p>
+  <p><strong>uPull<span style="color:var(--orange)">.</span>ai</strong> Learning Academy, Pathways &amp; CPD · Healthcare AI Community of Practice</p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">© 2026 uPull.ai Ltd. All rights reserved. Courses linked are third-party providers — verify suitability and current pricing before enrolling. CPD credits shown are indicative and set by uPull.ai unless otherwise stated.</p>
 </footer>
 
 <script>
 const courses = [
-  {id:'c1',cat:'agentic',level:'beginner',free:true,provider:'Microsoft Learn',title:'Introduction to AI Agents',desc:'Understand what AI agents are, how they make decisions autonomously, and how agentic systems differ from traditional automation tools.',cost:'Free',audience:'All healthcare staff, managers, and admin teams',url:'https://learn.microsoft.com/en-us/ai/?tabs=business-technical-leader',cs:'CS3,CS8,CS15'},
-  {id:'c2',cat:'agentic',level:'beginner',free:true,provider:'Google AI',title:'Introduction to Generative AI & Agents',desc:'Google\'s foundational course covering generative AI fundamentals, how agents work, and responsible AI use in professional settings.',cost:'Free',audience:'Clinicians and operational leads new to AI',url:'https://cloud.google.com/training/machinelearning-ai',cs:'CS3,CS6,CS10'},
-  {id:'c3',cat:'agentic',level:'intermediate',free:false,provider:'Coursera / DeepLearning.AI',title:'AI Agents in LangChain',desc:'Build and understand multi-step AI agents using LangChain. Learn how agents plan, call tools, and complete complex healthcare workflows autonomously.',cost:'£39/month (audit free)',audience:'Digital leads, system architects, technical staff',url:'https://www.coursera.org/learn/building-your-first-ai-agent-with-langchain',cs:'CS3,CS12,CS22'},
-  {id:'c4',cat:'agentic',level:'intermediate',free:false,provider:'LinkedIn Learning',title:'AI-Powered Workflow Automation',desc:'Covers how autonomous agents can be deployed to manage repetitive healthcare processes including scheduling, triage routing, and documentation workflows.',cost:'£29.99/month (free trial)',audience:'Operations managers, workflow leads',url:'https://www.linkedin.com/learning/automate-your-workflows-with-generative-ai',cs:'CS8,CS9,CS14'},
-  {id:'c5',cat:'ambient',level:'beginner',free:true,provider:'NHS Digital Academy',title:'Understanding Ambient AI in Clinical Settings',desc:'NHS-developed introductory module on how ambient AI (voice-based documentation) works in clinical environments, safety frameworks, and GDPR compliance.',cost:'Free (NHS staff)',audience:'GPs, nurses, consultants, clinical admins',url:'https://digital.nhs.uk/services/ai-knowledge-repository/nhs-digital-academy-resources',cs:'CS1,CS5,CS16'},
-  {id:'c6',cat:'ambient',level:'beginner',free:true,provider:'FutureLearn',title:'AI in Healthcare: A Patient Safety Perspective',desc:'Explores ambient AI, clinical documentation tools, and safety considerations. Designed for non-technical frontline healthcare staff.',cost:'Free (audit)',audience:'Frontline clinical staff, ward managers',url:'https://www.futurelearn.com/info/courses/ai-and-big-data-global-health-improvement/0/steps/75962',cs:'CS1,CS16,CS17'},
-  {id:'c7',cat:'ambient',level:'intermediate',free:false,provider:'Nuance / Microsoft',title:'Dragon Ambient eXperience (DAX) Training',desc:'Official training for DAX ambient clinical intelligence — real-world workflow integration, EHR connection, and clinical validation protocols.',cost:'Included with DAX licence',audience:'Clinicians deploying ambient documentation tools',url:'https://www.nuance.com/healthcare/ambient-clinical-intelligence.html',cs:'CS1,CS16'},
-  {id:'c8',cat:'ambient',level:'intermediate',free:false,provider:'Coursera / Johns Hopkins',title:'AI for Medicine Specialisation',desc:'Deep dive into AI applied to medical imaging, natural language processing, and ambient diagnostics. 3-course specialisation.',cost:'£39/month',audience:'Clinical informaticists, doctors, clinical researchers',url:'https://www.coursera.org/specializations/ai-for-medicine',cs:'CS2,CS17,CS18'},
-  {id:'c9',cat:'clinical',level:'beginner',free:true,provider:'Oxford University (edX)',title:'Foundations of AI in Healthcare',desc:'University-level introduction to how machine learning and AI models are transforming clinical decision-making, diagnostics, and patient outcomes.',cost:'Free (audit)',audience:'Clinicians, medical students, healthcare managers',url:'https://www.edx.org/learn/artificial-intelligence',cs:'CS2,CS6,CS11'},
-  {id:'c10',cat:'clinical',level:'beginner',free:true,provider:'BMJ Learning',title:'Artificial Intelligence in Clinical Practice',desc:'BMJ\'s CPD-accredited module for clinicians to understand AI tools, evaluate evidence, and apply critical thinking to AI-generated clinical recommendations.',cost:'Free with BMJ membership',audience:'All NHS clinicians and GPs',url:'https://learning.bmj.com/',cs:'CS6,CS7,CS17'},
-  {id:'c11',cat:'clinical',level:'intermediate',free:false,provider:'Imperial College London (Coursera)',title:'AI for Clinical Decision Support',desc:'Evidence-based module covering predictive analytics, risk scoring, and clinical decision support tools including sepsis detection and deterioration alerts.',cost:'£39/month',audience:'Senior clinicians, medical directors, CCIOs',url:'https://www.coursera.org/learn/clinical-decision-support',cs:'CS4,CS6,CS13'},
-  {id:'c12',cat:'clinical',level:'intermediate',free:false,provider:'Royal College of Physicians',title:'Digital Medicine & AI Certificate',desc:'Accredited certificate programme covering AI in diagnostics, digital therapeutics, clinical governance for AI, and ethical deployment.',cost:'£695 (subsidised NHS rates available)',audience:'Consultants, registrars, clinical leaders',url:'https://www.rcplondon.ac.uk/education-practice/courses',cs:'CS2,CS11,CS20'},
-  {id:'c13',cat:'robotic',level:'beginner',free:true,provider:'MIT OpenCourseWare',title:'Introduction to Robotics in Healthcare',desc:'Free MIT course material covering robotic systems, surgical robots, rehabilitation robotics, and how AI drives autonomous robotic decision-making in clinical settings.',cost:'Free',audience:'Engineers, clinical technologists, digital leads',url:'https://ocw.mit.edu/courses/robotics/',cs:'CS19,CS25,CS28'},
-  {id:'c14',cat:'robotic',level:'intermediate',free:false,provider:'Coursera / University of Pennsylvania',title:'Robotics Specialisation',desc:'6-course specialisation covering mobility, perception, estimation, planning, and control — with healthcare robotics applications.',cost:'£39/month',audience:'Technical engineers, clinical technologists, R&D teams',url:'https://www.coursera.org/courses?query=robotics',cs:'CS19,CS25'},
-  {id:'c15',cat:'robotic',level:'intermediate',free:false,provider:'NHS England',title:'Digital Health Technologies & Robotics',desc:'HEE accredited programme exploring the role of robotic and digital technologies in NHS pathways, including automated dispensing and rehabilitation robotics.',cost:'Free for NHS staff',audience:'NHS clinical and technical staff',url:'https://digital-transformation.hee.nhs.uk/support-for-organisations/research-and-publications/dart-ed',cs:'CS7,CS19'},
-  {id:'c16',cat:'agentic',level:'beginner',free:true,provider:'Elements of AI (Univ. of Helsinki)',title:'Elements of AI',desc:'The most widely used free AI literacy course globally. No maths or programming required. Covers what AI is, how it works, and its societal implications — ideal starting point.',cost:'Free',audience:'Complete beginners, all NHS staff',url:'https://www.elementsofai.com/',cs:'CS1,CS3'},
-  {id:'c17',cat:'clinical',level:'beginner',free:true,provider:'Alan Turing Institute',title:'Introduction to AI Ethics in Healthcare',desc:'Alan Turing Institute course on responsible AI use in public services and healthcare, covering bias, transparency, accountability, and governance.',cost:'Free',audience:'All staff — especially managers and clinical leads',url:'https://www.turing.ac.uk/',cs:'CS1,CS6,CS7'},
-  {id:'c18',cat:'ambient',level:'beginner',free:true,provider:'Google (Grow with Google)',title:'Fundamentals of AI & Productivity Tools',desc:'Google\'s practical introduction to using AI-powered productivity tools (Docs, Meet, Workspace AI) for reducing administrative burden in everyday work.',cost:'Free',audience:'Admin staff, receptionists, ward coordinators',url:'https://grow.google/certificates/',cs:'CS1,CS14'},
-  {id:'c19',cat:'agentic',level:'intermediate',free:false,provider:'Udemy',title:'AI Automation & Workflow Design for Non-Developers',desc:'Practical course on building no-code AI workflows using tools like Make, Zapier AI, and Microsoft Power Automate for healthcare process automation.',cost:'£12.99–£19.99 (frequent sales)',audience:'Operations managers, project leads, digital champions',url:'https://www.udemy.com/topic/artificial-intelligence/',cs:'CS8,CS9,CS14'},
-  {id:'c20',cat:'clinical',level:'intermediate',free:false,provider:'NHSX / NHS England AI Lab',title:'Data Saves Lives: AI in the NHS',desc:'NHS-specific programme on using data and AI to improve care delivery — includes practical modules on AI procurement, evaluation, and deployment governance.',cost:'Free for NHS staff',audience:'NHS digital leads, CCIOs, informatics teams',url:'https://transform.england.nhs.uk/ai-lab/',cs:'CS1,CS4,CS9'}
+  {id:'c1',cat:'agentic',level:'beginner',free:true,cpd:3,provider:'Microsoft Learn',title:'Introduction to AI Agents',desc:'Understand what AI agents are, how they make decisions autonomously, and how agentic systems differ from traditional automation tools.',expectation:'Describe what an AI agent is and how it differs from simple automation.',cost:'Free',audience:'All healthcare staff, managers, and admin teams',url:'https://learn.microsoft.com/en-us/ai/?tabs=business-technical-leader',cs:'CS3,CS8,CS15'},
+  {id:'c2',cat:'agentic',level:'beginner',free:true,cpd:3,provider:'Google AI',title:'Introduction to Generative AI & Agents',desc:'Google\'s foundational course covering generative AI fundamentals, how agents work, and responsible AI use in professional settings.',expectation:'Use generative AI responsibly in a professional healthcare setting.',cost:'Free',audience:'Clinicians and operational leads new to AI',url:'https://cloud.google.com/training/machinelearning-ai',cs:'CS3,CS6,CS10'},
+  {id:'c3',cat:'agentic',level:'intermediate',free:false,cpd:6,provider:'Coursera / DeepLearning.AI',title:'AI Agents in LangChain',desc:'Build and understand multi-step AI agents using LangChain. Learn how agents plan, call tools, and complete complex healthcare workflows autonomously.',expectation:'Build a simple multi-step agent workflow using LangChain.',cost:'£39/month (audit free)',audience:'Digital leads, system architects, technical staff',url:'https://www.coursera.org/learn/building-your-first-ai-agent-with-langchain',cs:'CS3,CS12,CS22'},
+  {id:'c4',cat:'agentic',level:'intermediate',free:false,cpd:5,provider:'LinkedIn Learning',title:'AI-Powered Workflow Automation',desc:'Covers how autonomous agents can be deployed to manage repetitive healthcare processes including scheduling, triage routing, and documentation workflows.',expectation:'Design an automated workflow for a repetitive administrative process.',cost:'£29.99/month (free trial)',audience:'Operations managers, workflow leads',url:'https://www.linkedin.com/learning/automate-your-workflows-with-generative-ai',cs:'CS8,CS9,CS14'},
+  {id:'c5',cat:'ambient',level:'beginner',free:true,cpd:3,provider:'NHS Digital Academy',title:'Understanding Ambient AI in Clinical Settings',desc:'NHS-developed introductory module on how ambient AI (voice-based documentation) works in clinical environments, safety frameworks, and GDPR compliance.',expectation:'Explain how ambient AI documentation works and its GDPR safeguards.',cost:'Free (NHS staff)',audience:'GPs, nurses, consultants, clinical admins',url:'https://digital.nhs.uk/services/ai-knowledge-repository/nhs-digital-academy-resources',cs:'CS1,CS5,CS16'},
+  {id:'c6',cat:'ambient',level:'beginner',free:true,cpd:2,provider:'FutureLearn',title:'AI in Healthcare: A Patient Safety Perspective',desc:'Explores ambient AI, clinical documentation tools, and safety considerations. Designed for non-technical frontline healthcare staff.',expectation:'Identify patient safety considerations before adopting ambient AI tools.',cost:'Free (audit)',audience:'Frontline clinical staff, ward managers',url:'https://www.futurelearn.com/info/courses/ai-and-big-data-global-health-improvement/0/steps/75962',cs:'CS1,CS16,CS17'},
+  {id:'c7',cat:'ambient',level:'intermediate',free:false,cpd:6,provider:'Nuance / Microsoft',title:'Dragon Ambient eXperience (DAX) Training',desc:'Official training for DAX ambient clinical intelligence — real-world workflow integration, EHR connection, and clinical validation protocols.',expectation:'Configure and validate an ambient clinical documentation deployment.',cost:'Included with DAX licence',audience:'Clinicians deploying ambient documentation tools',url:'https://www.nuance.com/healthcare/ambient-clinical-intelligence.html',cs:'CS1,CS16'},
+  {id:'c8',cat:'ambient',level:'intermediate',free:false,cpd:10,provider:'Coursera / Johns Hopkins',title:'AI for Medicine Specialisation',desc:'Deep dive into AI applied to medical imaging, natural language processing, and ambient diagnostics. 3-course specialisation.',expectation:'Apply AI methods to medical imaging and ambient diagnostic use cases.',cost:'£39/month',audience:'Clinical informaticists, doctors, clinical researchers',url:'https://www.coursera.org/specializations/ai-for-medicine',cs:'CS2,CS17,CS18'},
+  {id:'c9',cat:'clinical',level:'beginner',free:true,cpd:4,provider:'Oxford University (edX)',title:'Foundations of AI in Healthcare',desc:'University-level introduction to how machine learning and AI models are transforming clinical decision-making, diagnostics, and patient outcomes.',expectation:'Explain how machine learning influences clinical decision-making.',cost:'Free (audit)',audience:'Clinicians, medical students, healthcare managers',url:'https://www.edx.org/learn/artificial-intelligence',cs:'CS2,CS6,CS11'},
+  {id:'c10',cat:'clinical',level:'beginner',free:true,cpd:3,provider:'BMJ Learning',title:'Artificial Intelligence in Clinical Practice',desc:'BMJ\'s CPD-accredited module for clinicians to understand AI tools, evaluate evidence, and apply critical thinking to AI-generated clinical recommendations.',expectation:'Critically appraise an AI-generated clinical recommendation.',cost:'Free with BMJ membership',audience:'All NHS clinicians and GPs',url:'https://learning.bmj.com/',cs:'CS6,CS7,CS17'},
+  {id:'c11',cat:'clinical',level:'intermediate',free:false,cpd:6,provider:'Imperial College London (Coursera)',title:'AI for Clinical Decision Support',desc:'Evidence-based module covering predictive analytics, risk scoring, and clinical decision support tools including sepsis detection and deterioration alerts.',expectation:'Evaluate a clinical decision support tool for deployment readiness.',cost:'£39/month',audience:'Senior clinicians, medical directors, CCIOs',url:'https://www.coursera.org/learn/clinical-decision-support',cs:'CS4,CS6,CS13'},
+  {id:'c12',cat:'clinical',level:'intermediate',free:false,cpd:12,provider:'Royal College of Physicians',title:'Digital Medicine & AI Certificate',desc:'Accredited certificate programme covering AI in diagnostics, digital therapeutics, clinical governance for AI, and ethical deployment.',expectation:'Lead governance and ethical deployment of an AI diagnostic tool.',cost:'£695 (subsidised NHS rates available)',audience:'Consultants, registrars, clinical leaders',url:'https://www.rcplondon.ac.uk/education-practice/courses',cs:'CS2,CS11,CS20'},
+  {id:'c13',cat:'robotic',level:'beginner',free:true,cpd:4,provider:'MIT OpenCourseWare',title:'Introduction to Robotics in Healthcare',desc:'Free MIT course material covering robotic systems, surgical robots, rehabilitation robotics, and how AI drives autonomous robotic decision-making in clinical settings.',expectation:'Describe how robotic systems make autonomous decisions in clinical settings.',cost:'Free',audience:'Engineers, clinical technologists, digital leads',url:'https://ocw.mit.edu/courses/robotics/',cs:'CS19,CS25,CS28'},
+  {id:'c14',cat:'robotic',level:'intermediate',free:false,cpd:10,provider:'Coursera / University of Pennsylvania',title:'Robotics Specialisation',desc:'6-course specialisation covering mobility, perception, estimation, planning, and control — with healthcare robotics applications.',expectation:'Apply planning and control concepts to a healthcare robotics use case.',cost:'£39/month',audience:'Technical engineers, clinical technologists, R&D teams',url:'https://www.coursera.org/courses?query=robotics',cs:'CS19,CS25'},
+  {id:'c15',cat:'robotic',level:'intermediate',free:false,cpd:6,provider:'NHS England',title:'Digital Health Technologies & Robotics',desc:'HEE accredited programme exploring the role of robotic and digital technologies in NHS pathways, including automated dispensing and rehabilitation robotics.',expectation:'Assess where robotics could improve an NHS operational pathway.',cost:'Free for NHS staff',audience:'NHS clinical and technical staff',url:'https://digital-transformation.hee.nhs.uk/support-for-organisations/research-and-publications/dart-ed',cs:'CS7,CS19'},
+  {id:'c16',cat:'agentic',level:'beginner',free:true,cpd:3,provider:'Elements of AI (Univ. of Helsinki)',title:'Elements of AI',desc:'The most widely used free AI literacy course globally. No maths or programming required. Covers what AI is, how it works, and its societal implications — ideal starting point.',expectation:'Explain what AI is and how it works, without technical jargon.',cost:'Free',audience:'Complete beginners, all NHS staff',url:'https://www.elementsofai.com/',cs:'CS1,CS3'},
+  {id:'c17',cat:'clinical',level:'beginner',free:true,cpd:3,provider:'Alan Turing Institute',title:'Introduction to AI Ethics in Healthcare',desc:'Alan Turing Institute course on responsible AI use in public services and healthcare, covering bias, transparency, accountability, and governance.',expectation:'Apply AI ethics principles (bias, transparency, accountability) to a use case.',cost:'Free',audience:'All staff — especially managers and clinical leads',url:'https://www.turing.ac.uk/',cs:'CS1,CS6,CS7'},
+  {id:'c18',cat:'ambient',level:'beginner',free:true,cpd:2,provider:'Google (Grow with Google)',title:'Fundamentals of AI & Productivity Tools',desc:'Google\'s practical introduction to using AI-powered productivity tools (Docs, Meet, Workspace AI) for reducing administrative burden in everyday work.',expectation:'Use AI-powered productivity tools to reduce administrative burden.',cost:'Free',audience:'Admin staff, receptionists, ward coordinators',url:'https://grow.google/certificates/',cs:'CS1,CS14'},
+  {id:'c19',cat:'agentic',level:'intermediate',free:false,cpd:5,provider:'Udemy',title:'AI Automation & Workflow Design for Non-Developers',desc:'Practical course on building no-code AI workflows using tools like Make, Zapier AI, and Microsoft Power Automate for healthcare process automation.',expectation:'Build a no-code AI workflow for a healthcare administrative task.',cost:'£12.99–£19.99 (frequent sales)',audience:'Operations managers, project leads, digital champions',url:'https://www.udemy.com/topic/artificial-intelligence/',cs:'CS8,CS9,CS14'},
+  {id:'c20',cat:'clinical',level:'intermediate',free:false,cpd:6,provider:'NHSX / NHS England AI Lab',title:'Data Saves Lives: AI in the NHS',desc:'NHS-specific programme on using data and AI to improve care delivery — includes practical modules on AI procurement, evaluation, and deployment governance.',expectation:'Evaluate and procure an AI tool using NHS governance standards.',cost:'Free for NHS staff',audience:'NHS digital leads, CCIOs, informatics teams',url:'https://transform.england.nhs.uk/ai-lab/',cs:'CS1,CS4,CS9'},
+
+  /* ══ INTRAPRENEUR PATHWAY — researched free (and clearly-marked paid) vendor courses, beginner to advanced ══ */
+  {id:'c21',cat:'intrapreneur',stage:1,level:'beginner',free:true,cpd:3,provider:'University of Helsinki / Reaktor',title:'Elements of AI',desc:'The world\'s most widely used free AI literacy course. No maths or programming required — covers what AI is, how it works, and its implications for organisations.',expectation:'Explain what AI is and is not, in plain language, to a colleague or patient.',cost:'Free',audience:'Complete beginners, aspiring intrapreneurs, all staff',url:'https://www.elementsofai.com/',cs:''},
+  {id:'c22',cat:'intrapreneur',stage:1,level:'beginner',free:true,cpd:2,provider:'Google (Grow with Google)',title:'Google AI Essentials',desc:'Practical, non-technical introduction to using generative AI tools safely and productively at work, with hands-on exercises and a shareable certificate.',expectation:'Use generative AI tools confidently and safely in everyday tasks.',cost:'Free (audit)',audience:'All staff considering an AI-enabled idea',url:'https://grow.google/ai-essentials/',cs:''},
+  {id:'c23',cat:'intrapreneur',stage:1,level:'beginner',free:true,cpd:4,provider:'IBM SkillsBuild',title:'AI Foundations Learning Track',desc:'Employer-recognised, badge-bearing pathway covering AI Fundamentals and Generative AI Fundamentals, designed for career-changers and non-technical learners.',expectation:'Earn a portable, LinkedIn-ready digital badge in AI fundamentals.',cost:'Free',audience:'Beginners wanting a credentialed, LinkedIn-ready badge',url:'https://skillsbuild.org/',cs:''},
+  {id:'c24',cat:'intrapreneur',stage:1,level:'beginner',free:true,cpd:6,provider:'Microsoft (open-source curriculum)',title:'AI for Beginners',desc:'24-lesson open curriculum published on GitHub covering symbolic AI, neural networks, computer vision, NLP and AI ethics — self-paced and free.',expectation:'Describe the main branches of AI and where each applies in your organisation.',cost:'Free',audience:'Beginners wanting a broader technical grounding',url:'https://microsoft.github.io/AI-For-Beginners/',cs:''},
+  {id:'c25',cat:'intrapreneur',stage:2,level:'intermediate',free:true,cpd:4,provider:'Anthropic Academy',title:'AI Fluency: Framework &amp; Foundations',desc:'Structured approach to working effectively and responsibly with modern AI assistants — directly useful for shaping an internal product or service idea.',expectation:'Apply a structured framework to scope an AI-enabled idea responsibly.',cost:'Free',audience:'Leaders and developers scoping an AI-enabled idea',url:'https://www.anthropic.com/learn',cs:''},
+  {id:'c26',cat:'intrapreneur',stage:2,level:'intermediate',free:true,cpd:5,provider:'InnovateUS',title:'Generative AI for the Public Sector',desc:'Public-service-focused certificate courses on using generative AI responsibly, including prompt engineering and risk mitigation for government-style tasks.',expectation:'Draft a responsible-use case for generative AI in a public sector task.',cost:'Free for public servants',audience:'Public sector staff, supervisors, and IT teams',url:'https://innovate-us.org/',cs:''},
+  {id:'c27',cat:'intrapreneur',stage:3,level:'intermediate',free:true,cpd:6,provider:'NHS Clinical Entrepreneur Programme',title:'Social Enterprise &amp; Intrapreneurship in Health',desc:'NHS-run programme supporting staff-led innovation, covering how to develop and champion a new idea, product or service from inside an NHS organisation.',expectation:'Produce a one-page case for a staff-led idea, ready for sponsor conversations.',cost:'Free (NHS-affiliated)',audience:'NHS staff with an idea for a product or service',url:'https://nhscep.com/social-enterprise-and-intrapreneurship/',cs:''},
+  {id:'c33',cat:'intrapreneur',stage:3,level:'intermediate',free:true,cpd:4,provider:'IBM',title:'Enterprise Design Thinking Practitioner',desc:'Free practitioner-level training in structured innovation and design thinking, used widely to shape new products and services inside large organisations.',expectation:'Run a structured ideation session using enterprise design thinking tools.',cost:'Free',audience:'Leaders and teams shaping a new service concept',url:'https://www.ibm.com/design/thinking/',cs:''},
+  {id:'c28',cat:'intrapreneur',stage:4,level:'intermediate',free:true,cpd:8,provider:'Hugging Face',title:'AI Agents Course',desc:'Free, hands-on course on building and evaluating AI agents — the practical technical layer for anyone prototyping an agentic product internally.',expectation:'Build and evaluate a working prototype AI agent.',cost:'Free',audience:'Developers and technical intrapreneurs',url:'https://huggingface.co/learn/agents-course',cs:''},
+  {id:'c29',cat:'intrapreneur',stage:4,level:'advanced',free:true,cpd:8,provider:'Microsoft (open-source curriculum)',title:'AI Agents for Beginners',desc:'Microsoft\'s free curriculum on designing, building and deploying AI agents responsibly, including planning, tool use and multi-agent orchestration.',expectation:'Design a multi-step agent workflow with appropriate human oversight.',cost:'Free',audience:'Developers, architects and technical leads',url:'https://microsoft.github.io/ai-agents-for-beginners/',cs:''},
+  {id:'c30',cat:'intrapreneur',stage:4,level:'advanced',free:true,cpd:3,provider:'NVIDIA Deep Learning Institute',title:'Agentic AI Explained',desc:'Free, self-paced NVIDIA DLI course explaining agentic AI architecture and deployment considerations for real production systems.',expectation:'Explain the deployment considerations for a production-grade agentic system.',cost:'Free',audience:'Technical leads scaling a proven idea',url:'https://www.nvidia.com/en-us/training/',cs:''},
+  {id:'c31',cat:'intrapreneur',stage:5,level:'advanced',free:false,cpd:15,provider:'Cornell University (eCornell)',title:'Intrapreneurship Certificate',desc:'Faculty-authored certificate on spotting opportunities, earning stakeholder buy-in and leading change to take an internal idea from concept to adopted initiative.',expectation:'Lead a stakeholder pitch and change plan for a new internal initiative.',cost:'Paid — subsidised NHS/public-sector rates may be available',audience:'Mid-level leaders ready to pitch and scale an idea',url:'https://ecornell.cornell.edu/certificates/leadership-and-strategic-management/intrapreneurship/',cs:''},
+  {id:'c32',cat:'intrapreneur',stage:6,level:'advanced',free:true,cpd:20,provider:'uPull.ai',title:'Designing Your 6-Week Proof of Value',desc:'uPull.ai\'s own practical capstone — turn everything learned into a scoped, measurable 6-week proof of value with your organisation, ready for a case study.',expectation:'Leave with a signed-off 6-week proof of value plan and success metrics.',cost:'Free',audience:'Intrapreneurs ready to pitch a real proof of value',url:'mailto:info@upull.ai',cs:''}
 ];
 
 const caseStudies = [
@@ -472,7 +1003,7 @@ function renderCourses() {
           </div>
         </div>
         <div class="course-card-bottom">
-          <span class="tag tag-${c.cat}">${c.cat.charAt(0).toUpperCase()+c.cat.slice(1)} AI</span>
+          <span class="tag tag-${c.cat}">${c.cat==='intrapreneur' ? '🚀 Intrapreneur' : c.cat.charAt(0).toUpperCase()+c.cat.slice(1)+' AI'}</span>
           <span class="tag tag-${c.level}">${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span>
           <span class="tag tag-${c.free?'free':'paid'}">${c.free?'🆓 Free':'💳 Paid'}</span>
           <a href="${c.url}" target="_blank" rel="noopener" class="course-link" style="margin-left:auto">Enrol →</a>
@@ -566,6 +1097,7 @@ function setCSFilter(filter, el) {
 function filterCaseStudies() { renderCaseStudies(); }
 
 function jumpToCS(id) {
+  showSection('library');
   document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-casestudies').classList.add('active-view');
@@ -583,6 +1115,7 @@ function jumpToCS(id) {
 }
 
 function highlightCourses(csId) {
+  showSection('library');
   document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-learning').classList.add('active-view');
@@ -609,6 +1142,10 @@ window.onload = function() {
   renderCourses();
   renderCaseStudies();
   handleDeepLink();
+  showExplorer('agentic');
+  renderIntrapreneur();
+  initLeaderboards();
+  initAuth();
 };
 
 // ══ CASE STUDY POPUP MODAL ══
@@ -648,29 +1185,39 @@ function closeCaseStudyModal() {
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeCaseStudyModal();
+  if (e.key === 'Escape') { closeCaseStudyModal(); closeCPDModal(); }
 });
 
-// ══ DEEP LINKING: #course-c5, #cs-CS3, #tab-learning, #tab-casestudies ══
+// ══ DEEP LINKING: #course-c5, #cs-CS3, #tab-learning, #tab-casestudies, #course-cat-agentic ══
 function handleDeepLink() {
   const hash = window.location.hash.replace('#', '');
   if (!hash) return;
   const btns = document.querySelectorAll('.tab-bar .tab-btn');
 
+  if (hash.startsWith('course-cat-')) {
+    const cat = hash.replace('course-cat-', '');
+    jumpToFilteredCourses(cat);
+    return;
+  }
+
   if (hash === 'tab-learning') {
+    showSection('library');
     switchTab('learning', btns[0]);
     document.querySelector('.tab-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
   if (hash === 'tab-casestudies') {
+    showSection('library');
     switchTab('casestudies', btns[1]);
     document.querySelector('.tab-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
 
   if (hash.startsWith('course-')) {
+    showSection('library');
     switchTab('learning', btns[0]);
   } else if (hash.startsWith('cs-')) {
+    showSection('library');
     switchTab('casestudies', btns[1]);
   } else {
     return;
@@ -687,6 +1234,7 @@ function handleDeepLink() {
 
 // ══ BRIDGE: nav dropdown -> existing tab system ══
 function jumpToTab(name) {
+  showSection('library');
   const btns = document.querySelectorAll('.tab-bar .tab-btn');
   const target = name === 'learning' ? btns[0] : btns[1];
   if (target) switchTab(name, target);
@@ -738,6 +1286,571 @@ function closeMobileNav() {
   menu.classList.remove('mobile-open');
   toggle.classList.remove('active');
   toggle.setAttribute('aria-expanded', 'false');
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   TOP-LEVEL SECTION NAVIGATION — Overview / Find My Pathway /
+   Intrapreneur / Course Library / Scores & Community.
+   ══════════════════════════════════════════════════════════════════ */
+function showSection(name) {
+  document.querySelectorAll('.academy-view').forEach(v => v.classList.remove('active-view'));
+  document.querySelectorAll('.section-nav-btn').forEach(b => b.classList.remove('active'));
+  const view = document.getElementById('section-' + name);
+  const btn = document.querySelector(`.section-nav-btn[data-section="${name}"]`);
+  if (view) view.classList.add('active-view');
+  if (btn) btn.classList.add('active');
+  document.querySelector('.academy-shell')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SIGN-IN ROLE — the NHS domain gate only applies to the learner/leader
+   role. Vendors sign in on uCollabX with role='vendor', and
+   since localStorage is shared across pages on this origin, academy.html
+   must respect that same flag rather than bouncing a signed-in vendor.
+   ══════════════════════════════════════════════════════════════════ */
+function setSignInRole(role) {
+  window.localStorage.setItem('upullUserRole', role);
+}
+function getSignInRole() {
+  return window.localStorage.getItem('upullUserRole') || 'learner';
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   NHS EMAIL DOMAIN GATE — only @nhs.net / @nhs.uk addresses may hold
+   a profile. Enforced here client-side (defence in depth); the real
+   gate lives in the Firestore Security Rules / an Auth Blocking
+   Function, since anything client-side can be bypassed in dev tools.
+   ══════════════════════════════════════════════════════════════════ */
+function isAllowedEmail(email) {
+  if (!email) return false;
+  const domain = email.split('@')[1]?.toLowerCase().trim() || '';
+  const allowed = window.__ALLOWED_EMAIL_DOMAINS || ['nhs.net', 'nhs.uk'];
+  return allowed.some(d => domain === d || domain.endsWith('.' + d));
+}
+
+function setNhsEmailStatus(msg, isError) {
+  const el = document.getElementById('nhsEmailStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = isError ? '#dc2626' : '#16a34a';
+}
+
+function sendNhsSignInLink() {
+  const f = fbAcademy();
+  if (!f) { setNhsEmailStatus('Still connecting — please wait a second and try again.', true); return; }
+  const input = document.getElementById('nhsEmailInput');
+  const email = (input?.value || '').trim();
+  if (!isAllowedEmail(email)) {
+    setNhsEmailStatus('Please enter a valid @nhs.net or @nhs.uk address.', true);
+    return;
+  }
+  const actionCodeSettings = {
+    url: window.location.href.split('#')[0],
+    handleCodeInApp: true
+  };
+  setNhsEmailStatus('Sending link…', false);
+  setSignInRole('learner');
+  f.sendSignInLinkToEmail(f.auth, email, actionCodeSettings).then(() => {
+    window.localStorage.setItem('upullEmailForSignIn', email);
+    setNhsEmailStatus('Check your NHS inbox and open the link on this device to finish signing in.', false);
+  }).catch(err => {
+    console.error('Email link send failed:', err);
+    setNhsEmailStatus('Could not send the link (' + err.code + '). Please try again.', true);
+  });
+}
+
+function completeEmailLinkSignInIfNeeded() {
+  const f = fbAcademy();
+  if (!f) return;
+  if (!f.isSignInWithEmailLink(f.auth, window.location.href)) return;
+  setSignInRole('learner');
+
+  let email = window.localStorage.getItem('upullEmailForSignIn');
+  if (!email) {
+    email = window.prompt('Please confirm the NHS email address you used to request this link:');
+  }
+  if (!isAllowedEmail(email)) {
+    alert('Sign-in blocked: only @nhs.net and @nhs.uk email addresses are accepted.');
+    return;
+  }
+  f.signInWithEmailLink(f.auth, email, window.location.href).then(() => {
+    window.localStorage.removeItem('upullEmailForSignIn');
+    // Strip the sign-in link parameters out of the URL once used.
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }).catch(err => {
+    console.error('Email link sign-in failed:', err);
+    alert('That sign-in link is invalid or has expired (' + err.code + '). Please request a new one.');
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   CPD EXPLAINER MODAL
+   ══════════════════════════════════════════════════════════════════ */
+function openCPDModal() {
+  document.getElementById('cpdModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCPDModal() {
+  document.getElementById('cpdModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DYNAMIC PATHWAY CHOOSER (QUIZ) — chip selection + recommendation
+   ══════════════════════════════════════════════════════════════════ */
+document.addEventListener('click', function(e) {
+  const chip = e.target.closest('.chip-row .chip');
+  if (!chip) return;
+  const row = chip.closest('.chip-row');
+  row.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+});
+
+const routeCopy = {
+  agentic: { tagClass:'tag-agentic', title:'Agentic pathway', emoji:'🤖',
+    text:'Best for teams exploring orchestrated workflows, copilots and practical service automation with strong human oversight.' },
+  clinical: { tagClass:'tag-clinical', title:'Clinical pathway', emoji:'🩺',
+    text:'Best for teams prioritising safety, evidence, governance and adoption in clinical environments.' },
+  robotic: { tagClass:'tag-robotic', title:'Robotic pathway', emoji:'🦾',
+    text:'Best for teams focused on operational transformation, automation and robotics-enabled processes.' },
+  ambient: { tagClass:'tag-ambient', title:'Ambience pathway', emoji:'🎙️',
+    text:'Best for teams improving documentation, staff experience and ambient support around care delivery.' }
+};
+
+function recommendPath() {
+  const goalEl = document.querySelector('[data-group="goal"] .chip.active');
+  const priorityEl = document.querySelector('[data-group="priority"] .chip.active');
+  const goal = goalEl ? goalEl.dataset.value : 'agentic';
+  const priority = priorityEl ? priorityEl.dataset.value : 'scale';
+  let selected = goal;
+  if (priority === 'safety') selected = 'clinical';
+  if (priority === 'experience') selected = 'ambient';
+  const block = routeCopy[selected];
+  const panel = document.getElementById('recommendationPanel');
+  panel.innerHTML = `
+    <span class="tag ${block.tagClass}" style="margin-bottom:.6rem">Recommended route</span>
+    <h3 style="color:var(--navy)">${block.emoji} ${block.title}</h3>
+    <p>${block.text}</p>
+    <p style="font-size:.82rem;color:var(--muted)">↓ Updated below — full details, graphical steps and courses.</p>`;
+  showExplorer(selected);
+  document.getElementById('pathways-explorer')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FOUR-PATHWAY EXPLORER — left menu selects a category, the right-hand
+   panel (and its wording) updates to reflect that pathway, including a
+   graphical step track built from the beginner→advanced courses tagged
+   with that category in the `courses` array.
+   ══════════════════════════════════════════════════════════════════ */
+const explorerCopy = {
+  agentic: {
+    emoji:'🤖', name:'Agentic AI', tagClass:'tag-agentic', borderColor:'var(--agentic)',
+    heading:'Automation, orchestration and copilots',
+    desc:'Design goal-directed, multi-step AI workflows and copilots that take action on someone\'s behalf — with clear human oversight built in from the start.',
+    audience:['Developers','Service leads','Digital transformation leads','Innovators']
+  },
+  clinical: {
+    emoji:'🩺', name:'Clinical AI', tagClass:'tag-clinical', borderColor:'var(--clinical-tag)',
+    heading:'Safety, evidence and adoption in care',
+    desc:'Assess, govern and safely adopt AI in diagnosis, decision support and patient care — grounded in evidence, regulation and clinical governance.',
+    audience:['Clinicians','CCIOs and informatics teams','Medical directors','Clinical safety officers']
+  },
+  robotic: {
+    emoji:'🦾', name:'Robotic AI', tagClass:'tag-robotic', borderColor:'var(--robotic)',
+    heading:'Operational transformation and robotics',
+    desc:'Identify where robotics and process automation can improve throughput, safety and staff time — from estates and logistics to dispensing and rehabilitation.',
+    audience:['Operational leaders','Estates and facilities','Process engineers','Technical suppliers']
+  },
+  ambient: {
+    emoji:'🎙️', name:'Ambience AI', tagClass:'tag-ambient', borderColor:'var(--ambient)',
+    heading:'Ambient documentation and staff experience',
+    desc:'Understand voice-based ambient documentation, passive data capture and how these tools reduce administrative burden while protecting privacy and consent.',
+    audience:['Clinical teams','Admin and ward coordinators','Digital leaders','Information governance']
+  }
+};
+
+function showExplorer(cat) {
+  document.querySelectorAll('.explorer-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  renderExplorerPanel(cat);
+  const panel = document.getElementById('explorerPanel');
+  if (panel) panel.style.borderTopColor = explorerCopy[cat].borderColor;
+}
+
+function renderExplorerPanel(cat) {
+  const info = explorerCopy[cat];
+  const panel = document.getElementById('explorerPanel');
+  const pathCourses = courses.filter(c => c.cat === cat).slice(0, 6);
+  const levelOrder = {beginner:0, intermediate:1, advanced:2};
+  pathCourses.sort((a,b) => (levelOrder[a.level]||0) - (levelOrder[b.level]||0));
+
+  const stepsHTML = `
+    <div class="step-node done"><div class="step-circle">✓</div><div class="step-label">Intro to AI</div><div class="step-sub">Foundation · shared</div></div>
+    <div class="step-node done"><div class="step-circle">1</div><div class="step-label">Foundation</div><div class="step-sub">${info.name}</div></div>
+    <div class="step-node"><div class="step-circle">2</div><div class="step-label">Intermediate</div><div class="step-sub">Design &amp; adopt</div></div>
+    <div class="step-node"><div class="step-circle">3</div><div class="step-label">Advanced</div><div class="step-sub">Scale &amp; govern</div></div>
+    <div class="step-node"><div class="step-circle">4</div><div class="step-label">Capstone</div><div class="step-sub">Proof of value</div></div>`;
+
+  const coursesHTML = pathCourses.map(c => `
+    <div class="pathway-course-item">
+      <strong>${c.title}</strong>
+      <dl>
+        <dt>Description</dt><dd>${c.desc}</dd>
+        <dt>Expectation</dt><dd>${c.expectation || 'Build practical, workplace-ready understanding of this topic.'}</dd>
+        <dt>Target audience</dt><dd>${c.audience}</dd>
+        <dt>Level</dt><dd>${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</dd>
+        <dt>CPD credits</dt><dd>${c.cpd || 3} credits</dd>
+      </dl>
+      <div class="pci-footer">
+        <span class="tag ${c.free ? 'tag-free' : 'tag-paid'}">${c.free ? '🆓 Free' : '💳 Paid'}</span>
+        <a href="${c.url}" target="_blank" rel="noopener" class="course-link">Enrol →</a>
+        <button class="btn-sm btn-outline mark-complete-btn" data-course="${c.id}" onclick="awardPoints('${c.id}', ${(c.cpd||3)*10}, ${c.cpd||3}, '${c.title.replace(/'/g,"\\'")}')">Log this course</button>
+      </div>
+    </div>`).join('');
+
+  panel.innerHTML = `
+    <div class="ep-eyebrow ${info.tagClass}" style="color:${info.borderColor}">${info.emoji} ${info.name} pathway</div>
+    <h3>${info.heading}</h3>
+    <p class="ep-desc">${info.desc}</p>
+    <div class="ep-audience">${info.audience.map(a => `<span class="tag ${info.tagClass}">${a}</span>`).join('')}</div>
+    <div class="step-track">${stepsHTML}</div>
+    <div class="pathway-course-list">${coursesHTML}</div>
+    <div style="margin-top:1.2rem">
+      <a href="#" class="btn-sm btn-blue" onclick="jumpToFilteredCourses('${cat}'); return false;">See every ${info.name} course in the library →</a>
+    </div>`;
+}
+
+function jumpToFilteredCourses(cat) {
+  showSection('library');
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
+  document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-learning').classList.add('active-view');
+  document.querySelectorAll('.tab-bar .tab-btn')[0].classList.add('active');
+  const pill = document.querySelector(`#tab-learning .filter-pill.pill-${cat}`);
+  if (pill) setCourseFilter(cat, pill);
+  document.querySelector('.tab-bar')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   uPULL.AI INTRAPRENEUR PATHWAY — vertical timeline built from the
+   'intrapreneur' category courses, grouped by stage.
+   ══════════════════════════════════════════════════════════════════ */
+const intrapreneurStages = [
+  {n:1, title:'Foundation — understand AI', meta:'Shared starting point · no technical background needed'},
+  {n:2, title:'Applied AI at work', meta:'Prompting, responsible use and scoping an idea'},
+  {n:3, title:'Innovation &amp; intrapreneurship', meta:'Turning an idea into a case for change'},
+  {n:4, title:'Building AI agents &amp; products', meta:'The practical, technical layer'},
+  {n:5, title:'Leading change at scale', meta:'Optional deeper leadership certificate'},
+  {n:6, title:'Capstone — proof of value', meta:'uPull.ai\'s own 6-week delivery model'}
+];
+
+function renderIntrapreneur() {
+  const wrap = document.getElementById('intrapreneurTimeline');
+  if (!wrap) return;
+  const byStage = {};
+  courses.filter(c => c.cat === 'intrapreneur').forEach(c => {
+    (byStage[c.stage] = byStage[c.stage] || []).push(c);
+  });
+  wrap.innerHTML = intrapreneurStages.map(stage => {
+    const stageCourses = byStage[stage.n] || [];
+    const coursesHTML = stageCourses.map(c => `
+      <div class="tl-course">
+        <div class="tl-provider">${c.provider}</div>
+        <div class="tl-title">${c.title}</div>
+        <div class="tl-desc">${c.desc}</div>
+        <div class="tl-desc"><strong style="color:var(--navy)">Expect to:</strong> ${c.expectation || ''}</div>
+        <div class="tl-foot">
+          <span class="tag ${c.free ? 'tag-free' : 'tag-paid'}">${c.free ? '🆓 Free' : '💳 Paid'}</span>
+          <span class="tag tag-${c.level}">${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span>
+          <span class="tag tag-intrapreneur">🏆 ${c.cpd} CPD</span>
+          <a href="${c.url}" target="_blank" rel="noopener" class="course-link">Enrol →</a>
+        </div>
+        <div class="tl-foot" style="margin-top:.4rem">
+          <button class="btn-sm btn-outline mark-complete-btn" data-course="${c.id}" onclick="awardPoints('${c.id}', ${c.cpd*10}, ${c.cpd}, '${c.title.replace(/'/g,"\\'")}')">Log this course</button>
+        </div>
+      </div>`).join('');
+    return `
+      <div class="timeline-stage">
+        <div class="tl-dot-col"><div class="tl-dot">${stage.n}</div><div class="tl-line"></div></div>
+        <div class="timeline-content">
+          <h4>${stage.title}</h4>
+          <div class="tl-meta">${stage.meta}</div>
+          <div class="tl-course-grid">${coursesHTML}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LEADERBOARDS — organisation and individual score tables. Falls back
+   to sample rows until real learners appear in Firestore.
+   ══════════════════════════════════════════════════════════════════ */
+const sampleOrgBoard = [
+  {name:'Great Ormond Street Hospital', points:2850, badges:14},
+  {name:'University College London NHS Trust', points:2530, badges:12},
+  {name:'Royal Free London', points:2280, badges:11},
+  {name:'Barts Health NHS Trust', points:2120, badges:10}
+];
+const sampleIndividualBoard = [
+  {name:'Dr S. Chen', points:345, route:'Clinical'},
+  {name:'J. Mitchell', points:328, route:'Agentic'},
+  {name:'E. Robinson', points:312, route:'Ambience'},
+  {name:'D. Patel', points:272, route:'Robotic'}
+];
+
+function renderOrgBoard(rows, isLive) {
+  const tbody = document.getElementById('orgBoardBody');
+  if (!tbody) return;
+  tbody.innerHTML = rows.map((r,i) => `<tr><td class="lb-rank">${i+1}</td><td>${r.name}</td><td>${r.points.toLocaleString('en-GB')}</td><td>${r.badges}</td></tr>`).join('');
+  const note = document.getElementById('orgBoardNote');
+  if (note) note.textContent = isLive ? 'Live scores from signed-in learners.' : 'Sample scores — sign in and log an organisation to join the table.';
+}
+
+function renderIndividualBoard(rows, isLive, currentUid) {
+  const tbody = document.getElementById('individualBoardBody');
+  if (!tbody) return;
+  tbody.innerHTML = rows.map((r,i) => `<tr class="${r.uid && r.uid === currentUid ? 'lb-you' : ''}"><td class="lb-rank">${i+1}</td><td>${r.name}${r.uid && r.uid === currentUid ? ' (you)' : ''}</td><td>${r.points.toLocaleString('en-GB')}</td><td>${r.route || '—'}</td></tr>`).join('');
+  const note = document.getElementById('individualBoardNote');
+  if (note) note.textContent = isLive ? 'Live scores from signed-in learners.' : 'Sample scores — sign in below and mark a course complete to join the table.';
+}
+
+function initLeaderboards() {
+  renderOrgBoard(sampleOrgBoard, false);
+  renderIndividualBoard(sampleIndividualBoard, false, null);
+
+  const tryLive = () => {
+    const f = window.__firebase;
+    if (!f) return;
+    try {
+      const orgQ = f.query(f.collection(f.db, 'academyOrgScores'), f.orderBy('points','desc'), f.limit(8));
+      f.onSnapshot(orgQ, snap => {
+        if (snap.empty) { renderOrgBoard(sampleOrgBoard, false); return; }
+        const rows = [];
+        snap.forEach(d => rows.push(d.data()));
+        renderOrgBoard(rows, true);
+      }, () => renderOrgBoard(sampleOrgBoard, false));
+
+      const indQ = f.query(f.collection(f.db, 'academyProfiles'), f.orderBy('points','desc'), f.limit(10));
+      f.onSnapshot(indQ, snap => {
+        if (snap.empty) { renderIndividualBoard(sampleIndividualBoard, false, window.__currentUid); return; }
+        const rows = [];
+        snap.forEach(d => rows.push(d.data()));
+        renderIndividualBoard(rows, true, window.__currentUid);
+      }, () => renderIndividualBoard(sampleIndividualBoard, false, window.__currentUid));
+    } catch (err) {
+      console.error('Leaderboard live sync unavailable:', err);
+    }
+  };
+  if (window.__firebaseReady) tryLive(); else window.addEventListener('firebaseReady', tryLive);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LOG IN, PROFILE &amp; POINTS — shared Firebase project with
+   community.html, so signing in on either page gives the same profile.
+   ══════════════════════════════════════════════════════════════════ */
+function scrollToLogin() {
+  document.querySelector('.academy-sidebar')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function fbAcademy() {
+  if (!window.__firebase) {
+    console.error('Firebase is not ready yet — please wait a second and try again.');
+    return null;
+  }
+  return window.__firebase;
+}
+
+function signInAcademy() {
+  const f = fbAcademy();
+  if (!f) { alert('Still connecting — please wait a second and try again.'); return; }
+  setSignInRole('learner');
+  f.signInWithPopup(f.auth, f.googleProvider).catch(err => {
+    console.error('Sign-in failed:', err);
+    if (err.code === 'auth/unauthorized-domain') {
+      alert('This domain is not yet authorised for sign-in. Add it in Firebase Console → Authentication → Settings → Authorised domains.');
+    } else if (err.code === 'auth/popup-blocked') {
+      alert('Your browser blocked the sign-in popup. Please allow popups for this site and try again.');
+    } else if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+      alert('Sign-in did not complete (' + err.code + '). Please try again.');
+    }
+  });
+}
+
+function signOutAcademy() {
+  const f = fbAcademy();
+  if (!f) return;
+  f.signOut(f.auth).catch(err => console.error('Sign-out failed:', err));
+}
+
+let academyProfileUnsub = null;
+
+function initAuth() {
+  const tryInit = () => {
+    const f = fbAcademy();
+    if (!f) return;
+    completeEmailLinkSignInIfNeeded();
+    f.onAuthStateChanged(f.auth, user => onAcademyAuthChange(user));
+  };
+  if (window.__firebaseReady) tryInit(); else window.addEventListener('firebaseReady', tryInit);
+}
+
+async function onAcademyAuthChange(user) {
+  const signedOut = document.getElementById('loginSignedOut');
+  const signedIn = document.getElementById('loginSignedIn');
+  const headerPoints = document.getElementById('headerPoints');
+  const headerBtn = document.getElementById('headerLoginBtn');
+
+  if (!user) {
+    window.__currentUid = null;
+    if (signedOut) signedOut.style.display = 'block';
+    if (signedIn) signedIn.style.display = 'none';
+    if (headerPoints) headerPoints.classList.add('hidden');
+    if (headerBtn) { headerBtn.textContent = 'Log in'; headerBtn.onclick = scrollToLogin; }
+    return;
+  }
+
+  // NHS domain gate — only applies to the learner/leader role. Vendors
+  // sign in on uCollabX with role='vendor', so their company
+  // email is intentionally exempt here.
+  if (getSignInRole() !== 'vendor' && !isAllowedEmail(user.email)) {
+    const f = fbAcademy();
+    if (f) f.signOut(f.auth);
+    setNhsEmailStatus('That account (' + (user.email || 'no email') + ') is not an @nhs.net or @nhs.uk address, so it has been signed out.', true);
+    return;
+  }
+
+  window.__currentUid = user.uid;
+  if (signedOut) signedOut.style.display = 'none';
+  if (signedIn) signedIn.style.display = 'block';
+  if (headerBtn) { headerBtn.textContent = 'My profile'; headerBtn.onclick = scrollToLogin; }
+
+  const f = fbAcademy();
+  if (!f) return;
+  const ref = f.doc(f.db, 'academyProfiles', user.uid);
+  let snap;
+  try { snap = await f.getDoc(ref); } catch (e) { console.error(e); return; }
+  if (!snap.exists()) {
+    await f.setDoc(ref, {
+      uid: user.uid,
+      name: user.displayName || user.email || 'Academy learner',
+      photoURL: user.photoURL || '',
+      organisation: '',
+      points: 0,
+      cpd: 0,
+      route: '',
+      completedCourses: []
+    });
+  }
+
+  if (academyProfileUnsub) academyProfileUnsub();
+  academyProfileUnsub = f.onSnapshot(ref, s => {
+    if (s.exists()) renderProfile(s.data());
+  });
+}
+
+function renderProfile(profile) {
+  const headerPoints = document.getElementById('headerPoints');
+  if (headerPoints) { headerPoints.textContent = `⭐ ${profile.points || 0} pts`; headerPoints.classList.remove('hidden'); }
+
+  const nameEl = document.getElementById('profileName');
+  const avatarEl = document.getElementById('profileAvatar');
+  const pointsEl = document.getElementById('profilePoints');
+  const cpdEl = document.getElementById('profileCPD');
+  const coursesEl = document.getElementById('profileCourses');
+  const orgInput = document.getElementById('profileOrgInput');
+  const badgeRow = document.getElementById('profileBadges');
+
+  if (nameEl) nameEl.textContent = profile.name || 'Academy learner';
+  if (avatarEl) {
+    if (profile.photoURL) { avatarEl.innerHTML = `<img src="${profile.photoURL}" style="width:100%;height:100%;border-radius:50%;object-fit:cover" alt="">`; }
+    else { avatarEl.textContent = (profile.name || 'A').charAt(0).toUpperCase(); }
+  }
+  if (pointsEl) pointsEl.textContent = profile.points || 0;
+  if (cpdEl) cpdEl.textContent = profile.cpd || 0;
+  if (coursesEl) coursesEl.textContent = (profile.completedCourses || []).length;
+  if (orgInput && document.activeElement !== orgInput) orgInput.value = profile.organisation || '';
+
+  const points = profile.points || 0;
+  const tiers = [
+    {label:'Awareness', min:1},
+    {label:'Practitioner', min:30},
+    {label:'Specialist', min:70}
+  ];
+  if (badgeRow) {
+    badgeRow.innerHTML = tiers.map(t => `<span class="badge-pill ${points >= t.min ? 'earned' : ''}">${points >= t.min ? '🏅' : '🔒'} ${t.label}</span>`).join('');
+  }
+
+  // Reflect completed state on any "mark complete" buttons currently in view
+  (profile.completedCourses || []).forEach(id => {
+    document.querySelectorAll(`.mark-complete-btn[data-course="${id}"]`).forEach(btn => {
+      btn.classList.add('done');
+      btn.textContent = '✓ Logged';
+    });
+  });
+}
+
+async function saveOrganisation() {
+  const f = fbAcademy();
+  if (!f || !window.__currentUid) { alert('Please sign in first.'); return; }
+  const orgInput = document.getElementById('profileOrgInput');
+  const org = (orgInput?.value || '').trim();
+  if (!org) return;
+  const ref = f.doc(f.db, 'academyProfiles', window.__currentUid);
+  await f.updateDoc(ref, { organisation: org });
+  const slug = org.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'organisation';
+  const orgRef = f.doc(f.db, 'academyOrgScores', slug);
+  const orgSnap = await f.getDoc(orgRef);
+  if (!orgSnap.exists()) {
+    await f.setDoc(orgRef, { name: org, points: 0, badges: 0 });
+  }
+  showPointsToast(`Organisation set to ${org}`);
+}
+
+async function awardPoints(courseId, points, cpd, label) {
+  const f = fbAcademy();
+  if (!f || !window.__currentUid) { alert('Please sign in below to log this course and collect points.'); scrollToLogin(); return; }
+  const ref = f.doc(f.db, 'academyProfiles', window.__currentUid);
+  const snap = await f.getDoc(ref);
+  const already = snap.exists() && (snap.data().completedCourses || []).includes(courseId);
+  if (already) { showPointsToast('Already logged — nice work!'); return; }
+
+  await f.updateDoc(ref, {
+    points: f.increment(points),
+    cpd: f.increment(cpd),
+    completedCourses: f.arrayUnion(courseId)
+  });
+
+  const org = snap.exists() ? snap.data().organisation : '';
+  if (org) {
+    const slug = org.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'organisation';
+    const orgRef = f.doc(f.db, 'academyOrgScores', slug);
+    const orgSnap = await f.getDoc(orgRef);
+    if (orgSnap.exists()) {
+      await f.updateDoc(orgRef, { points: f.increment(points), badges: f.increment(points >= 30 ? 1 : 0) });
+    } else {
+      await f.setDoc(orgRef, { name: org, points: points, badges: 0 });
+    }
+  }
+
+  document.querySelectorAll(`.mark-complete-btn[data-course="${courseId}"]`).forEach(btn => {
+    btn.classList.add('done');
+    btn.textContent = '✓ Logged';
+  });
+  showPointsToast(`+${points} points logged for "${label}"`);
+}
+
+function showPointsToast(msg) {
+  let toast = document.getElementById('pointsToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'pointsToast';
+    toast.className = 'points-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
 }
 </script>
 </body>
