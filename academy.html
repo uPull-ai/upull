@@ -11,7 +11,7 @@
       --navy:#003087;--blue:#005EB8;--blue-rgb:0,94,184;--orange:#ED8B00;--orange-hover:#c26f00;--bg:#F8FAFC;
       --card:#ffffff;--muted:#768692;--border:#E8EDEE;
       --clinical:#00A499;--operational:#78BE20;--vendor:#330072;
-      --agentic:#AE2573;--ambient:#41B6E6;--clinical-tag:#00A499;--robotic:#DA291C;--intrapreneur:#FFB81C;
+      --agentic:#AE2573;--ambient:#41B6E6;--clinical-tag:#00A499;--robotic:#DA291C;--intrapreneur:#FFB81C;--promptengineering:#7C3AED;
     }
     header{background:var(--navy);padding:1rem 5%;position:sticky;top:0;z-index:1000;border-bottom:3px solid var(--blue);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
     .nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:.5rem}
@@ -100,6 +100,7 @@
     .pill-robotic.active{background:var(--robotic)}
     .pill-operational.active{background:var(--operational)}
     .pill-intrapreneur.active{background:var(--intrapreneur)}
+    .pill-promptengineering.active{background:var(--promptengineering)}
     .pill-free.active{background:#16a34a}
     .search-wrap{flex:1;min-width:220px;max-width:380px;position:relative}
     .search-wrap input{width:100%;padding:.55rem 1rem .55rem 2.4rem;border:2px solid var(--border);border-radius:8px;font-size:.9rem;outline:none;transition:border .2s}
@@ -117,6 +118,7 @@
     .tag-robotic{background:var(--robotic)}
     .tag-operational{background:var(--operational)}
     .tag-intrapreneur{background:var(--intrapreneur)}
+    .tag-promptengineering{background:var(--promptengineering)}
     .tag-free{background:#16a34a}
     .tag-paid{background:#6b7280}
     .tag-beginner{background:#0ea5e9}
@@ -447,6 +449,7 @@
             <li><a href="community.html">Community Forum</a></li>
             <li><a href="#" onclick="showSection('chooser'); closeAllSubmenus(); closeMobileNav(); return false;">Learning Pathways</a></li>
             <li><a href="#" onclick="showSection('intrapreneur'); closeAllSubmenus(); closeMobileNav(); return false;">Intrapreneur Route</a></li>
+            <li><a href="#" onclick="showSection('promptengineering'); closeAllSubmenus(); closeMobileNav(); return false;">Prompt Engineering</a></li>
             <li><a href="#" onclick="jumpToTab('casestudies'); return false;">Case Studies</a></li>
             <li><a href="#" onclick="showSection('scores'); closeAllSubmenus(); closeMobileNav(); return false;">Score Tables</a></li>
           </ul>
@@ -532,6 +535,7 @@
         <button class="section-nav-btn active" data-section="overview" onclick="showSection('overview')">📘 Overview &amp; CPD</button>
         <button class="section-nav-btn" data-section="chooser" onclick="showSection('chooser')">🧭 Find My Pathway</button>
         <button class="section-nav-btn" data-section="intrapreneur" onclick="showSection('intrapreneur')">🚀 Intrapreneur Route</button>
+        <button class="section-nav-btn" data-section="promptengineering" onclick="showSection('promptengineering')">✍️ Prompt Engineering</button>
         <button class="section-nav-btn" data-section="library" onclick="showSection('library')">📚 Course Library</button>
         <button class="section-nav-btn" data-section="scores" onclick="showSection('scores')">🏆 Scores &amp; Community</button>
       </nav>
@@ -648,6 +652,16 @@
         </section>
       </div>
 
+      <!-- ══════════════ VIEW: PROMPT ENGINEERING PATHWAY ══════════════ -->
+      <div id="section-promptengineering" class="academy-view">
+        <section style="padding-top:.5rem">
+          <h2 class="section-title">✍️ The Prompt Engineering Pathway</h2>
+          <p class="section-subtitle">A researched, beginner-to-advanced route for NHS and public sector staff who want to get the most out of AI tools — built entirely from free YouTube videos, open curricula and vendor training. Free for NHS and public sector, with CPD credits at every stage.</p>
+          <p style="margin-bottom:1.5rem"><a href="prompt-engineering.html" class="course-link">Read the full guide — CPD tiers, stage-by-stage detail and the NHS capstone brief →</a></p>
+          <div class="timeline" id="promptEngineeringTimeline"><!-- populated by JS: renderPromptEngineering() --></div>
+        </section>
+      </div>
+
       <!-- ══════════════ VIEW 4: COURSE LIBRARY & CASE STUDIES ══════════════ -->
       <div id="section-library" class="academy-view">
         <div class="tab-bar" style="padding-top:0">
@@ -660,6 +674,19 @@
           <section>
             <h2 class="section-title">Full Course Library</h2>
             <p class="section-subtitle">Every course behind the four pathways and the Intrapreneur route, in one searchable library — from absolute beginner to advanced AI implementation. Click any course to go directly to the provider.</p>
+
+            <div class="cpd-box" style="margin-bottom:1.5rem">
+              <div class="cpd-text">
+                <h2>New: Prompt Engineering Pathway</h2>
+                <p>A dedicated six-stage route — from writing your first prompt to designing production-grade prompt systems — built from free YouTube videos, open curricula and vendor training, with CPD credits at every stage.</p>
+                <div class="cpd-facts">
+                  <span class="cpd-fact">13 free courses</span>
+                  <span class="cpd-fact">Beginner to Advanced</span>
+                  <span class="cpd-fact">CPD Recognised</span>
+                </div>
+              </div>
+              <a href="#" onclick="showSection('promptengineering'); return false;" class="cta-btn" style="flex-shrink:0">View the pathway →</a>
+            </div>
 
             <div class="path-cards">
               <div class="path-card beginner">
@@ -683,6 +710,7 @@
               <button class="filter-pill pill-clinical" onclick="setCourseFilter('clinical',this)">🩺 Clinical AI</button>
               <button class="filter-pill pill-robotic" onclick="setCourseFilter('robotic',this)">🦾 Robotic AI</button>
               <button class="filter-pill pill-intrapreneur" onclick="setCourseFilter('intrapreneur',this)">🚀 Intrapreneur</button>
+              <button class="filter-pill pill-promptengineering" onclick="setCourseFilter('promptengineering',this)">✍️ Prompt Engineering</button>
               <button class="filter-pill pill-free" onclick="setCourseFilter('free',this)">🆓 Free Only</button>
             </div>
 
@@ -949,7 +977,20 @@ const courses = [
   {id:'c29',cat:'intrapreneur',stage:4,level:'advanced',free:true,cpd:8,provider:'Microsoft (open-source curriculum)',title:'AI Agents for Beginners',desc:'Microsoft\'s free curriculum on designing, building and deploying AI agents responsibly, including planning, tool use and multi-agent orchestration.',expectation:'Design a multi-step agent workflow with appropriate human oversight.',cost:'Free',audience:'Developers, architects and technical leads',url:'https://microsoft.github.io/ai-agents-for-beginners/',cs:''},
   {id:'c30',cat:'intrapreneur',stage:4,level:'advanced',free:true,cpd:3,provider:'NVIDIA Deep Learning Institute',title:'Agentic AI Explained',desc:'Free, self-paced NVIDIA DLI course explaining agentic AI architecture and deployment considerations for real production systems.',expectation:'Explain the deployment considerations for a production-grade agentic system.',cost:'Free',audience:'Technical leads scaling a proven idea',url:'https://www.nvidia.com/en-us/training/',cs:''},
   {id:'c31',cat:'intrapreneur',stage:5,level:'advanced',free:false,cpd:15,provider:'Cornell University (eCornell)',title:'Intrapreneurship Certificate',desc:'Faculty-authored certificate on spotting opportunities, earning stakeholder buy-in and leading change to take an internal idea from concept to adopted initiative.',expectation:'Lead a stakeholder pitch and change plan for a new internal initiative.',cost:'Paid — subsidised NHS/public-sector rates may be available',audience:'Mid-level leaders ready to pitch and scale an idea',url:'https://ecornell.cornell.edu/certificates/leadership-and-strategic-management/intrapreneurship/',cs:''},
-  {id:'c32',cat:'intrapreneur',stage:6,level:'advanced',free:true,cpd:20,provider:'uPull.ai',title:'Designing Your 6-Week Proof of Value',desc:'uPull.ai\'s own practical capstone — turn everything learned into a scoped, measurable 6-week proof of value with your organisation, ready for a case study.',expectation:'Leave with a signed-off 6-week proof of value plan and success metrics.',cost:'Free',audience:'Intrapreneurs ready to pitch a real proof of value',url:'mailto:info@upull.ai',cs:''}
+  {id:'c32',cat:'intrapreneur',stage:6,level:'advanced',free:true,cpd:20,provider:'uPull.ai',title:'Designing Your 6-Week Proof of Value',desc:'uPull.ai\'s own practical capstone — turn everything learned into a scoped, measurable 6-week proof of value with your organisation, ready for a case study.',expectation:'Leave with a signed-off 6-week proof of value plan and success metrics.',cost:'Free',audience:'Intrapreneurs ready to pitch a real proof of value',url:'mailto:info@upull.ai',cs:''},
+  {id:'pe1',cat:'promptengineering',stage:1,level:'beginner',free:true,cpd:2,provider:'Andrej Karpathy (YouTube)',title:'Intro to Large Language Models',desc:'A one-hour lecture by the former Director of AI at Tesla explaining how LLMs work, why prompt wording matters, and the intuition behind tokens and context windows. Ideal starting point for all NHS staff.',expectation:'Explain in plain language what an LLM is and why prompts affect its output.',cost:'Free',audience:'All NHS staff — no tech background needed',url:'https://www.youtube.com/watch?v=zjkBMFhNj_g',cs:''},
+  {id:'pe5',cat:'promptengineering',stage:1,level:'beginner',free:true,cpd:2,provider:'IBM Technology (YouTube)',title:'What is Prompt Engineering?',desc:'IBM Technology\'s explainer video on prompt engineering — covers why it matters, how it differs from programming, and gives NHS-relevant examples of good vs poor prompts.',expectation:'Describe what prompt engineering is and why it improves AI outputs.',cost:'Free',audience:'Managers, clinical leads and digital champions new to AI',url:'https://www.youtube.com/watch?v=1c9iyoVIwDs',cs:''},
+  {id:'pe2',cat:'promptengineering',stage:2,level:'beginner',free:true,cpd:3,provider:'Learn Prompting (Open Guide)',title:'Learn Prompting — Beginner Modules',desc:'The most widely used open-source prompting guide. The beginner section covers basics, instruction clarity, and common pitfalls — fully free, no sign-up required.',expectation:'Write a clear, well-structured prompt for a routine NHS task.',cost:'Free',audience:'All NHS staff',url:'https://learnprompting.org/docs/intro',cs:''},
+  {id:'pe4',cat:'promptengineering',stage:2,level:'beginner',free:true,cpd:3,provider:'DAIR.AI / Prompting Guide',title:'Prompt Engineering Guide — Foundations',desc:'The DAIR.AI Prompt Engineering Guide is the most-cited reference in the field. The introductory sections cover zero-shot, one-shot, few-shot and role prompting with healthcare-applicable examples.',expectation:'Apply zero-shot, one-shot and few-shot techniques to an NHS writing task.',cost:'Free',audience:'All staff — especially those drafting documents or emails with AI',url:'https://www.promptingguide.ai/',cs:''},
+  {id:'pe6',cat:'promptengineering',stage:3,level:'intermediate',free:true,cpd:4,provider:'DeepLearning.AI',title:'ChatGPT Prompt Engineering for Developers',desc:'The most popular free prompt engineering short course online, co-created by OpenAI and DeepLearning.AI. Covers summarisation, inference, transforming and expanding — highly applicable to NHS report writing and document work.',expectation:'Use summarise, infer, transform and expand prompting techniques for NHS documents.',cost:'Free (audit)',audience:'Digital champions, clinical informaticists, operational leads',url:'https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/',cs:''},
+  {id:'pe7',cat:'promptengineering',stage:3,level:'intermediate',free:true,cpd:3,provider:'DeepLearning.AI (YouTube)',title:'Chain-of-Thought Prompting Explained',desc:'Video walkthrough of chain-of-thought prompting — teaching AI models to reason step-by-step. Critical for clinical summarisation, differential reasoning support, and structured patient letter drafting.',expectation:'Write a chain-of-thought prompt that guides an AI through a multi-step NHS task.',cost:'Free',audience:'Clinical staff, policy authors, anyone using AI for reasoning-heavy tasks',url:'https://www.youtube.com/watch?v=H4YK_7MAckk',cs:''},
+  {id:'pe8',cat:'promptengineering',stage:4,level:'intermediate',free:true,cpd:5,provider:'Anthropic Academy',title:'Prompt Engineering Interactive Tutorial',desc:'Anthropic\'s official hands-on prompting course for Claude — covers clarity, structure, role assignment, XML formatting, and avoiding hallucination. Free and browser-based with live exercises.',expectation:'Build a structured NHS-facing prompt using Anthropic\'s best-practice framework.',cost:'Free',audience:'Digital leads, content authors, clinical informaticists',url:'https://www.anthropic.com/learn',cs:''},
+  {id:'pe11',cat:'promptengineering',stage:4,level:'intermediate',free:true,cpd:3,provider:'Sam Witteveen (YouTube)',title:'Few-Shot Prompting Deep Dive',desc:'Detailed YouTube tutorial on few-shot examples — how to select, format and sequence examples for best performance. Includes NHS letter and report formatting examples.',expectation:'Select and format examples for a few-shot prompt that produces consistent NHS document output.',cost:'Free',audience:'Anyone producing templated documents, letters or reports with AI',url:'https://www.youtube.com/watch?v=dOxUroR57xs',cs:''},
+  {id:'pe14',cat:'promptengineering',stage:4,level:'advanced',free:true,cpd:4,provider:'AI Explained (YouTube)',title:'Tree of Thoughts &amp; Advanced Reasoning',desc:'Clear YouTube explainer on tree-of-thought, ReAct, and self-reflection prompting — the techniques behind AI systems that reason over complex clinical or operational problems.',expectation:'Apply tree-of-thought prompting to a complex NHS planning or clinical reasoning scenario.',cost:'Free',audience:'Advanced users working on clinical decision support or strategic planning AI tools',url:'https://www.youtube.com/watch?v=nt63k3bfXS0',cs:''},
+  {id:'pe12',cat:'promptengineering',stage:5,level:'advanced',free:true,cpd:5,provider:'Andrej Karpathy (YouTube)',title:'Deep Dive: How to Use LLMs Effectively',desc:'Karpathy\'s comprehensive guide to getting consistent, reliable output from LLMs — covering temperature, context window management, hallucination mitigation and evaluation frameworks for production NHS use.',expectation:'Design a prompting strategy that minimises hallucination risk for a patient-facing NHS tool.',cost:'Free',audience:'Digital leads, clinical informaticists and technical teams deploying AI in NHS settings',url:'https://www.youtube.com/watch?v=_ZvnD73m40o',cs:''},
+  {id:'pe13',cat:'promptengineering',stage:5,level:'advanced',free:true,cpd:8,provider:'DeepLearning.AI',title:'Building Systems with the ChatGPT API',desc:'DeepLearning.AI\'s free short course on chaining prompts, classifying inputs, checking outputs, and building multi-step prompt pipelines — the engineering backbone for NHS AI products.',expectation:'Build a multi-step prompt chain that classifies, processes and validates an NHS workflow.',cost:'Free (audit)',audience:'Developers, digital leads and technical architects building NHS AI tools',url:'https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/',cs:''},
+  {id:'pe16',cat:'promptengineering',stage:5,level:'advanced',free:true,cpd:4,provider:'IBM Technology (YouTube)',title:'RAG — Retrieval Augmented Generation Explained',desc:'IBM\'s clear explainer on RAG — how to ground AI output in verified NHS documents, guidelines and policies to reduce hallucination and improve trust in clinical settings.',expectation:'Explain how RAG reduces hallucination risk and design a RAG prompt strategy for NHS clinical guidelines.',cost:'Free',audience:'Technical leads designing safe, evidence-grounded NHS AI tools',url:'https://www.youtube.com/watch?v=ahnGLM-RC1Y',cs:''},
+  {id:'pe19',cat:'promptengineering',stage:6,level:'advanced',free:true,cpd:5,provider:'uPull.ai',title:'NHS Practical Capstone — Build Your Prompt Library',desc:'uPull.ai\'s own practical capstone — write and test a real prompt library for one NHS workflow of your choice, then submit it for a shareable CPD record and case study consideration.',expectation:'Leave with a tested prompt library for one real NHS workflow, ready to share with colleagues.',cost:'Free',audience:'Anyone who has completed Stages 1–5 and wants to apply it locally',url:'mailto:info@upull.ai',cs:''}
 ];
 
 const caseStudies = [
@@ -1019,12 +1060,13 @@ function renderCourses() {
           <div class="course-meta">
             <span>👥 ${c.audience}</span>
             <span>💰 ${c.cost}</span>
+            <span>📚 ${c.cpd} CPD credit${c.cpd !== 1 ? 's' : ''}</span>
           </div>
         </div>
         <div class="course-card-bottom">
-          <span class="tag tag-${c.cat}">${c.cat==='intrapreneur' ? '🚀 Intrapreneur' : c.cat.charAt(0).toUpperCase()+c.cat.slice(1)+' AI'}</span>
+          <span class="tag tag-${c.cat}">${c.cat==='intrapreneur' ? '🚀 Intrapreneur' : c.cat==='promptengineering' ? '✍️ Prompt Engineering' : c.cat.charAt(0).toUpperCase()+c.cat.slice(1)+' AI'}</span>
           <span class="tag tag-${c.level}">${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span>
-          <span class="tag tag-${c.free?'free':'paid'}">${c.free?'🆓 Free':'💳 Paid'}</span>
+          <span class="tag tag-${c.free?'free':'paid'}">${c.free?'🆓 Free for NHS':'💳 Paid'}</span>
           <a href="${c.url}" target="_blank" rel="noopener" class="course-link" style="margin-left:auto">Enrol →</a>
           ${csLinks}
         </div>
@@ -1163,6 +1205,7 @@ window.onload = function() {
   handleDeepLink();
   showExplorer('agentic');
   renderIntrapreneur();
+  renderPromptEngineering();
   initLeaderboards();
   initAuth();
 };
@@ -1583,6 +1626,52 @@ function renderIntrapreneur() {
           <span class="tag ${c.free ? 'tag-free' : 'tag-paid'}">${c.free ? '🆓 Free' : '💳 Paid'}</span>
           <span class="tag tag-${c.level}">${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span>
           <span class="tag tag-intrapreneur">🏆 ${c.cpd} CPD</span>
+          <a href="${c.url}" target="_blank" rel="noopener" class="course-link">Enrol →</a>
+        </div>
+        <div class="tl-foot" style="margin-top:.4rem">
+          <button class="btn-sm btn-outline mark-complete-btn" data-course="${c.id}" onclick="awardPoints('${c.id}', ${c.cpd*10}, ${c.cpd}, '${c.title.replace(/'/g,"\\'")}')">Log this course</button>
+        </div>
+      </div>`).join('');
+    return `
+      <div class="timeline-stage">
+        <div class="tl-dot-col"><div class="tl-dot">${stage.n}</div><div class="tl-line"></div></div>
+        <div class="timeline-content">
+          <h4>${stage.title}</h4>
+          <div class="tl-meta">${stage.meta}</div>
+          <div class="tl-course-grid">${coursesHTML}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+const promptEngineeringStages = [
+  {n:1, title:'Foundations', meta:'Beginner · no prior AI experience needed'},
+  {n:2, title:'Core techniques', meta:'Zero-shot, few-shot, role prompting and instruction formatting'},
+  {n:3, title:'Intermediate strategies', meta:'Chain-of-thought reasoning and structured NHS document output'},
+  {n:4, title:'Advanced techniques', meta:'Tree-of-thought, self-consistency and system prompt design'},
+  {n:5, title:'Prompt systems &amp; APIs', meta:'Reusable templates, chaining pipelines and RAG — technical track'},
+  {n:6, title:'NHS practical capstone', meta:'Apply everything to one real workflow in your own organisation'}
+];
+
+function renderPromptEngineering() {
+  const wrap = document.getElementById('promptEngineeringTimeline');
+  if (!wrap) return;
+  const byStage = {};
+  courses.filter(c => c.cat === 'promptengineering').forEach(c => {
+    (byStage[c.stage] = byStage[c.stage] || []).push(c);
+  });
+  wrap.innerHTML = promptEngineeringStages.map(stage => {
+    const stageCourses = byStage[stage.n] || [];
+    const coursesHTML = stageCourses.map(c => `
+      <div class="tl-course">
+        <div class="tl-provider">${c.provider}</div>
+        <div class="tl-title">${c.title}</div>
+        <div class="tl-desc">${c.desc}</div>
+        <div class="tl-desc"><strong style="color:var(--navy)">Expect to:</strong> ${c.expectation || ''}</div>
+        <div class="tl-foot">
+          <span class="tag ${c.free ? 'tag-free' : 'tag-paid'}">${c.free ? '🆓 Free' : '💳 Paid'}</span>
+          <span class="tag tag-${c.level}">${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span>
+          <span class="tag tag-promptengineering">📚 ${c.cpd} CPD</span>
           <a href="${c.url}" target="_blank" rel="noopener" class="course-link">Enrol →</a>
         </div>
         <div class="tl-foot" style="margin-top:.4rem">
