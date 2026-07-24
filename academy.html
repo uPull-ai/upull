@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -1323,10 +1322,10 @@ function showSection(name) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   SIGN-IN ROLE — the NHS domain gate only applies to the learner/leader
-   role. Vendors sign in on uCollabX with role='vendor', and
-   since localStorage is shared across pages on this origin, academy.html
-   must respect that same flag rather than bouncing a signed-in vendor.
+   SIGN-IN ROLE — "role" only controls which UI a signed-in person sees
+   (member vs. vendor panels). It is NOT a security exemption. Every
+   sign-in path, vendor included, still has to pass the NHS email domain
+   gate below. localStorage is shared across pages on this origin.
    ══════════════════════════════════════════════════════════════════ */
 function setSignInRole(role) {
   window.localStorage.setItem('upullUserRole', role);
@@ -1336,10 +1335,11 @@ function getSignInRole() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   NHS EMAIL DOMAIN GATE — only @nhs.net / @nhs.uk addresses may hold
-   a profile. Enforced here client-side (defence in depth); the real
-   gate lives in the Firestore Security Rules / an Auth Blocking
-   Function, since anything client-side can be bypassed in dev tools.
+   NHS EMAIL DOMAIN GATE — only @nhs.net / @nhs.uk addresses may sign in
+   at all, whether as a member or a vendor. No exemptions. Enforced here
+   client-side (defence in depth); the real gate lives in the Firestore
+   Security Rules / an Auth Blocking Function, since anything client-side
+   can be bypassed in dev tools.
    ══════════════════════════════════════════════════════════════════ */
 function isAllowedEmail(email) {
   if (!email) return false;
@@ -1729,13 +1729,12 @@ async function onAcademyAuthChange(user) {
     return;
   }
 
-  // NHS domain gate — only applies to the learner/leader role. Vendors
-  // sign in on uCollabX with role='vendor', so their company
-  // email is intentionally exempt here.
-  if (getSignInRole() !== 'vendor' && !isAllowedEmail(user.email)) {
+  // NHS domain gate — applies to every sign-in path, member or vendor.
+  // There is no role-based exemption.
+  if (!isAllowedEmail(user.email)) {
     const f = fbAcademy();
     if (f) f.signOut(f.auth);
-    setNhsEmailStatus('That account (' + (user.email || 'no email') + ') is not an @nhs.net or @nhs.uk address, so it has been signed out.', true);
+    setNhsEmailStatus('That account (' + (user.email || 'no email') + ') is not an @nhs.net or @nhs.uk address, so it has been signed out. Sign-in requires an NHS email, for members and vendor representatives alike.', true);
     return;
   }
 
