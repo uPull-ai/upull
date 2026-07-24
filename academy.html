@@ -106,7 +106,9 @@
     .search-wrap input{width:100%;padding:.55rem 1rem .55rem 2.4rem;border:2px solid var(--border);border-radius:8px;font-size:.9rem;outline:none;transition:border .2s}
     .search-wrap input:focus{border-color:var(--blue)}
     .search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem}
-    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.25rem}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    @media(max-width:1000px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.cards-grid{grid-template-columns:1fr}}
     .course-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
     .course-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
     .course-card-top{padding:1.2rem 1.2rem .8rem;flex:1}
@@ -131,7 +133,9 @@
     .course-meta span{display:flex;align-items:center;gap:.25rem}
     .course-link{color:var(--blue);font-weight:700;font-size:.82rem;text-decoration:none}
     .course-link:hover{color:var(--orange)}
-    .cs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+    .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    @media(max-width:1000px){.cs-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.cs-grid{grid-template-columns:1fr}}
     .cs-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:transform .2s;display:flex;flex-direction:column;gap:.7rem}
     .cs-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
     .cs-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
@@ -357,9 +361,8 @@
     .mark-complete-btn{font-size:.72rem;padding:.3rem .7rem}
     .mark-complete-btn.done{background:#16a34a;pointer-events:none}
 
-    /* ══ NEW LAYOUT: two-column shell with section nav + sticky login sidebar ══ */
-    .academy-shell{display:grid;grid-template-columns:1fr 300px;gap:1.75rem;align-items:start;margin-top:1.5rem}
-    @media(max-width:900px){.academy-shell{grid-template-columns:1fr}}
+    /* ══ LAYOUT: full-width content, login band directly under the title box ══ */
+    .academy-shell{margin-top:1.5rem}
     .academy-content{min-width:0}
     .section-nav{display:flex;gap:.35rem;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-radius:10px;padding:.5rem;margin-bottom:1.75rem;position:sticky;top:78px;z-index:80;box-shadow:0 4px 10px rgba(0,0,0,.03)}
     @media(max-width:767px){.section-nav{position:static}}
@@ -368,9 +371,9 @@
     .section-nav-btn.active{background:var(--navy);color:#fff}
     .academy-view{display:none}
     .academy-view.active-view{display:block}
-    .academy-sidebar{min-width:0}
-    .sidebar-sticky{position:sticky;top:135px;display:flex;flex-direction:column;gap:1.1rem}
-    @media(max-width:900px){.sidebar-sticky{position:static;margin-top:2rem}}
+    .academy-sidebar{min-width:0;margin-top:1.25rem}
+    .sidebar-sticky{display:flex;flex-direction:row;flex-wrap:wrap;gap:1.1rem}
+    .sidebar-sticky .sidebar-card{flex:1 1 280px}
     .sidebar-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.2rem}
     .sidebar-card h4{color:var(--navy);font-size:.95rem;margin-bottom:.5rem}
   </style>
@@ -486,7 +489,7 @@
       <span class="header-points hidden" id="headerPoints">⭐ 0 pts</span>
       <button class="cta-btn" id="headerLoginBtn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff" onclick="scrollToLogin()">Log in</button>
       <!-- 5. PROOF OF VALUE -->
-      <a href="mailto:info@upull.ai" class="cta-btn">Proof of Value</a>
+      <a href="index.html#cta" class="cta-btn">Proof of Value</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()">
         <span></span><span></span><span></span>
       </button>
@@ -526,6 +529,71 @@
       <div style="font-size:.85rem;opacity:.75;margin-top:.25rem">Powered by uPull.ai</div>
     </div>
   </div>
+
+  <!-- ══════════════ LOG IN / PROFILE — directly under the title box ══════════════ -->
+  <aside class="academy-sidebar" id="login" aria-label="Your account">
+    <div class="sidebar-sticky">
+      <div class="sidebar-card" id="loginSignedOut">
+        <h4>🔐 Log in for tailored benefits</h4>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Same profile as the Community Hub. Unlock a personal route, CPD tracking and a place on the score tables.</p>
+
+        <label for="nhsEmailInput" style="font-size:.75rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.03em">Sign in with your NHS email</label>
+        <div style="display:flex;gap:.4rem;margin-top:.4rem">
+          <input type="email" id="nhsEmailInput" placeholder="you@nhs.net" style="flex:1;min-width:0;padding:.55rem .7rem;border:2px solid var(--border);border-radius:8px;font-size:.85rem;outline:none">
+          <button class="btn-sm btn-blue" style="flex-shrink:0" onclick="sendNhsSignInLink()">Send link</button>
+        </div>
+        <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem">We email you a secure sign-in link — no password needed. Only @nhs.net and @nhs.uk addresses are accepted.</p>
+        <p id="nhsEmailStatus" style="font-size:.76rem;font-weight:700;margin-top:.4rem"></p>
+
+        <div style="display:flex;align-items:center;gap:.6rem;margin:1rem 0;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em">
+          <span style="flex:1;height:1px;background:var(--border)"></span>or<span style="flex:1;height:1px;background:var(--border)"></span>
+        </div>
+
+        <button class="google-btn" onclick="signInAcademy()">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.5 26.7 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
+          Sign in with Google
+        </button>
+        <p style="font-size:.7rem;color:var(--muted);margin-top:.4rem">Google sign-in also requires your Google account's email to be @nhs.net or @nhs.uk.</p>
+
+        <div class="role-mini-grid" style="grid-template-columns:repeat(3,1fr);margin-top:1rem">
+          <div class="role-mini-card"><strong>Learner</strong>Personal route, CPD credits, badges and saved courses.</div>
+          <div class="role-mini-card"><strong>Leader</strong>Team uptake, organisation scores, pathway planning.</div>
+          <div class="role-mini-card"><strong>Supplier</strong>Updates &amp; recognition mapping in the Community Hub.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card" id="loginSignedIn" style="display:none">
+        <div class="profile-card" style="margin-bottom:.9rem">
+          <div class="profile-avatar" id="profileAvatar">A</div>
+          <div>
+            <div style="font-weight:800;color:var(--navy);font-size:.9rem" id="profileName">Academy learner</div>
+            <div style="font-size:.72rem;color:var(--muted)">Shared with the Community Hub</div>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="profile-stat"><strong id="profilePoints">0</strong><span>Points</span></div>
+          <div class="profile-stat"><strong id="profileCPD">0</strong><span>CPD</span></div>
+          <div class="profile-stat"><strong id="profileCourses">0</strong><span>Logged</span></div>
+        </div>
+        <div class="org-input-row" style="flex-direction:column">
+          <input type="text" id="profileOrgInput" placeholder="Your organisation">
+          <button class="btn-sm btn-blue" style="width:100%" onclick="saveOrganisation()">Save organisation</button>
+        </div>
+        <div id="profileBadges" class="badge-row"></div>
+        <button class="btn-sm btn-outline" style="width:100%;margin-top:1rem" onclick="signOutAcademy()">Sign out</button>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Quick links</h4>
+        <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.85rem">
+          <a href="#" style="color:var(--blue);font-weight:600" onclick="openCPDModal(); return false;">💡 What is CPD?</a>
+          <a href="#" style="color:var(--blue);font-weight:600" onclick="showSection('scores'); return false;">🏆 View score tables</a>
+          <a href="community.html#vendors" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">🔌 Suppliers &amp; vendors</a>
+          <a href="community.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">💬 Community forum</a>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <div class="academy-shell">
     <div class="academy-content">
@@ -812,71 +880,6 @@
       </div>
 
     </div><!-- /.academy-content -->
-
-    <!-- ══════════════ STICKY SIDEBAR: LOG IN / PROFILE ══════════════ -->
-    <aside class="academy-sidebar" id="login" aria-label="Your account">
-      <div class="sidebar-sticky">
-        <div class="sidebar-card" id="loginSignedOut">
-          <h4>🔐 Log in for tailored benefits</h4>
-          <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem">Same profile as the Community Hub. Unlock a personal route, CPD tracking and a place on the score tables.</p>
-
-          <label for="nhsEmailInput" style="font-size:.75rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.03em">Sign in with your NHS email</label>
-          <div style="display:flex;gap:.4rem;margin-top:.4rem">
-            <input type="email" id="nhsEmailInput" placeholder="you@nhs.net" style="flex:1;min-width:0;padding:.55rem .7rem;border:2px solid var(--border);border-radius:8px;font-size:.85rem;outline:none">
-            <button class="btn-sm btn-blue" style="flex-shrink:0" onclick="sendNhsSignInLink()">Send link</button>
-          </div>
-          <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem">We email you a secure sign-in link — no password needed. Only @nhs.net and @nhs.uk addresses are accepted.</p>
-          <p id="nhsEmailStatus" style="font-size:.76rem;font-weight:700;margin-top:.4rem"></p>
-
-          <div style="display:flex;align-items:center;gap:.6rem;margin:1rem 0;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em">
-            <span style="flex:1;height:1px;background:var(--border)"></span>or<span style="flex:1;height:1px;background:var(--border)"></span>
-          </div>
-
-          <button class="google-btn" onclick="signInAcademy()">
-            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 36.5 26.7 37 24 37c-5.2 0-9.6-3.3-11.2-7.9l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
-            Sign in with Google
-          </button>
-          <p style="font-size:.7rem;color:var(--muted);margin-top:.4rem">Google sign-in also requires your Google account's email to be @nhs.net or @nhs.uk.</p>
-
-          <div class="role-mini-grid" style="grid-template-columns:1fr;margin-top:1rem">
-            <div class="role-mini-card"><strong>Learner</strong>Personal route, CPD credits, badges and saved courses.</div>
-            <div class="role-mini-card"><strong>Leader</strong>Team uptake, organisation scores, pathway planning.</div>
-            <div class="role-mini-card"><strong>Supplier</strong>Updates &amp; recognition mapping in the Community Hub.</div>
-          </div>
-        </div>
-
-        <div class="sidebar-card" id="loginSignedIn" style="display:none">
-          <div class="profile-card" style="margin-bottom:.9rem">
-            <div class="profile-avatar" id="profileAvatar">A</div>
-            <div>
-              <div style="font-weight:800;color:var(--navy);font-size:.9rem" id="profileName">Academy learner</div>
-              <div style="font-size:.72rem;color:var(--muted)">Shared with the Community Hub</div>
-            </div>
-          </div>
-          <div class="profile-stats">
-            <div class="profile-stat"><strong id="profilePoints">0</strong><span>Points</span></div>
-            <div class="profile-stat"><strong id="profileCPD">0</strong><span>CPD</span></div>
-            <div class="profile-stat"><strong id="profileCourses">0</strong><span>Logged</span></div>
-          </div>
-          <div class="org-input-row" style="flex-direction:column">
-            <input type="text" id="profileOrgInput" placeholder="Your organisation">
-            <button class="btn-sm btn-blue" style="width:100%" onclick="saveOrganisation()">Save organisation</button>
-          </div>
-          <div id="profileBadges" class="badge-row"></div>
-          <button class="btn-sm btn-outline" style="width:100%;margin-top:1rem" onclick="signOutAcademy()">Sign out</button>
-        </div>
-
-        <div class="sidebar-card">
-          <h4>Quick links</h4>
-          <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.85rem">
-            <a href="#" style="color:var(--blue);font-weight:600" onclick="openCPDModal(); return false;">💡 What is CPD?</a>
-            <a href="#" style="color:var(--blue);font-weight:600" onclick="showSection('scores'); return false;">🏆 View score tables</a>
-            <a href="community.html#vendors" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">🔌 Suppliers &amp; vendors</a>
-            <a href="community.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">💬 Community forum</a>
-          </div>
-        </div>
-      </div>
-    </aside>
   </div>
 </main>
 
