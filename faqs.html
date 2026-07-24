@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -8,18 +9,18 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; scroll-behavior: smooth; }
     html { scroll-padding-top: 96px; }
     :root {
-      --primary-navy: #0A192F;
+      --primary-navy: #003087;
       --nhs-blue: #005EB8;
       --nhs-blue-rgb: 0,94,184;
-      --accent-orange: #E65F2B;
-      --accent-orange-hover: #c54f20;
+      --accent-orange: #ED8B00;
+      --accent-orange-hover: #c26f00;
       --bg-light: #F8FAFC;
       --card-bg: #ffffff;
       --text-dark: #1E293B;
-      --text-muted: #64748B;
-      --border-color: #E2E8F0;
-      --clinical: #0d9488;
-      --operational: #ea580c;
+      --text-muted: #768692;
+      --border-color: #E8EDEE;
+      --clinical: #00A499;
+      --operational: #78BE20;
     }
     body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
 
@@ -76,13 +77,10 @@
     .nav-submenu li a:hover { background: rgba(var(--nhs-blue-rgb),0.28); color: #ffffff; }
     .cta-btn { background-color: var(--accent-orange); color: #ffffff; padding: 0.6rem 1.2rem; border-radius: 4px; font-weight: 600; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; text-decoration: none; display: inline-block; font-size: 0.9rem; white-space: nowrap; }
     .cta-btn:hover { background-color: var(--accent-orange-hover); transform: translateY(-1px); }
-    .nav-icon-btn{
-      display:flex;align-items:center;justify-content:center;
-      width:38px;height:38px;border-radius:50%;
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
-      font-size:1.1rem;transition:.2s;flex-shrink:0;text-decoration:none;
-    }
-    .nav-icon-btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.32)}
+    .nav-icon-btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); font-size: 1.1rem; transition: 0.2s; flex-shrink: 0; text-decoration: none; }
+    .nav-icon-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.32); }
+    .footer-subscribe { color: var(--accent-orange); font-weight: 700; text-decoration: none; }
+    .footer-subscribe:hover { text-decoration: underline; }
 
     /* MOBILE TOGGLE */
     .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
@@ -130,6 +128,11 @@
     .faq-answer ul { margin: 0.7rem 0 0 1.1rem; }
     .faq-answer li { margin-bottom: 0.45rem; }
 
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .team-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 1.6rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+    .team-card .member-avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; }
+    .team-card h3 { color: var(--primary-navy); font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .member-role { color: var(--accent-orange); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.7rem; }
     .contact-box { background: linear-gradient(135deg, var(--nhs-blue), var(--primary-navy)); color: #fff; text-align: center; border-radius: 12px; padding: 2.2rem 1.5rem; }
     .contact-box h2 { font-size: 1.7rem; margin-bottom: 0.7rem; }
     .contact-box p { max-width: 700px; margin: 0 auto 1.2rem; opacity: 0.92; }
@@ -150,13 +153,6 @@
     .ask-submit { background: var(--accent-orange); color: #fff; border: none; padding: 0.65rem 1.3rem; border-radius: 4px; font-weight: 700; cursor: pointer; }
     .ask-submit:hover { background: #c54f20; }
     .ask-note { font-size: 0.8rem; opacity: 0.85; }
-
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    #leadership { scroll-margin-top: 96px; }
-    .team-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.6rem 1.4rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); }
-    .member-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; border: 3px solid var(--bg-light); }
-    .team-card h3 { color: var(--primary-navy); font-size: 1.15rem; margin-bottom: 0.2rem; }
-    .member-role { color: var(--nhs-blue); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0.3rem 0 0.7rem; }
 
     footer { background: #09111e; color: #94a3b8; padding: 2rem 5%; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
 
@@ -209,6 +205,7 @@
             <li><a href="index.html#problem">Challenge</a></li>
             <li><a href="index.html#approach">Model</a></li>
             <li><a href="index.html#results">Results</a></li>
+            <li><a href="faqs.html#leadership">Leadership</a></li>
           </ul>
         </li>
 
@@ -218,14 +215,18 @@
             Community <span class="nav-chevron" aria-hidden="true"></span>
           </button>
           <ul class="nav-submenu">
-           <li><a href="community.html">Forum</a></li>
+           <li><a href="community.html">Community</a></li>
             <li><a href="academy.html#tab-learning">uGrowX</a></li>
-            <li><a href="community.html#ucollabx">🧪 uCollabX</a></li>
             <li><a href="academy.html#tab-casestudies">Case Studies</a></li>
           </ul>
         </li>
 
-        <!-- 3. FAQS (current page) -->
+        <!-- 3. UCOLLABX -->
+        <li class="nav-item">
+          <a class="nav-link-item" href="ucollabx.html" style="text-decoration:none">uCollabX</a>
+        </li>
+
+        <!-- 4. FAQS (current page) -->
         <li class="nav-item">
           <button class="nav-link-item active-tab" aria-haspopup="true" aria-expanded="false" onclick="toggleSubmenu(this)">
             FAQs <span class="nav-chevron" aria-hidden="true"></span>
@@ -242,9 +243,9 @@
 
       </ul>
       </nav>
-      <!-- 4. NEWSLETTER -->
-      <a href="news.html" class="nav-icon-btn" aria-label="uPull.ai Weekly — read and subscribe to the newsletter" title="uPull.ai Weekly newsletter">📰</a>
-      <!-- 5. PROOF OF VALUE -->
+      <!-- 5. NEWSLETTER -->
+      <a href="news.html" class="nav-icon-btn" aria-label="uPull.ai Weekly newsletter" title="uPull.ai Weekly newsletter">📰</a>
+      <!-- 6. PROOF OF VALUE -->
       <a href="mailto:info@upull.ai" class="cta-btn">Proof of Value</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileNav()">
         <span></span><span></span><span></span>
@@ -259,17 +260,17 @@
     <p>A clear support hub for NHS and health-and-care leaders evaluating workflow redesign, proof-of-value pilots, intrapreneur development, ROI, governance, and case-study submission through uPull.ai.</p>
     <div class="toc">
       <a href="#about">About uPull.ai</a>
-      <a href="#leadership">Our Leaders</a>
       <a href="#pilot">Pilot & ROI</a>
       <a href="#workflows">Workflow Delivery</a>
       <a href="#governance">Safety & Governance</a>
       <a href="#cases">Case Studies</a>
       <a href="#commercial">Commercial</a>
+      <a href="#leadership">Leadership</a>
     </div>
   </section>
 
   <section>
-    <h2 class="section-title">FAQs</h2>
+    <h2 class="section-title">FAQ Library</h2>
     <p class="section-subtitle">Organised by the real questions prospects, sponsors, operational leaders, and frontline teams typically ask before starting a pilot.</p>
 
     <div class="faq-layout">
@@ -281,6 +282,7 @@
         <a href="#governance">Safety & Governance</a>
         <a href="#cases">Case Studies & Evidence</a>
         <a href="#commercial">Commercial & Next Steps</a>
+        <a href="#leadership">Leadership</a>
       </aside>
 
       <div>
@@ -459,9 +461,9 @@
     </div>
   </section>
 
-    <section id="leadership">
+  <section id="leadership">
     <h2 class="section-title">Our Visionaries &amp; Leaders</h2>
-    <p class="section-subtitle">Dedicated to frontline-led digital capability and safety.</p>
+    <p class="section-subtitle">Our founders bring together NHS and private sector experience leading large-scale transformation programmes. Together, we've helped public and private sector organisations use innovation to transform how they work — always focused on saving money, saving time, and making a genuine difference to the people delivering and receiving care.</p>
     <div class="team-grid">
       <article class="team-card">
         <img src="/asset/images/alex.jpeg?raw=true&auto=format&fit=crop&w=200&h=200&q=80" alt="Alex" class="member-avatar" loading="lazy">
@@ -509,12 +511,11 @@
       </div>
     </div>
   </section>
-
-
 </main>
 
 <footer>
   <p><strong>uPull.ai Ltd.</strong> • London, UK • <a href="mailto:info@upull.ai" style="color:#94a3b8;">info@upull.ai</a></p>
+  <p style="margin-top:0.6rem;"><a href="news.html" class="footer-subscribe">Subscribe to our newsletter →</a></p>
   <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">© 2026 uPull.ai Ltd. All rights reserved.</p>
 </footer>
 
